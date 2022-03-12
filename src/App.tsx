@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
+import AddTermBtn from "./components/AddTermBtn";
 import TermsList from "./components/TermsList";
 import { actionCreactors, State } from "./state";
 
@@ -16,6 +17,7 @@ function App() {
         Mnemory
       </h1>
       <TermsList />
+      <AddTermBtn />
     </div>
   );
 }

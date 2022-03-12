@@ -47,3 +47,11 @@ ul {
 .main-color {
   @apply bg-slate-800;
 }
+
+.secondary-color {
+  @apply bg-slate-700;
+}
+
+.cta-color {
+  @apply bg-orange-400;
+}

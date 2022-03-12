@@ -5,3 +5,11 @@
 .term-input-label {
   @apply text-base;
 }
+
+.term-id {
+  @apply text-lg font-bold;
+}
+
+.add-term-btn:hover .add-term-text {
+  @apply text-orange-400 border-b-[5px];
+}
