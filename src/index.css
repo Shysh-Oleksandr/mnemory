@@ -33,10 +33,17 @@ video {
   font: inherit;
   vertical-align: baseline;
 }
+html {
+  height: 100%;
+}
 body {
-  line-height: 1;
+  @apply bg-slate-800 text-white;
 }
 ol,
 ul {
   list-style: none;
+}
+
+.main-color {
+  @apply bg-slate-800;
 }

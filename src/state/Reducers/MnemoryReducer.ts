@@ -1,19 +1,26 @@
 import { ActionType } from "../Action-types";
 import { Action } from "../Actions";
-
-export interface ITerm {
-  term: string;
-  definition?: string;
-  description: string;
-  images: string[];
-}
+import { ITerm } from "./../../components/Term";
 
 export interface IMnemory {
   terms: ITerm[];
 }
 
 const initialState: IMnemory = {
-  terms: [],
+  terms: [
+    {
+      term: "Lata",
+      definition: "a can",
+      descriptionKeywords: ["Latvia", "pianist"],
+      id: 0,
+    },
+    {
+      term: "Leche",
+      definition: "milk",
+      descriptionKeywords: ["cure", "doctor"],
+      id: 1,
+    },
+  ],
 };
 
 const mnemoryReducer = (

@@ -1,0 +1,7 @@
+.term-input {
+  @apply text-2xl bg-transparent block border-b-[3px] p-2 pl-0 border-white border-solid outline-none focus:border-orange-400;
+}
+
+.term-input-label {
+  @apply text-base;
+}
