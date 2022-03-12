@@ -31,6 +31,12 @@ const mnemoryReducer = (
     case ActionType.ADDING:
       return { ...state };
 
+    case ActionType.DELETING:
+      const filteredTerms = state.terms.filter(
+        (term) => term.id !== action.payload.id
+      );
+      return { ...state, terms: filteredTerms };
+
     default:
       return state;
   }

@@ -1,5 +1,8 @@
 import React from "react";
 import "../styles/term.css";
+import { bindActionCreators } from "redux";
+import { useDispatch } from "react-redux";
+import { actionCreactors } from "../state";
 
 export interface ITerm {
   term: string;
@@ -15,14 +18,19 @@ type Props = {
 };
 
 const Term = ({ term, index }: Props) => {
+  const dispatch = useDispatch();
+
+  const { deleteTerm } = bindActionCreators(actionCreactors, dispatch);
   return (
     <div
       className="term items-center bg-slate-700 pb-3 m-2 mb-5 shadow-lg text-slate-100 rounded-lg"
       key={`${term}-${term.id}`}
     >
       <div className="term-header flex items-center justify-between py-3 px-6 border-b-2 border-slate-800 border-solid">
-        <h4>{index}</h4>
-        <button className="delete-btn text-xl">X</button>
+        <h4>{index + 1}</h4>
+        <button onClick={() => deleteTerm(term)} className="delete-btn text-xl">
+          X
+        </button>
       </div>
       <div className="term-body flex items-center py-2 px-6">
         <div>
