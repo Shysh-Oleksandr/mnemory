@@ -55,3 +55,7 @@ ul {
 .cta-color {
   @apply bg-orange-400;
 }
+
+.div-padding {
+  @apply px-32;
+}

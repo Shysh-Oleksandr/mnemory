@@ -16,4 +16,13 @@ interface AddingKeywordAction {
   payload: number;
 }
 
-export type Action = AddingAction | DeletingAction | AddingKeywordAction;
+interface DeletingKeywordAction {
+  type: ActionType.DELETING_KEYWORD;
+  payload: { termId: number; keywordId: number };
+}
+
+export type Action =
+  | AddingAction
+  | DeletingAction
+  | AddingKeywordAction
+  | DeletingKeywordAction;

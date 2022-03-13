@@ -60,6 +60,21 @@ const mnemoryReducer = (
       );
       return { ...state, terms: filteredTerms };
 
+    case ActionType.DELETING_KEYWORD:
+      const deletedKeywordTerms = state.terms.map((term) => {
+        if (term.id === action.payload.termId) {
+          const newTermKeywords = term.descriptionKeywords.filter(
+            (keyword) => keyword.id !== action.payload.keywordId
+          );
+          return {
+            ...term,
+            descriptionKeywords: newTermKeywords,
+          };
+        }
+        return term;
+      });
+      return { ...state, terms: deletedKeywordTerms };
+
     default:
       return state;
   }

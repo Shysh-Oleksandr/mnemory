@@ -29,3 +29,12 @@ export const addTermKeyword = (termId: number) => {
     });
   };
 };
+
+export const deleteTermKeyword = (termId: number, keywordId: number) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.DELETING_KEYWORD,
+      payload: { termId: termId, keywordId: keywordId },
+    });
+  };
+};
