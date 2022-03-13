@@ -9,8 +9,18 @@ const AddTermBtn = (props: Props) => {
   const dispatch = useDispatch();
 
   const { addTerm } = bindActionCreators(actionCreactors, dispatch);
+
+  const emptyTerm = {
+    term: "",
+    descriptionKeywords: [{ keyword: "", id: 0 }],
+    id: mnemoryState.terms.length,
+  };
+
   return (
-    <button className="add-term-btn items-center w-full bg-slate-700 py-8 mb-4 shadow-lg text-slate-100 rounded-lg">
+    <button
+      onClick={() => addTerm(emptyTerm)}
+      className="add-term-btn items-center w-full bg-slate-700 py-8 mb-4 shadow-lg text-slate-100 rounded-lg"
+    >
       <div className="relative text-center">
         <h4 className="absolute left-6 top-1/2 -translate-y-1/2 font-bold text-2xl text-black">
           {mnemoryState.terms.length + 1}

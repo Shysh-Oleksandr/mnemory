@@ -4,10 +4,15 @@ import { bindActionCreators } from "redux";
 import { useDispatch } from "react-redux";
 import { actionCreactors } from "../state";
 
+type Keyword = {
+  keyword: string;
+  id: number;
+};
+
 export interface ITerm {
   term: string;
   definition?: string;
-  descriptionKeywords: string[];
+  descriptionKeywords: Keyword[];
   images?: string[];
   id: number;
 }
@@ -20,7 +25,10 @@ type Props = {
 const Term = ({ term, index }: Props) => {
   const dispatch = useDispatch();
 
-  const { deleteTerm } = bindActionCreators(actionCreactors, dispatch);
+  const { deleteTerm, addTermKeyword } = bindActionCreators(
+    actionCreactors,
+    dispatch
+  );
   return (
     <div
       className="term items-center bg-slate-700 pb-3 mt-2 mb-5 shadow-lg text-slate-100 rounded-lg"
@@ -56,18 +64,24 @@ const Term = ({ term, index }: Props) => {
             Definition
           </label>
         </div>
-        <ul className="term-description flex items-center ml-8">
+        <div className="term-description flex ml-8 flex-wrap">
           {term.descriptionKeywords.map((descriptionKeyword) => {
             return (
-              <li
-                className="term-description-keyword px-4 py-2 mx-1 cursor-pointer text-lg hover:bg-slate-900 transition-colors bg-slate-800 rounded-2xl"
-                key={`${term.id}-${descriptionKeyword}`}
-              >
-                {descriptionKeyword}
-              </li>
+              <input
+                type="text"
+                defaultValue={descriptionKeyword.keyword}
+                className="term-description-keyword w-32 focus-visible:outline-orange-400 focus-visible:outline px-4 h-11 text-lg black_input rounded-2xl"
+                key={`${term.id}-${descriptionKeyword.id}-${descriptionKeyword.keyword}`}
+              />
             );
           })}
-        </ul>
+          <button
+            onClick={() => addTermKeyword(term.id)}
+            className="rounded-full black_input text-3xl h-11 w-11"
+          >
+            +
+          </button>
+        </div>
       </div>
     </div>
   );

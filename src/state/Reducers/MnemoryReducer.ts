@@ -11,13 +11,21 @@ const initialState: IMnemory = {
     {
       term: "Lata",
       definition: "a can",
-      descriptionKeywords: ["Latvia", "pianist"],
+      descriptionKeywords: [
+        { keyword: "Latvia", id: 0 },
+        { keyword: "pianist", id: 1 },
+        { keyword: "Chaos", id: 2 },
+        { keyword: "Water", id: 3 },
+      ],
       id: 0,
     },
     {
       term: "Leche",
       definition: "milk",
-      descriptionKeywords: ["cure", "doctor"],
+      descriptionKeywords: [
+        { keyword: "cure", id: 0 },
+        { keyword: "doctor", id: 1 },
+      ],
       id: 1,
     },
   ],
@@ -29,7 +37,22 @@ const mnemoryReducer = (
 ): IMnemory => {
   switch (action.type) {
     case ActionType.ADDING:
-      return { ...state };
+      return { ...state, terms: [...state.terms, action.payload] };
+
+    case ActionType.ADDING_KEYWORD:
+      const addedKeywordTerms = state.terms.map((term) => {
+        if (term.id === action.payload) {
+          return {
+            ...term,
+            descriptionKeywords: [
+              ...term.descriptionKeywords,
+              { keyword: "", id: term.descriptionKeywords.length },
+            ],
+          };
+        }
+        return term;
+      });
+      return { ...state, terms: addedKeywordTerms };
 
     case ActionType.DELETING:
       const filteredTerms = state.terms.filter(

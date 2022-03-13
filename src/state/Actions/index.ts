@@ -3,7 +3,7 @@ import { ITerm } from "./../../components/Term";
 
 interface AddingAction {
   type: ActionType.ADDING;
-  // payload: IHabit;
+  payload: ITerm;
 }
 
 interface DeletingAction {
@@ -11,4 +11,9 @@ interface DeletingAction {
   payload: ITerm;
 }
 
-export type Action = AddingAction | DeletingAction;
+interface AddingKeywordAction {
+  type: ActionType.ADDING_KEYWORD;
+  payload: number;
+}
+
+export type Action = AddingAction | DeletingAction | AddingKeywordAction;
