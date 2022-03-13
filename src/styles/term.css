@@ -21,3 +21,11 @@
 .round-btn {
   @apply absolute text-center z-10 bg-orange-400 hover:bg-orange-500 transition-all duration-[120ms] text-white rounded-full;
 }
+
+.term-description-keyword-delete {
+  @apply scale-0;
+}
+
+.term-description-keyword:hover .term-description-keyword-delete {
+  @apply scale-100;
+}

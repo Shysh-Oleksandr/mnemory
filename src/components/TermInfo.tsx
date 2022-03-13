@@ -9,6 +9,7 @@ const TermInfo = ({ term }: Props) => {
       <input
         type="text"
         defaultValue={term.term}
+        placeholder="Coche"
         className="term-title term-input"
         id={`term-${term.id}-title`}
       />
@@ -18,6 +19,7 @@ const TermInfo = ({ term }: Props) => {
       <input
         type="text"
         defaultValue={term.definition}
+        placeholder="Car"
         className="term-definition term-input"
         id={`term-${term.id}-definition`}
       />
