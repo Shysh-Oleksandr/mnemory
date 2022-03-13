@@ -37,7 +37,9 @@ const mnemoryReducer = (
 ): IMnemory => {
   switch (action.type) {
     case ActionType.ADDING:
-      return { ...state, terms: [...state.terms, action.payload] };
+      const copiedTerms = state.terms;
+      copiedTerms.splice(action.payload.indexToAdd, 0, action.payload.term);
+      return { ...state, terms: copiedTerms };
 
     case ActionType.ADDING_KEYWORD:
       const addedKeywordTerms = state.terms.map((term) => {

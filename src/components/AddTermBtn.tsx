@@ -2,9 +2,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreactors, State } from "../state";
-type Props = {};
 
-const AddTermBtn = (props: Props) => {
+const AddTermBtn = () => {
   const mnemoryState = useSelector((state: State) => state.mnemory);
   const dispatch = useDispatch();
 
@@ -18,7 +17,7 @@ const AddTermBtn = (props: Props) => {
 
   return (
     <button
-      onClick={() => addTerm(emptyTerm)}
+      onClick={() => addTerm(emptyTerm, mnemoryState.terms.length)}
       className="add-term-btn items-center w-full bg-slate-700 py-8 mb-4 shadow-lg text-slate-100 rounded-lg"
     >
       <div className="relative text-center">

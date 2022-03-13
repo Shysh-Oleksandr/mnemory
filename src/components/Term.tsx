@@ -25,11 +25,11 @@ type Props = {
 const Term = ({ term, index }: Props) => {
   return (
     <div
-      className="term items-center bg-slate-700 pb-3 mt-2 mb-5 shadow-lg text-slate-100 rounded-lg"
+      className="term items-center bg-slate-700 pb-3 shadow-lg text-slate-100 rounded-lg"
       key={`${term}-${term.id}`}
     >
       <TermHeader index={index} term={term} />
-      <div className="term-body flex items-center py-2 px-6">
+      <div className="term-body flex py-2 px-6">
         <TermInfo term={term} />
         <TermDescription term={term} />
       </div>

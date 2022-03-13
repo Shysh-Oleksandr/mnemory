@@ -13,7 +13,7 @@ function App() {
   const { addTerm } = bindActionCreators(actionCreactors, dispatch);
 
   return (
-    <div className="App div-padding pt-14">
+    <div className="App div-padding pt-16">
       <Navbar />
       <TermsList />
       <AddTermBtn />

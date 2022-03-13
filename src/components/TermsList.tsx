@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { State } from "../state";
 import Term from "./Term";
+import TermCardSeparator from "./TermCardSeparator";
 
 type Props = {};
 
@@ -10,7 +11,12 @@ const TermsList = (props: Props) => {
   return (
     <div className="">
       {mnemoryState.terms.map((term, index) => {
-        return <Term key={term.id} term={term} index={index} />;
+        return (
+          <div key={term.id}>
+            <Term term={term} index={index} />
+            <TermCardSeparator cardId={index} />
+          </div>
+        );
       })}
     </div>
   );

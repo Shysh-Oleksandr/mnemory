@@ -8,7 +8,9 @@ import { useDispatch } from "react-redux";
 type Props = { termId: number; descriptionKeyword: Keyword };
 
 const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
-  const [style, setStyle] = useState({ display: "none" });
+  const [style, setStyle] = useState({
+    transform: "scale(0)",
+  });
   const dispatch = useDispatch();
 
   const { deleteTermKeyword } = bindActionCreators(actionCreactors, dispatch);
@@ -19,16 +21,20 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
         type="text"
         defaultValue={descriptionKeyword.keyword}
         onMouseEnter={(e) => {
-          setStyle({ display: "block" });
+          setStyle({
+            transform: "scale(1)",
+          });
         }}
         onMouseLeave={(e) => {
-          setStyle({ display: "none" });
+          setStyle({
+            transform: "scale(0)",
+          });
         }}
         className="term-description-keyword w-32 focus-visible:outline-orange-400 focus-visible:outline px-4 h-11 text-lg black_input rounded-2xl"
       />
       <button
         onClick={() => deleteTermKeyword(termId, descriptionKeyword.id)}
-        className="absolute z-10 flex justify-center items-center -top-3 -right-1 text-lg bg-orange-400 text-white rounded-full h-6 w-6"
+        className="round-btn flex justify-center items-center -top-3 -right-1 text-md h-6 w-6"
         style={style}
       >
         X

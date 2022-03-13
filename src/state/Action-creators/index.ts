@@ -3,11 +3,11 @@ import { ActionType } from "../Action-types";
 import { Action } from "../Actions";
 import { ITerm } from "./../../components/Term";
 
-export const addTerm = (term: ITerm) => {
+export const addTerm = (term: ITerm, indexToAdd: number) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
       type: ActionType.ADDING,
-      payload: term,
+      payload: { term: term, indexToAdd: indexToAdd },
     });
   };
 };

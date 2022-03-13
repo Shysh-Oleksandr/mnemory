@@ -3,7 +3,7 @@ import { ITerm } from "./../../components/Term";
 
 interface AddingAction {
   type: ActionType.ADDING;
-  payload: ITerm;
+  payload: { term: ITerm; indexToAdd: number };
 }
 
 interface DeletingAction {
