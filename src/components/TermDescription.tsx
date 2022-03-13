@@ -12,7 +12,7 @@ const TermDescription = ({ term }: Props) => {
 
   const { addTermKeyword } = bindActionCreators(actionCreactors, dispatch);
   return (
-    <div className="term-description flex ml-8 mt-2 flex-wrap">
+    <div className="term-description flex ml-8 mt-1 flex-wrap items-start">
       {term.descriptionKeywords.map((descriptionKeyword) => {
         return (
           <TermKeyword
@@ -24,7 +24,7 @@ const TermDescription = ({ term }: Props) => {
       })}
       <button
         onClick={() => addTermKeyword(term.id)}
-        className="rounded-full black_input text-3xl h-11 w-11"
+        className="rounded-full black_input text-3xl h-11 w-11 my-1"
       >
         +
       </button>

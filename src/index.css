@@ -36,6 +36,11 @@ video {
 html {
   height: 100%;
 }
+input,
+textarea {
+  @apply outline-none !important;
+}
+
 body {
   @apply bg-slate-800 text-white;
 }

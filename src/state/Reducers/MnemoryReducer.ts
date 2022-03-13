@@ -13,7 +13,12 @@ const initialState: IMnemory = {
       definition: "a can",
       descriptionKeywords: [
         { keyword: "Latvia", id: 0 },
-        { keyword: "pianist", id: 1 },
+        {
+          keyword: "pianist",
+          id: 1,
+          descriptionText:
+            "Movie scene when man eats from earth womans food can",
+        },
         { keyword: "Chaos", id: 2 },
         { keyword: "Water", id: 3 },
       ],

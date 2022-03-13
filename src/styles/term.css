@@ -15,7 +15,7 @@
 }
 
 .black_input {
-  @apply hover:bg-slate-900 transition-colors bg-slate-800 mx-1 mb-4;
+  @apply hover:bg-slate-900 transition-all duration-100 bg-slate-800 mx-1;
 }
 
 .round-btn {
@@ -28,4 +28,23 @@
 
 .term-description-keyword:hover .term-description-keyword-delete {
   @apply scale-100;
+}
+
+.term-description-keyword:hover .term-description-keyword-text,
+.term-keyword-input:focus-visible + .term-description-keyword-text,
+.term-description-keyword-text:focus-visible {
+  @apply h-24 p-[6px] block;
+}
+
+.term-description-keyword-text:hover,
+.term-description-keyword-text:focus-visible {
+  @apply bg-slate-900;
+}
+
+.term-keyword-input:focus-visible {
+  @apply border-b-[3px] border-orange-400 bg-slate-900;
+}
+
+.term-description-keyword:hover .term-keyword-input {
+  @apply border-b-[3px] border-orange-400;
 }

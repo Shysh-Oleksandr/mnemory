@@ -6,6 +6,7 @@ import TermInfo from "./TermInfo";
 
 export type Keyword = {
   keyword: string;
+  descriptionText?: string;
   id: number;
 };
 
