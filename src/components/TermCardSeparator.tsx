@@ -16,7 +16,7 @@ const TermCardSeparator = ({ cardId }: Props) => {
 
   const emptyTerm = {
     term: "",
-    descriptionKeywords: [{ keyword: "", id: 0 }],
+    descriptionKeywords: [{ keyword: "", id: 0, imageChecked: false }],
     id: mnemoryState.terms.length,
   };
 

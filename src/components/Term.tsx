@@ -7,6 +7,8 @@ import TermInfo from "./TermInfo";
 export type Keyword = {
   keyword: string;
   descriptionText?: string;
+  image?: string;
+  imageChecked: boolean;
   id: number;
 };
 
@@ -14,7 +16,6 @@ export interface ITerm {
   term: string;
   definition?: string;
   descriptionKeywords: Keyword[];
-  images?: string[];
   id: number;
 }
 

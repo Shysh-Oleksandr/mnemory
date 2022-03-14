@@ -21,8 +21,20 @@ interface DeletingKeywordAction {
   payload: { termId: number; keywordId: number };
 }
 
+interface DeletingKeywordImageAction {
+  type: ActionType.DELETING_KEYWORD_IMAGE;
+  payload: { termId: number; keywordId: number };
+}
+
+interface ToggleKeywordImageAction {
+  type: ActionType.TOGGLE_KEYWORD_IMAGE;
+  payload: { termId: number; keywordId?: number };
+}
+
 export type Action =
   | AddingAction
   | DeletingAction
   | AddingKeywordAction
+  | DeletingKeywordImageAction
+  | ToggleKeywordImageAction
   | DeletingKeywordAction;

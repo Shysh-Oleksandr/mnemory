@@ -42,9 +42,19 @@
 }
 
 .term-keyword-input:focus-visible {
-  @apply border-b-[3px] border-orange-400 bg-slate-900;
+  @apply border-b-[3px] !border-orange-400 bg-slate-900;
 }
 
 .term-description-keyword:hover .term-keyword-input {
-  @apply border-b-[3px] border-orange-400;
+  @apply border-b-[3px] border-white;
+}
+
+.term-keyword-image-filler:hover .term-keyword-image-label,
+.term-keyword-image-filler.checked .term-keyword-image-label {
+  @apply text-orange-400;
+}
+
+.term-keyword-image-filler:hover,
+.term-keyword-image-filler.checked {
+  @apply border-orange-400;
 }

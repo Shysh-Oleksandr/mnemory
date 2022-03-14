@@ -38,3 +38,21 @@ export const deleteTermKeyword = (termId: number, keywordId: number) => {
     });
   };
 };
+
+export const deleteTermKeywordImage = (termId: number, keywordId: number) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.DELETING_KEYWORD_IMAGE,
+      payload: { termId: termId, keywordId: keywordId },
+    });
+  };
+};
+
+export const toggleTermKeywordImage = (termId: number, keywordId?: number) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.TOGGLE_KEYWORD_IMAGE,
+      payload: { termId: termId, keywordId: keywordId },
+    });
+  };
+};
