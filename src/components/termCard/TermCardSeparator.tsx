@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreactors, State } from "../state";
 import { bindActionCreators } from "redux";
+import { actionCreactors, State } from "../../state";
 
 type Props = { cardId: number };
 

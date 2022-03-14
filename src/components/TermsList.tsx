@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { State } from "../state";
-import Term from "./Term";
-import TermCardSeparator from "./TermCardSeparator";
+import Term from "./termCard/Term";
+import TermCardSeparator from "./termCard/TermCardSeparator";
 
 type Props = {};
 

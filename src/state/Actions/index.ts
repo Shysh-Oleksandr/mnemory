@@ -1,5 +1,5 @@
 import { ActionType } from "../Action-types";
-import { ITerm } from "./../../components/Term";
+import { ITerm } from "../../components/termCard/Term";
 
 interface AddingAction {
   type: ActionType.ADDING;

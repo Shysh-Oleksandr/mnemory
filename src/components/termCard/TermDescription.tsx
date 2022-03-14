@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actionCreactors } from "../state";
+import { actionCreactors } from "../../state";
 import { ITerm } from "./Term";
 import TermKeyword from "./TermKeyword";
 

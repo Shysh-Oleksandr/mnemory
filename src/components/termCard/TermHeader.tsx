@@ -2,7 +2,7 @@ import React from "react";
 import { ITerm } from "./Term";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actionCreactors } from "../state";
+import { actionCreactors } from "../../state";
 
 type Props = { index: number; term: ITerm };
 
