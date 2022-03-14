@@ -56,3 +56,16 @@ export const toggleTermKeywordImage = (termId: number, keywordId?: number) => {
     });
   };
 };
+
+export const setTermKeywordImage = (
+  termId: number,
+  keywordId: number,
+  url: string
+) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.SET_KEYWORD_IMAGE,
+      payload: { termId: termId, keywordId: keywordId, url: url },
+    });
+  };
+};

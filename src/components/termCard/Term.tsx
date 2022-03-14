@@ -1,8 +1,8 @@
 import React from "react";
 import "../../styles/term.css";
+import TermDescription from "./TermDescription";
 import TermHeader from "./TermHeader";
 import TermInfo from "./TermInfo";
-import TermDescription from "./TermDescription";
 
 export type Keyword = {
   keyword: string;

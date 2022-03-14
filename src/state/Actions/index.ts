@@ -31,10 +31,16 @@ interface ToggleKeywordImageAction {
   payload: { termId: number; keywordId?: number };
 }
 
+interface SetKeywordImageAction {
+  type: ActionType.SET_KEYWORD_IMAGE;
+  payload: { termId: number; keywordId: number; url: string };
+}
+
 export type Action =
   | AddingAction
   | DeletingAction
   | AddingKeywordAction
   | DeletingKeywordImageAction
   | ToggleKeywordImageAction
+  | SetKeywordImageAction
   | DeletingKeywordAction;

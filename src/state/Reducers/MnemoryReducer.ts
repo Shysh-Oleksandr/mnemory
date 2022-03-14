@@ -129,6 +129,24 @@ const mnemoryReducer = (
       });
       return { ...state, terms: toggledKeywordImageTerms };
 
+    case ActionType.SET_KEYWORD_IMAGE:
+      const newKeywordImageTerms = state.terms.map((term) => {
+        if (term.id === action.payload.termId) {
+          const newTermKeywords = term.descriptionKeywords.map((keyword) => {
+            if (keyword.id === action.payload.keywordId) {
+              return { ...keyword, image: action.payload.url };
+            }
+            return keyword;
+          });
+          return {
+            ...term,
+            descriptionKeywords: newTermKeywords,
+          };
+        }
+        return term;
+      });
+      return { ...state, terms: newKeywordImageTerms };
+
     default:
       return state;
   }
