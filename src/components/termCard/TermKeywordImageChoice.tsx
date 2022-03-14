@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ITerm } from "./Term";
 import { useDispatch } from "react-redux";
 import { actionCreactors } from "../../state";
@@ -33,7 +33,7 @@ const TermKeywordImageChoice = ({ term }: Props) => {
   if (!foundKeyword) return null;
 
   return (
-    <div className="keyword-image-choice bg-slate-900 text-slate-100 rounded-lg py-2 px-6">
+    <div className="keyword-image-choice bg-slate-900 text-slate-100 rounded-lg py-6 px-6">
       <form
         onSubmit={() => {
           console.log("submit");
@@ -43,13 +43,14 @@ const TermKeywordImageChoice = ({ term }: Props) => {
           <div className="relative ">
             <input
               type="text"
+              key={foundKeyword.keyword}
               defaultValue={foundKeyword.keyword}
               placeholder={foundKeyword.keyword}
-              className="keyword-image-input term-input "
+              className="keyword-image-input term-input"
               id={`term-${term.id}-${foundKeyword.id}`}
             />
             <button
-              className="absolute right-0 top-1/2 -translate-y-1/2 hover:text-orange-400 transition-colors"
+              className="absolute right-0 top-1/2 -translate-y-1/2 hover:text-orange-500 text-orange-400 transition-colors"
               type="submit"
             >
               ►
@@ -66,7 +67,7 @@ const TermKeywordImageChoice = ({ term }: Props) => {
               }}
             />
             <label
-              className="cursor-pointer block px-6 py-3 ml-8 bg-orange-400 text-xl transition-colors hover:bg-orange-500 font-bold rounded-md"
+              className="cursor-pointer block px-6 py-[0.6rem] ml-8 bg-orange-400 text-xl transition-colors hover:bg-orange-500 font-bold rounded-md"
               htmlFor={`term-${term.id}-${foundKeyword.id}-image`}
             >
               Or upload your image
