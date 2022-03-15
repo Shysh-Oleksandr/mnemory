@@ -23,14 +23,12 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
   };
 
   return (
-    <div className="term-description-keyword relative flex flex-col items-center my-1 w-36">
+    <div className="term-description-keyword relative flex flex-col items-center m-1 w-36">
       {descriptionKeyword.image ? (
-        <div className="relative flex flex-col items-center w-full">
-          <img
-            className="w-[90%] h-[80px] rounded-xl"
-            src={descriptionKeyword.image}
-            alt="Keyword description"
-          />
+        <div
+          className="relative flex flex-col items-center w-full h-[80px] overflow-hidden rounded-xl bg-center bg-cover bg-no-repeat"
+          style={{ backgroundImage: `urL(${descriptionKeyword.image})` }}
+        >
           <button
             onClick={() =>
               deleteTermKeywordImage(termId, descriptionKeyword.id)
@@ -63,7 +61,7 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
           type="text"
           defaultValue={descriptionKeyword.keyword}
           placeholder="Couch"
-          className="term-keyword-input w-32 px-4 h-11 text-lg black_input rounded-2xl border-orange-400 border-solid hover:border-b-[3px] hover:border-white"
+          className="term-keyword-input w-full px-4 h-11 text-lg black_input rounded-2xl border-orange-400 border-solid hover:border-b-[3px] hover:border-white"
         />
         <button
           onClick={() => deleteTermKeyword(termId, descriptionKeyword.id)}
@@ -76,7 +74,7 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
         spellCheck={false}
         placeholder="Describe the keyword..."
         defaultValue={descriptionKeyword.descriptionText}
-        className="term-description-keyword-text resize-none text-base leading-5 focus-visible:border-b-[3px] border-orange-400 border-solid rounded-xl left-1/2 -translate-x-1/2 w-[95%] h-0 transition-all absolute bg-slate-800 bottom-0 translate-y-full z-20"
+        className="term-description-keyword-text resize-none text-base leading-5 focus-visible:border-b-[3px] border-orange-400 border-solid rounded-xl left-1/2 -translate-x-1/2 w-full h-0 transition-all absolute bg-slate-800 bottom-0 translate-y-full z-20"
       ></textarea>
     </div>
   );

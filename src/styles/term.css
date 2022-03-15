@@ -15,7 +15,7 @@
 }
 
 .black_input {
-  @apply hover:bg-slate-900 transition-all duration-100 bg-slate-800 mx-1;
+  @apply hover:bg-slate-900 transition-all duration-100 bg-slate-800;
 }
 
 .round-btn {
@@ -57,4 +57,28 @@
 .term-keyword-image-filler:hover,
 .term-keyword-image-filler.checked {
   @apply border-orange-400;
+}
+
+.slick-list {
+  @apply overflow-hidden;
+}
+
+.slick-track {
+  @apply flex items-start;
+}
+
+.slick-arrow {
+  @apply absolute top-1/2 -translate-y-1/2 text-[0] z-10  border-solid border-white border-r-4 border-b-4 transition-all hover:border-orange-400 p-[8px];
+}
+
+.slick-arrow.slick-prev {
+  @apply left-0 rotate-[135deg];
+}
+
+.slick-arrow.slick-next {
+  @apply right-0 -rotate-45;
+}
+
+.slick-arrow.slick-disabled {
+  @apply border-gray-500 cursor-default;
 }

@@ -5,6 +5,7 @@ import { actionCreactors, State } from "../../state";
 import { bindActionCreators, Dispatch } from "redux";
 import { useForm } from "react-hook-form";
 import { Action } from "../../state/Actions";
+import Slider from "react-slick";
 
 type Props = { term: ITerm };
 
@@ -37,6 +38,15 @@ const TermKeywordImageChoice = ({ term }: Props) => {
   const foundKeyword = term.descriptionKeywords.find(
     (keyword) => keyword.imageChecked
   );
+
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    variableWidth: false,
+  };
 
   useEffect(() => {
     if (inputRef.current) {
@@ -112,21 +122,23 @@ const TermKeywordImageChoice = ({ term }: Props) => {
           Search by image
         </label>
       </form>
-      <div className="flex flex-wrap">
-        {mnemoryState.currentSearchedImages.map((imageUrl: string, index) => {
-          return (
-            <div
-              className="basis-1/4 hover:border-2 border-solid border-orange-400 cursor-pointer transition-all"
-              key={`${index}-${imageUrl}`}
-              onClick={() => {
-                toggleTermKeywordImage(term.id);
-                setTermKeywordImage(term.id, foundKeyword.id, imageUrl);
-              }}
-            >
-              <img className="max-w-full h-auto" src={imageUrl} />
-            </div>
-          );
-        })}
+      <div className="mt-5 min-w-0 relative px-6">
+        <Slider {...settings}>
+          {mnemoryState.currentSearchedImages.map((imageUrl: string, index) => {
+            return (
+              <div className="h-36 px-1" key={`${index}-${imageUrl}`}>
+                <img
+                  onClick={() => {
+                    toggleTermKeywordImage(term.id);
+                    setTermKeywordImage(term.id, foundKeyword.id, imageUrl);
+                  }}
+                  className="mx-auto h-full rounded-md hover:border-2 border-solid border-orange-400 cursor-pointer transition-all"
+                  src={imageUrl}
+                />
+              </div>
+            );
+          })}
+        </Slider>
       </div>
     </div>
   );

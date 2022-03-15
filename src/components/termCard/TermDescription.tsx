@@ -24,7 +24,7 @@ const TermDescription = ({ term }: Props) => {
       })}
       <button
         onClick={() => addTermKeyword(term.id)}
-        className="rounded-full black_input text-3xl h-11 w-11 my-1"
+        className="rounded-full black_input text-3xl h-11 w-11 m-1"
       >
         +
       </button>
