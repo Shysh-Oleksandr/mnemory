@@ -36,6 +36,11 @@ interface SetKeywordImageAction {
   payload: { termId: number; keywordId: number; url: string };
 }
 
+interface SetSearchedImagesAction {
+  type: ActionType.SET_SEARCHED_IMAGES;
+  payload: string[];
+}
+
 export type Action =
   | AddingAction
   | DeletingAction
@@ -43,4 +48,5 @@ export type Action =
   | DeletingKeywordImageAction
   | ToggleKeywordImageAction
   | SetKeywordImageAction
+  | SetSearchedImagesAction
   | DeletingKeywordAction;

@@ -4,6 +4,8 @@ import { ITerm } from "../../components/termCard/Term";
 
 export interface IMnemory {
   terms: ITerm[];
+  currentImageQuery: string;
+  currentSearchedImages: string[];
 }
 
 const initialState: IMnemory = {
@@ -41,6 +43,8 @@ const initialState: IMnemory = {
       id: 1,
     },
   ],
+  currentImageQuery: "",
+  currentSearchedImages: [],
 };
 
 const mnemoryReducer = (
@@ -112,22 +116,28 @@ const mnemoryReducer = (
       return { ...state, terms: deletedKeywordImageTerms };
 
     case ActionType.TOGGLE_KEYWORD_IMAGE:
+      let newImageQuery = "";
       const toggledKeywordImageTerms = state.terms.map((term) => {
-        if (term.id === action.payload.termId) {
-          const newTermKeywords = term.descriptionKeywords.map((keyword) => {
-            if (keyword.id === action.payload.keywordId) {
-              return { ...keyword, imageChecked: !keyword.imageChecked };
-            }
-            return { ...keyword, imageChecked: false };
-          });
-          return {
-            ...term,
-            descriptionKeywords: newTermKeywords,
-          };
-        }
-        return term;
+        const newTermKeywords = term.descriptionKeywords.map((keyword) => {
+          if (
+            keyword.id === action.payload.keywordId &&
+            term.id === action.payload.termId
+          ) {
+            newImageQuery = keyword.keyword;
+            return { ...keyword, imageChecked: !keyword.imageChecked };
+          }
+          return { ...keyword, imageChecked: false };
+        });
+        return {
+          ...term,
+          descriptionKeywords: newTermKeywords,
+        };
       });
-      return { ...state, terms: toggledKeywordImageTerms };
+      return {
+        ...state,
+        terms: toggledKeywordImageTerms,
+        currentImageQuery: newImageQuery,
+      };
 
     case ActionType.SET_KEYWORD_IMAGE:
       const newKeywordImageTerms = state.terms.map((term) => {
@@ -146,6 +156,9 @@ const mnemoryReducer = (
         return term;
       });
       return { ...state, terms: newKeywordImageTerms };
+
+    case ActionType.SET_SEARCHED_IMAGES:
+      return { ...state, currentSearchedImages: action.payload };
 
     default:
       return state;

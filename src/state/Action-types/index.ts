@@ -6,4 +6,5 @@ export enum ActionType {
   DELETING_KEYWORD_IMAGE = "Deleting a Keyword image",
   TOGGLE_KEYWORD_IMAGE = "Toggle a Keyword image",
   SET_KEYWORD_IMAGE = "Set a Keyword image",
+  SET_SEARCHED_IMAGES = "Set searched images",
 }

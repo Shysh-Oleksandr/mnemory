@@ -1,16 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { ITerm } from "./Term";
-import { useDispatch } from "react-redux";
-import { actionCreactors } from "../../state";
-import { bindActionCreators } from "redux";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreactors, State } from "../../state";
+import { bindActionCreators, Dispatch } from "redux";
 import { useForm } from "react-hook-form";
+import { Action } from "../../state/Actions";
 
 type Props = { term: ITerm };
 
 const CLIENT_API = "gK52De2Tm_dL5o1IXKa9FROBAJ-LIYqR41xBdlg3X2k"; // Another one
 
+export const fetchImages = async (
+  query: string,
+  setSearchedImages: (
+    searchedImages: string[]
+  ) => (dispatch: Dispatch<Action>) => void
+) => {
+  let response = await fetch(
+    `https://api.unsplash.com/search/photos?page=1&query=${query}&client_id=ZiayMmOG_HV-OOVULOC8bxjPCyBlJO23BKeXIl9zh-M`
+  );
+  let data = await response.json();
+  let fetchedImages: string[] = data.results.map(
+    (result: any) => result.urls.raw
+  );
+  setSearchedImages(fetchedImages);
+};
+
 const TermKeywordImageChoice = ({ term }: Props) => {
-  const [searchedImages, setSearchedImages] = useState<string[]>([]);
+  const mnemoryState = useSelector((state: State) => state.mnemory);
+
   const {
     register,
     handleSubmit,
@@ -18,28 +36,12 @@ const TermKeywordImageChoice = ({ term }: Props) => {
     formState: { errors },
   } = useForm();
   const dispatch = useDispatch();
-  const { toggleTermKeywordImage, setTermKeywordImage } = bindActionCreators(
-    actionCreactors,
-    dispatch
-  );
+  const { toggleTermKeywordImage, setTermKeywordImage, setSearchedImages } =
+    bindActionCreators(actionCreactors, dispatch);
 
   const foundKeyword = term.descriptionKeywords.find(
     (keyword) => keyword.imageChecked
   );
-
-  function fetchKeywordImages() {
-    const query: string = getValues("imageQuery");
-    fetch(
-      `https://api.unsplash.com/search/photos?page=1&query=${query}&client_id=ZiayMmOG_HV-OOVULOC8bxjPCyBlJO23BKeXIl9zh-M`
-    )
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        let foundImages = data.results.map((result: any) => result.urls.raw);
-        setSearchedImages(foundImages);
-      });
-  }
 
   function getFileImageUrl(e: React.ChangeEvent<HTMLInputElement>): string {
     let file = e.target.files![0];
@@ -58,7 +60,11 @@ const TermKeywordImageChoice = ({ term }: Props) => {
 
   return (
     <div className="keyword-image-choice bg-slate-900 text-slate-100 rounded-lg py-6 px-6">
-      <form onSubmit={handleSubmit(fetchKeywordImages)}>
+      <form
+        onSubmit={handleSubmit(() =>
+          fetchImages(getValues("imageQuery"), setSearchedImages)
+        )}
+      >
         <div className="flex items-center">
           <div className="relative ">
             <input
@@ -106,7 +112,7 @@ const TermKeywordImageChoice = ({ term }: Props) => {
         )}
       </form>
       <div className="flex flex-wrap">
-        {searchedImages.map((imageUrl: string, index) => {
+        {mnemoryState.currentSearchedImages.map((imageUrl: string, index) => {
           return (
             <div className="basis-1/4" key={`${index}-${imageUrl}`}>
               <img className="max-w-full h-auto" src={imageUrl} />

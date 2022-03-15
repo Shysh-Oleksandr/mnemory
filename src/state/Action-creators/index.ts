@@ -69,3 +69,12 @@ export const setTermKeywordImage = (
     });
   };
 };
+
+export const setSearchedImages = (searchedImages: string[]) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.SET_SEARCHED_IMAGES,
+      payload: searchedImages,
+    });
+  };
+};

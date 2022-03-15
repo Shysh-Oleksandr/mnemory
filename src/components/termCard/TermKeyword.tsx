@@ -3,13 +3,24 @@ import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreactors } from "../../state";
 import { Keyword } from "./Term";
+import { fetchImages } from "./TermKeywordImageChoice";
 
 type Props = { termId: number; descriptionKeyword: Keyword };
 
 const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
   const dispatch = useDispatch();
-  const { deleteTermKeyword, deleteTermKeywordImage, toggleTermKeywordImage } =
-    bindActionCreators(actionCreactors, dispatch);
+  const {
+    deleteTermKeyword,
+    deleteTermKeywordImage,
+    toggleTermKeywordImage,
+    setSearchedImages,
+  } = bindActionCreators(actionCreactors, dispatch);
+
+  const toggleImageChoice = () => {
+    toggleTermKeywordImage(termId, descriptionKeyword.id);
+    !descriptionKeyword.imageChecked &&
+      fetchImages(descriptionKeyword.keyword, setSearchedImages);
+  };
 
   return (
     <div className="term-description-keyword relative flex flex-col items-center my-1 w-36">
@@ -34,17 +45,17 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
           htmlFor={`${termId}-${descriptionKeyword.id}`}
           className={`term-keyword-image-filler ${
             descriptionKeyword.imageChecked ? "checked" : ""
-          } w-[90%] h-[80px] rounded-xl cursor-pointer flex justify-center items-center border-2 border-dashed border-white`}
+          } w-[90%] h-[80px] rounded-xl cursor-pointer flex justify-center transition-all items-center border-2 border-dashed border-white`}
         >
           <input
             type="checkbox"
             className="hidden"
-            onChange={() =>
-              toggleTermKeywordImage(termId, descriptionKeyword.id)
-            }
+            onChange={toggleImageChoice}
             id={`${termId}-${descriptionKeyword.id}`}
           />
-          <h4 className="term-keyword-image-label text-lg">Image</h4>
+          <h4 className="term-keyword-image-label transition-all text-lg">
+            Image
+          </h4>
         </label>
       )}
       <div className="relative">
