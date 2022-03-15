@@ -114,7 +114,14 @@ const TermKeywordImageChoice = ({ term }: Props) => {
       <div className="flex flex-wrap">
         {mnemoryState.currentSearchedImages.map((imageUrl: string, index) => {
           return (
-            <div className="basis-1/4" key={`${index}-${imageUrl}`}>
+            <div
+              className="basis-1/4 hover:border-2 border-solid border-orange-400 cursor-pointer transition-all"
+              key={`${index}-${imageUrl}`}
+              onClick={() => {
+                toggleTermKeywordImage(term.id);
+                setTermKeywordImage(term.id, foundKeyword.id, imageUrl);
+              }}
+            >
               <img className="max-w-full h-auto" src={imageUrl} />
             </div>
           );
