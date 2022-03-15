@@ -64,3 +64,11 @@ ul {
 .div-padding {
   @apply px-32;
 }
+
+.btn {
+  @apply px-8 py-1 bg-teal-400 text-slate-900 rounded-md text-2xl transition-colors hover:bg-teal-300;
+}
+
+.set-form-input {
+  @apply w-[36rem];
+}

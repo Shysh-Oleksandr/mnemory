@@ -10,7 +10,7 @@ type Props = {};
 const TermsList = (props: Props) => {
   const mnemoryState = useSelector((state: State) => state.mnemory);
   return (
-    <div className="">
+    <div>
       {mnemoryState.terms.map((term, index) => {
         return (
           <div key={term.id}>

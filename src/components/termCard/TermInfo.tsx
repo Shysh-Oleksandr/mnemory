@@ -1,4 +1,5 @@
 import React from "react";
+import Input from "../UI/Input";
 import { ITerm } from "./Term";
 
 type Props = { term: ITerm };
@@ -6,29 +7,20 @@ type Props = { term: ITerm };
 const TermInfo = ({ term }: Props) => {
   return (
     <div className="term-info">
-      <input
-        type="text"
+      <Input
         defaultValue={term.term}
         placeholder="Coche"
-        className="term-title term-input"
-        id={`term-${term.id}-title`}
+        inputClassName="term-title"
+        inputId={`term-${term.id}-title`}
+        labelText="Term"
       />
-      <label htmlFor={`term-${term.id}-title`} className="term-input-label">
-        Term
-      </label>
-      <input
-        type="text"
-        defaultValue={term.definition}
+      <Input
+        defaultValue={term.definition || ""}
         placeholder="Car"
-        className="term-definition term-input"
-        id={`term-${term.id}-definition`}
+        inputClassName="term-definition"
+        inputId={`term-${term.id}-definition`}
+        labelText="Definition"
       />
-      <label
-        htmlFor={`term-${term.id}-definition`}
-        className="term-input-label"
-      >
-        Definition
-      </label>
     </div>
   );
 };
