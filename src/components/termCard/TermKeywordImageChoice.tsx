@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ITerm } from "./Term";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreactors, State } from "../../state";
@@ -28,13 +28,8 @@ export const fetchImages = async (
 
 const TermKeywordImageChoice = ({ term }: Props) => {
   const mnemoryState = useSelector((state: State) => state.mnemory);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    formState: { errors },
-  } = useForm();
   const dispatch = useDispatch();
   const { toggleTermKeywordImage, setTermKeywordImage, setSearchedImages } =
     bindActionCreators(actionCreactors, dispatch);
@@ -42,6 +37,12 @@ const TermKeywordImageChoice = ({ term }: Props) => {
   const foundKeyword = term.descriptionKeywords.find(
     (keyword) => keyword.imageChecked
   );
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.value = mnemoryState.currentImageQuery;
+    }
+  }, [mnemoryState.currentImageQuery]);
 
   function getFileImageUrl(e: React.ChangeEvent<HTMLInputElement>): string {
     let file = e.target.files![0];
@@ -56,25 +57,28 @@ const TermKeywordImageChoice = ({ term }: Props) => {
     setTermKeywordImage(term.id, foundKeyword!.id, imageUrl);
   }
 
+  function searchKeywordImages(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (inputRef.current!.value !== "") {
+      fetchImages(inputRef.current!.value, setSearchedImages);
+    }
+  }
+
   if (!foundKeyword) return null;
 
   return (
     <div className="keyword-image-choice bg-slate-900 text-slate-100 rounded-lg py-6 px-6">
-      <form
-        onSubmit={handleSubmit(() =>
-          fetchImages(getValues("imageQuery"), setSearchedImages)
-        )}
-      >
+      <form onSubmit={(e) => searchKeywordImages(e)}>
         <div className="flex items-center">
           <div className="relative ">
             <input
               type="text"
               key={foundKeyword.keyword}
-              defaultValue={foundKeyword.keyword}
+              defaultValue={mnemoryState.currentImageQuery}
               placeholder={foundKeyword.keyword}
               className="keyword-image-input term-input"
               id={`term-${term.id}-${foundKeyword.id}`}
-              {...register("imageQuery", { required: true })}
+              ref={inputRef}
             />
             <button
               className="absolute right-0 top-1/2 -translate-y-1/2 hover:text-orange-500 text-orange-400 transition-colors"
@@ -107,9 +111,6 @@ const TermKeywordImageChoice = ({ term }: Props) => {
         >
           Search by image
         </label>
-        {errors.name?.type === "required" && (
-          <span className="term-keyword-error">Enter search query.</span>
-        )}
       </form>
       <div className="flex flex-wrap">
         {mnemoryState.currentSearchedImages.map((imageUrl: string, index) => {
