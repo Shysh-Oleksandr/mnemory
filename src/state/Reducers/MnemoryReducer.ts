@@ -222,8 +222,6 @@ const mnemoryReducer = (
         };
       });
       newSets = setNewTerms(state, newTerms);
-      console.log(newImageQuery);
-      console.log(currentEditingSet);
 
       return {
         ...state,
@@ -295,6 +293,18 @@ const mnemoryReducer = (
         ...state,
         currentSetId: 0,
         sets: filteredSets,
+      };
+
+    case ActionType.SAVE_CURRENT_SET:
+      newSets = state.sets.map((set) => {
+        if (set.editingSet.setId === state.currentSetId) {
+          return { ...set, savedSet: set.editingSet };
+        }
+        return set;
+      });
+      return {
+        ...state,
+        sets: newSets,
       };
 
     case ActionType.SET_SET_INFO:

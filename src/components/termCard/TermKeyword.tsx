@@ -21,19 +21,12 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
   } = bindActionCreators(actionCreactors, dispatch);
 
   const toggleImageChoice = () => {
+    console.log(descriptionKeyword.id, termId);
+
     toggleTermKeywordImage(termId, descriptionKeyword.id);
     !descriptionKeyword.imageChecked &&
       fetchImages(descriptionKeyword.keyword, setSearchedImages);
   };
-
-  useEffect(() => {
-    setKeywordInfo(
-      nameRef.current?.value!,
-      descriptionRef.current?.value!,
-      termId,
-      descriptionKeyword.id
-    );
-  }, [nameRef.current?.value]);
 
   return (
     <div className="term-description-keyword relative flex flex-col items-center m-1 mx-2 w-36">
@@ -72,6 +65,14 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
       <div className="relative">
         <input
           ref={nameRef}
+          onChange={() =>
+            setKeywordInfo(
+              nameRef.current?.value!,
+              descriptionRef.current?.value!,
+              termId,
+              descriptionKeyword.id
+            )
+          }
           type="text"
           defaultValue={descriptionKeyword.keyword}
           placeholder="Couch"

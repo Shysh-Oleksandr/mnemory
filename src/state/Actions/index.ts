@@ -77,6 +77,10 @@ interface SetKeywordInfoAction {
   };
 }
 
+interface SaveSetAction {
+  type: ActionType.SAVE_CURRENT_SET;
+}
+
 export type Action =
   | AddingAction
   | DeletingAction
@@ -91,4 +95,5 @@ export type Action =
   | SetSetInfoAction
   | SetKeywordInfoAction
   | DeleteSetAction
+  | SaveSetAction
   | DeletingKeywordAction;

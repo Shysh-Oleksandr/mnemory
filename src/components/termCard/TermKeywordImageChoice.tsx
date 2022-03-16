@@ -23,6 +23,8 @@ export const fetchImages = async (
   let fetchedImages: string[] = data.results.map(
     (result: any) => result.urls.raw
   );
+  console.log(query);
+
   setSearchedImages(fetchedImages);
 };
 
@@ -83,7 +85,7 @@ const TermKeywordImageChoice = ({ term }: Props) => {
             <input
               type="text"
               key={foundKeyword.keyword}
-              defaultValue={mnemoryState.currentImageQuery}
+              defaultValue={foundKeyword.keyword}
               placeholder={foundKeyword.keyword}
               className="keyword-image-input term-input"
               id={`term-${term.id}-${foundKeyword.id}`}

@@ -5,6 +5,7 @@ import SetForm from "../components/set/SetForm";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { State } from "../state";
+import SaveBtn from "../components/UI/SaveBtn";
 
 type Props = {};
 
@@ -26,7 +27,7 @@ const EditPage = (props: Props) => {
         terms={mnemoryState.sets[mnemoryState.currentSetId].editingSet.terms}
       />
       <AddTermBtn />
-      <button className="btn ml-auto block mt-2 !px-24 !py-4">Save</button>
+      <SaveBtn buttonText="Save" />
     </div>
   );
 };

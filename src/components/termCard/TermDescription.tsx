@@ -18,7 +18,7 @@ const TermDescription = ({ term }: Props) => {
           <TermKeyword
             termId={term.id}
             descriptionKeyword={descriptionKeyword}
-            key={`${term.id}-${descriptionKeyword.id}-${descriptionKeyword.keyword}`}
+            key={`${term.id}-${descriptionKeyword.id}`}
           />
         );
       })}

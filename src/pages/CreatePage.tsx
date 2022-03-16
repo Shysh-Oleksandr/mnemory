@@ -1,10 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import SaveBtn from "../components/UI/SaveBtn";
+import { State } from "../state";
+import AddTermBtn from "./../components/AddTermBtn";
 import SetForm from "./../components/set/SetForm";
 import TermsList from "./../components/TermsList";
-import AddTermBtn from "./../components/AddTermBtn";
-import { ITerm } from "../components/termCard/Term";
-import { useSelector } from "react-redux";
-import { State } from "../state";
 
 type Props = {};
 
@@ -21,7 +21,7 @@ const CreatePage = (props: Props) => {
         terms={mnemoryState.sets[mnemoryState.currentSetId].editingSet.terms}
       />
       <AddTermBtn />
-      <button className="btn ml-auto block mt-2 !px-24 !py-4">Create</button>
+      <SaveBtn buttonText="Create" />
     </div>
   );
 };
