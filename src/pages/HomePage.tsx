@@ -17,15 +17,17 @@ const HomePage = (props: Props) => {
       <h3 className="text-2xl mb-2">Your sets</h3>
       <div className="flex flex-wrap gap-3">
         {mnemoryState.sets.map((set) => {
-          const keyword = set.savedSet.terms
-            .map((term) => {
-              let keyword = term.descriptionKeywords.find(
-                (keyword) => keyword.image
-              );
-              if (keyword) return keyword;
-            })
-            .slice(-1)[0];
-          const keywordImage = keyword?.image;
+          let keywords = set.savedSet.terms.map((term) => {
+            let keyword = term.descriptionKeywords.find(
+              (keyword) => keyword.image
+            );
+            return keyword;
+          });
+          keywords = keywords.filter((keyword) => keyword !== undefined);
+          const keywordImage =
+            keywords.length === 0
+              ? undefined
+              : keywords[keywords.length - 1]!.image;
           return (
             <Link
               to={`/set/${set.savedSet.setId}`}

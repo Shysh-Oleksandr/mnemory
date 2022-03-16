@@ -1,8 +1,9 @@
 import React, { RefObject, useRef } from "react";
-import Input from "./../UI/Input";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { actionCreactors, State } from "../../state";
+import Input from "./../UI/Input";
 
 type Props = {
   buttonText: string;
@@ -23,9 +24,13 @@ const SetForm = ({ buttonText, titleContent }: Props) => {
     <div className="mb-10">
       <div className="flex justify-between items-center my-6">
         {titleContent}
-        <button className="btn" onClick={saveCurrentSet}>
+        <Link
+          to={`/set/${mnemoryState.currentSetId}`}
+          className="btn"
+          onClick={saveCurrentSet}
+        >
           {buttonText}
-        </button>
+        </Link>
       </div>
       <Input
         onChange={() =>

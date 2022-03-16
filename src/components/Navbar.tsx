@@ -20,7 +20,10 @@ const Navbar = (props: Props) => {
   });
   const dispatch = useDispatch();
 
-  const { addSet } = bindActionCreators(actionCreactors, dispatch);
+  const { addSet, copySavedSet } = bindActionCreators(
+    actionCreactors,
+    dispatch
+  );
   const emptySet: ISetStatus = {
     savedSet: {
       name: "",
@@ -40,6 +43,7 @@ const Navbar = (props: Props) => {
           Mnemory
         </Link>
         <Link
+          // onClick={copySavedSet}
           to="/edit"
           className="text-2xl block text-white py-4 font-bold mr-6"
         >

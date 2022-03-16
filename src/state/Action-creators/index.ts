@@ -132,6 +132,14 @@ export const setSetInfo = (name: string, description: string) => {
 export const saveCurrentSet = () => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
+      type: ActionType.COPY_SAVED_SET,
+    });
+  };
+};
+
+export const copySavedSet = () => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
       type: ActionType.SAVE_CURRENT_SET,
     });
   };

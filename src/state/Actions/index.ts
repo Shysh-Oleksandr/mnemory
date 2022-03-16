@@ -81,6 +81,10 @@ interface SaveSetAction {
   type: ActionType.SAVE_CURRENT_SET;
 }
 
+interface CopySavedSetAction {
+  type: ActionType.COPY_SAVED_SET;
+}
+
 export type Action =
   | AddingAction
   | DeletingAction
@@ -96,4 +100,5 @@ export type Action =
   | SetKeywordInfoAction
   | DeleteSetAction
   | SaveSetAction
+  | CopySavedSetAction
   | DeletingKeywordAction;

@@ -23,7 +23,6 @@ export const fetchImages = async (
   let fetchedImages: string[] = data.results.map(
     (result: any) => result.urls.raw
   );
-  console.log(query);
 
   setSearchedImages(fetchedImages);
 };

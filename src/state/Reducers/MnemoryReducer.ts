@@ -1,6 +1,6 @@
+import { ITerm } from "../../components/termCard/Term";
 import { ActionType } from "../Action-types";
 import { Action } from "../Actions";
-import { ITerm } from "../../components/termCard/Term";
 
 export interface ISet {
   name: string;
@@ -92,6 +92,20 @@ const initialState: IMnemory = {
   currentSearchedImages: [],
 };
 
+function validateTerms(terms: ITerm[]): ITerm[] {
+  // Removing terms with empty name.
+  let validatedTerms = terms.filter((term) => term.term !== "");
+  // Removing empty keywords from term.
+  validatedTerms = validatedTerms.map((term) => {
+    let validatedKeywords = term.descriptionKeywords.filter(
+      (keyword) => keyword.keyword !== ""
+    );
+    return { ...term, descriptionKeywords: validatedKeywords };
+  });
+
+  return validatedTerms;
+}
+
 function setNewTerms(state: IMnemory, newTerms: ITerm[]): ISetStatus[] {
   const newSets = state.sets.map((set) => {
     if (set.editingSet.setId === state.currentSetId) {
@@ -162,7 +176,6 @@ const mnemoryReducer = (
         }
         return term;
       });
-      console.log(state);
 
       newSets = setNewTerms(state, newTerms);
       return { ...state, sets: newSets };
@@ -298,7 +311,26 @@ const mnemoryReducer = (
     case ActionType.SAVE_CURRENT_SET:
       newSets = state.sets.map((set) => {
         if (set.editingSet.setId === state.currentSetId) {
-          return { ...set, savedSet: set.editingSet };
+          const newEditingSet: ISet = {
+            ...set.editingSet,
+            terms: validateTerms(set.editingSet.terms),
+          };
+          return { ...set, savedSet: newEditingSet, editingSet: newEditingSet };
+        }
+        return set;
+      });
+      return {
+        ...state,
+        sets: newSets,
+      };
+
+    case ActionType.COPY_SAVED_SET:
+      newSets = state.sets.map((set) => {
+        if (set.editingSet.setId === state.currentSetId) {
+          const newSavedSet: ISet = {
+            ...set.savedSet,
+          };
+          return { ...set, editingSet: newSavedSet };
         }
         return set;
       });

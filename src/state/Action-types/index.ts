@@ -14,4 +14,5 @@ export enum ActionType {
   SET_SET_INFO = "Set set info",
   SET_KEYWORD_INFO = "Set keyword info",
   SAVE_CURRENT_SET = "Save current set",
+  COPY_SAVED_SET = "Copy saved set",
 }

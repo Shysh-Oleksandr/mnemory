@@ -1,10 +1,9 @@
-import React, { RefObject, useEffect, useRef } from "react";
+import React, { RefObject, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreactors } from "../../state";
 import { Keyword } from "./Term";
 import { fetchImages } from "./TermKeywordImageChoice";
-import Input from "./../UI/Input";
 
 type Props = { termId: number; descriptionKeyword: Keyword };
 
@@ -21,8 +20,6 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
   } = bindActionCreators(actionCreactors, dispatch);
 
   const toggleImageChoice = () => {
-    console.log(descriptionKeyword.id, termId);
-
     toggleTermKeywordImage(termId, descriptionKeyword.id);
     !descriptionKeyword.imageChecked &&
       fetchImages(descriptionKeyword.keyword, setSearchedImages);

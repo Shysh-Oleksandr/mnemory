@@ -1,11 +1,11 @@
 import React from "react";
-import TermsList from "./../components/TermsList";
-import AddTermBtn from "./../components/AddTermBtn";
-import SetForm from "../components/set/SetForm";
-import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { State } from "../state";
+import { Link } from "react-router-dom";
+import SetForm from "../components/set/SetForm";
 import SaveBtn from "../components/UI/SaveBtn";
+import { State } from "../state";
+import AddTermBtn from "./../components/AddTermBtn";
+import TermsList from "./../components/TermsList";
 
 type Props = {};
 
