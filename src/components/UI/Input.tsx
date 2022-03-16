@@ -1,4 +1,4 @@
-import React from "react";
+import React, { RefObject } from "react";
 
 type Props = {
   defaultValue?: string;
@@ -7,6 +7,8 @@ type Props = {
   labelClassName?: string;
   inputId: string;
   labelText: string;
+  reference: RefObject<HTMLInputElement>;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const Input = ({
@@ -16,15 +18,19 @@ const Input = ({
   labelClassName,
   inputId,
   labelText,
+  reference,
+  onChange,
 }: Props) => {
   return (
     <div>
       <input
+        onChange={(e) => onChange(e)}
         type="text"
         defaultValue={defaultValue}
         placeholder={placeholder}
         className={`${inputClassName} term-input`}
         id={inputId}
+        ref={reference}
       />
       <label htmlFor={inputId} className={`${labelClassName} term-input-label`}>
         {labelText}

@@ -108,26 +108,45 @@ const mnemoryReducer = (
   state: IMnemory = initialState,
   action: Action
 ): IMnemory => {
+  const currentEditingSet: ISet = state.sets[state.currentSetId].editingSet;
   let newSets = state.sets;
-  let newTerms = state.sets[state.currentSetId].editingSet.terms;
+  let newTerms = currentEditingSet.terms;
   switch (action.type) {
     // Terms actions.
     case ActionType.ADDING_TERM:
-      newTerms = state.sets[state.currentSetId].editingSet.terms;
+      newTerms = currentEditingSet.terms;
       newTerms.splice(action.payload.indexToAdd, 0, action.payload.term);
       newSets = setNewTerms(state, newTerms);
       return { ...state, sets: newSets };
 
     case ActionType.DELETING_TERM:
-      newTerms = state.sets[state.currentSetId].editingSet.terms.filter(
+      newTerms = currentEditingSet.terms.filter(
         (term) => term.id !== action.payload.id
       );
       newSets = setNewTerms(state, newTerms);
       return { ...state, sets: newSets };
 
+    case ActionType.SET_TERM_INFO:
+      newTerms = currentEditingSet.terms.map((term) => {
+        if (term.id === action.payload.termId) {
+          return {
+            ...term,
+            term: action.payload.termName,
+            definition: action.payload.definition,
+          };
+        }
+        return term;
+      });
+
+      newSets = setNewTerms(state, newTerms);
+      return {
+        ...state,
+        sets: newSets,
+      };
+
     // Term keywords actions.
     case ActionType.ADDING_KEYWORD:
-      newTerms = state.sets[state.currentSetId].editingSet.terms.map((term) => {
+      newTerms = currentEditingSet.terms.map((term) => {
         if (term.id === action.payload) {
           return {
             ...term,
@@ -143,11 +162,13 @@ const mnemoryReducer = (
         }
         return term;
       });
+      console.log(state);
+
       newSets = setNewTerms(state, newTerms);
       return { ...state, sets: newSets };
 
     case ActionType.DELETING_KEYWORD:
-      newTerms = state.sets[state.currentSetId].editingSet.terms.map((term) => {
+      newTerms = currentEditingSet.terms.map((term) => {
         if (term.id === action.payload.termId) {
           const newTermKeywords = term.descriptionKeywords.filter(
             (keyword) => keyword.id !== action.payload.keywordId
@@ -164,7 +185,7 @@ const mnemoryReducer = (
 
     // Term keyword image actions.
     case ActionType.DELETING_KEYWORD_IMAGE:
-      newTerms = state.sets[state.currentSetId].editingSet.terms.map((term) => {
+      newTerms = currentEditingSet.terms.map((term) => {
         if (term.id === action.payload.termId) {
           const newTermKeywords = term.descriptionKeywords.map((keyword) => {
             if (keyword.id === action.payload.keywordId) {
@@ -184,7 +205,7 @@ const mnemoryReducer = (
 
     case ActionType.TOGGLE_KEYWORD_IMAGE:
       let newImageQuery = "";
-      newTerms = state.sets[state.currentSetId].editingSet.terms.map((term) => {
+      newTerms = currentEditingSet.terms.map((term) => {
         const newTermKeywords = term.descriptionKeywords.map((keyword) => {
           if (
             keyword.id === action.payload.keywordId &&
@@ -201,6 +222,9 @@ const mnemoryReducer = (
         };
       });
       newSets = setNewTerms(state, newTerms);
+      console.log(newImageQuery);
+      console.log(currentEditingSet);
+
       return {
         ...state,
         sets: newSets,
@@ -208,7 +232,7 @@ const mnemoryReducer = (
       };
 
     case ActionType.SET_KEYWORD_IMAGE:
-      newTerms = state.sets[state.currentSetId].editingSet.terms.map((term) => {
+      newTerms = currentEditingSet.terms.map((term) => {
         if (term.id === action.payload.termId) {
           const newTermKeywords = term.descriptionKeywords.map((keyword) => {
             if (keyword.id === action.payload.keywordId) {
@@ -229,9 +253,66 @@ const mnemoryReducer = (
     case ActionType.SET_SEARCHED_IMAGES:
       return { ...state, currentSearchedImages: action.payload };
 
+    case ActionType.SET_KEYWORD_INFO:
+      newTerms = currentEditingSet.terms.map((term) => {
+        if (term.id === action.payload.termId) {
+          const newTermKeywords = term.descriptionKeywords.map((keyword) => {
+            if (keyword.id === action.payload.keywordId) {
+              return {
+                ...keyword,
+                keyword: action.payload.keywordName,
+                descriptionText: action.payload.description,
+              };
+            }
+            return keyword;
+          });
+          return {
+            ...term,
+            descriptionKeywords: newTermKeywords,
+          };
+        }
+        return term;
+      });
+      newSets = setNewTerms(state, newTerms);
+      return { ...state, sets: newSets };
+
     // Set actions.
     case ActionType.SET_CURRENT_SET_ID:
       return { ...state, currentSetId: action.payload };
+
+    case ActionType.ADDING_SET:
+      return {
+        ...state,
+        currentSetId: action.payload.editingSet.setId,
+        sets: [...state.sets, action.payload],
+      };
+
+    case ActionType.DELETING_SET:
+      const filteredSets = state.sets.filter(
+        (set) => set.editingSet.setId !== action.payload
+      );
+      return {
+        ...state,
+        currentSetId: 0,
+        sets: filteredSets,
+      };
+
+    case ActionType.SET_SET_INFO:
+      newSets = state.sets.map((set) => {
+        if (set.editingSet.setId === state.currentSetId) {
+          const newEditingSet: ISet = {
+            ...set.editingSet,
+            name: action.payload.setName,
+            description: action.payload.description,
+          };
+          return { ...set, editingSet: newEditingSet };
+        }
+        return set;
+      });
+      return {
+        ...state,
+        sets: newSets,
+      };
 
     default:
       return state;

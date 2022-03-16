@@ -3,17 +3,13 @@ import SetForm from "./../components/set/SetForm";
 import TermsList from "./../components/TermsList";
 import AddTermBtn from "./../components/AddTermBtn";
 import { ITerm } from "../components/termCard/Term";
+import { useSelector } from "react-redux";
+import { State } from "../state";
 
 type Props = {};
 
 const CreatePage = (props: Props) => {
-  let emptyTerms: ITerm[] = new Array(4).fill(0).map((term, index) => {
-    return {
-      term: "",
-      descriptionKeywords: [{ keyword: "", id: 0, imageChecked: false }],
-      id: index,
-    };
-  });
+  const mnemoryState = useSelector((state: State) => state.mnemory);
 
   return (
     <div>
@@ -21,7 +17,9 @@ const CreatePage = (props: Props) => {
         buttonText="Create"
         titleContent={<h2 className="text-2xl">Create a new set</h2>}
       />
-      <TermsList terms={emptyTerms} />
+      <TermsList
+        terms={mnemoryState.sets[mnemoryState.currentSetId].editingSet.terms}
+      />
       <AddTermBtn />
       <button className="btn ml-auto block mt-2 !px-24 !py-4">Create</button>
     </div>

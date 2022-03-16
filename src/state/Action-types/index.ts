@@ -8,4 +8,9 @@ export enum ActionType {
   SET_KEYWORD_IMAGE = "Set a Keyword image",
   SET_SEARCHED_IMAGES = "Set searched images",
   SET_CURRENT_SET_ID = "Set current set id",
+  ADDING_SET = "Adding a set",
+  DELETING_SET = "Deleting a set",
+  SET_TERM_INFO = "Set term info",
+  SET_SET_INFO = "Set set info",
+  SET_KEYWORD_INFO = "Set keyword info",
 }

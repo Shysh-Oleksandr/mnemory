@@ -1,5 +1,6 @@
 import { ActionType } from "../Action-types";
 import { ITerm } from "../../components/termCard/Term";
+import { ISetStatus } from "../Reducers/MnemoryReducer";
 
 interface AddingAction {
   type: ActionType.ADDING_TERM;
@@ -46,6 +47,36 @@ interface SetCurrentSetIdAction {
   payload: number;
 }
 
+interface AddSetAction {
+  type: ActionType.ADDING_SET;
+  payload: ISetStatus;
+}
+
+interface DeleteSetAction {
+  type: ActionType.DELETING_SET;
+  payload: number;
+}
+
+interface SetTermInfoAction {
+  type: ActionType.SET_TERM_INFO;
+  payload: { termName: string; definition: string; termId: number };
+}
+
+interface SetSetInfoAction {
+  type: ActionType.SET_SET_INFO;
+  payload: { setName: string; description: string };
+}
+
+interface SetKeywordInfoAction {
+  type: ActionType.SET_KEYWORD_INFO;
+  payload: {
+    keywordName: string;
+    description: string;
+    termId: number;
+    keywordId: number;
+  };
+}
+
 export type Action =
   | AddingAction
   | DeletingAction
@@ -55,4 +86,9 @@ export type Action =
   | SetKeywordImageAction
   | SetSearchedImagesAction
   | SetCurrentSetIdAction
+  | AddSetAction
+  | SetTermInfoAction
+  | SetSetInfoAction
+  | SetKeywordInfoAction
+  | DeleteSetAction
   | DeletingKeywordAction;

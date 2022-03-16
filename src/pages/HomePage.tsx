@@ -15,7 +15,7 @@ const HomePage = (props: Props) => {
   return (
     <div className="mt-8">
       <h3 className="text-2xl mb-2">Your sets</h3>
-      <div className="flex">
+      <div className="flex flex-wrap gap-3">
         {mnemoryState.sets.map((set) => {
           const keyword = set.savedSet.terms
             .map((term) => {
@@ -29,7 +29,7 @@ const HomePage = (props: Props) => {
           return (
             <Link
               to={`/set/${set.savedSet.setId}`}
-              className="mr-4 mt-2 basis-1/3 rounded-lg cursor-pointer border-solid border-transparent hover:bg-slate-600 hover:border-white border-b-4 transition-all bg-slate-700 max-w-sm p-4"
+              className="basis-[32%] rounded-lg cursor-pointer border-solid border-transparent hover:bg-slate-600 hover:border-white border-b-4 transition-all bg-slate-700 p-4"
               key={set.savedSet.setId}
               onClick={() => setCurrentSetId(set.savedSet.setId)}
             >

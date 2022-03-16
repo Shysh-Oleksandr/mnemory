@@ -2,6 +2,7 @@ import { Dispatch } from "redux";
 import { ActionType } from "../Action-types";
 import { Action } from "../Actions";
 import { ITerm } from "../../components/termCard/Term";
+import { ISetStatus } from "../Reducers/MnemoryReducer";
 
 export const addTerm = (term: ITerm, indexToAdd: number) => {
   return (dispatch: Dispatch<Action>) => {
@@ -84,6 +85,65 @@ export const setCurrentSetId = (setId: number) => {
     dispatch({
       type: ActionType.SET_CURRENT_SET_ID,
       payload: setId,
+    });
+  };
+};
+
+export const addSet = (set: ISetStatus) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.ADDING_SET,
+      payload: set,
+    });
+  };
+};
+
+export const deleteSet = (setId: number) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.DELETING_SET,
+      payload: setId,
+    });
+  };
+};
+
+export const setTermInfo = (
+  name: string,
+  description: string,
+  termId: number
+) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.SET_TERM_INFO,
+      payload: { termName: name, definition: description, termId: termId },
+    });
+  };
+};
+
+export const setSetInfo = (name: string, description: string) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.SET_SET_INFO,
+      payload: { setName: name, description: description },
+    });
+  };
+};
+
+export const setKeywordInfo = (
+  name: string,
+  description: string,
+  termId: number,
+  keywordId: number
+) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.SET_KEYWORD_INFO,
+      payload: {
+        keywordName: name,
+        description: description,
+        termId: termId,
+        keywordId: keywordId,
+      },
     });
   };
 };

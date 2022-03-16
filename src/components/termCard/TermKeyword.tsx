@@ -1,19 +1,23 @@
-import React from "react";
+import React, { RefObject, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreactors } from "../../state";
 import { Keyword } from "./Term";
 import { fetchImages } from "./TermKeywordImageChoice";
+import Input from "./../UI/Input";
 
 type Props = { termId: number; descriptionKeyword: Keyword };
 
 const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
+  const nameRef = useRef() as RefObject<HTMLInputElement>;
+  const descriptionRef = useRef() as RefObject<HTMLTextAreaElement>;
   const dispatch = useDispatch();
   const {
     deleteTermKeyword,
     deleteTermKeywordImage,
     toggleTermKeywordImage,
     setSearchedImages,
+    setKeywordInfo,
   } = bindActionCreators(actionCreactors, dispatch);
 
   const toggleImageChoice = () => {
@@ -21,6 +25,15 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
     !descriptionKeyword.imageChecked &&
       fetchImages(descriptionKeyword.keyword, setSearchedImages);
   };
+
+  useEffect(() => {
+    setKeywordInfo(
+      nameRef.current?.value!,
+      descriptionRef.current?.value!,
+      termId,
+      descriptionKeyword.id
+    );
+  }, [nameRef.current?.value]);
 
   return (
     <div className="term-description-keyword relative flex flex-col items-center m-1 mx-2 w-36">
@@ -58,6 +71,7 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
       )}
       <div className="relative">
         <input
+          ref={nameRef}
           type="text"
           defaultValue={descriptionKeyword.keyword}
           placeholder="Couch"
@@ -71,6 +85,15 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
         </button>
       </div>
       <textarea
+        ref={descriptionRef}
+        onChange={() =>
+          setKeywordInfo(
+            nameRef.current?.value!,
+            descriptionRef.current?.value!,
+            termId,
+            descriptionKeyword.id
+          )
+        }
         spellCheck={false}
         placeholder="Describe the keyword..."
         defaultValue={descriptionKeyword.descriptionText}

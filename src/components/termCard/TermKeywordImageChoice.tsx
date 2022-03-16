@@ -68,7 +68,7 @@ const TermKeywordImageChoice = ({ term }: Props) => {
 
   function searchKeywordImages(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (inputRef.current!.value !== "") {
+    if (inputRef.current!.value.length > 1) {
       fetchImages(inputRef.current!.value, setSearchedImages);
     }
   }
