@@ -1,6 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { State } from "../state";
 import Term, { ITerm } from "./termCard/Term";
 import TermCardSeparator from "./termCard/TermCardSeparator";
 import TermKeywordImageChoice from "./termCard/TermKeywordImageChoice";

@@ -17,7 +17,7 @@ const TermCardSeparator = ({ cardId }: Props) => {
   const emptyTerm = {
     term: "",
     descriptionKeywords: [{ keyword: "", id: 0, imageChecked: false }],
-    id: mnemoryState.sets[mnemoryState.currentSetId].terms.length,
+    id: mnemoryState.sets[mnemoryState.currentSetId].editingSet.terms.length,
   };
 
   return (
@@ -31,7 +31,8 @@ const TermCardSeparator = ({ cardId }: Props) => {
       }}
     >
       {cardId !==
-        mnemoryState.sets[mnemoryState.currentSetId].terms.length - 1 && (
+        mnemoryState.sets[mnemoryState.currentSetId].editingSet.terms.length -
+          1 && (
         <button
           style={style}
           onClick={() => addTerm(emptyTerm, cardId + 1)}

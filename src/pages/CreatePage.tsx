@@ -7,7 +7,13 @@ import { ITerm } from "../components/termCard/Term";
 type Props = {};
 
 const CreatePage = (props: Props) => {
-  const emptyTerms: ITerm[] = [];
+  let emptyTerms: ITerm[] = new Array(4).fill(0).map((term, index) => {
+    return {
+      term: "",
+      descriptionKeywords: [{ keyword: "", id: 0, imageChecked: false }],
+      id: index,
+    };
+  });
 
   return (
     <div>

@@ -9,8 +9,13 @@ export interface ISet {
   setId: number;
 }
 
+export interface ISetStatus {
+  savedSet: ISet;
+  editingSet: ISet;
+}
+
 export interface IMnemory {
-  sets: ISet[];
+  sets: ISetStatus[];
   currentImageQuery: string;
   currentSearchedImages: string[];
   currentSetId: number;
@@ -19,52 +24,67 @@ export interface IMnemory {
 const initialState: IMnemory = {
   sets: [
     {
-      name: "First set",
-      description: "that is description",
-      terms: [
-        {
-          term: "Lata",
-          definition: "a can",
-          descriptionKeywords: [
-            { keyword: "Latvia", id: 0, imageChecked: false },
-            {
-              keyword: "pianist",
-              id: 1,
-              imageChecked: false,
-              descriptionText:
-                "Movie scene when man eats from earth womans food can",
-            },
-            {
-              keyword: "Chaos",
-              id: 2,
-              imageChecked: false,
-            },
-            { keyword: "Water", id: 3, imageChecked: false },
-          ],
-          id: 0,
-        },
-        {
-          term: "Leche",
-          definition: "milk",
-          descriptionKeywords: [
-            {
-              keyword: "cure",
-              id: 0,
-              imageChecked: false,
-              image:
-                "https://images.unsplash.com/photo-1562914344-e97da11dacd4?ixid=MnwzMDg5NzJ8MHwxfHNlYXJjaHwzfHxMYXR2aWF8ZW58MHx8fHwxNjQ3NDI0NzMx&ixlib=rb-1.2.1",
-            },
-            { keyword: "doctor", id: 1, imageChecked: false },
-          ],
-          id: 1,
-        },
-      ],
-      setId: 0,
+      savedSet: {
+        name: "First set",
+        description: "that is description",
+        terms: [
+          {
+            term: "Lata",
+            definition: "a can",
+            descriptionKeywords: [
+              { keyword: "Latvia", id: 0, imageChecked: false },
+              {
+                keyword: "pianist",
+                id: 1,
+                imageChecked: false,
+                descriptionText:
+                  "Movie scene when man eats from earth womans food can",
+              },
+              {
+                keyword: "Chaos",
+                id: 2,
+                imageChecked: false,
+              },
+              { keyword: "Water", id: 3, imageChecked: false },
+            ],
+            id: 0,
+          },
+          {
+            term: "Leche",
+            definition: "milk",
+            descriptionKeywords: [
+              {
+                keyword: "cure",
+                id: 0,
+                imageChecked: false,
+                image:
+                  "https://images.unsplash.com/photo-1562914344-e97da11dacd4?ixid=MnwzMDg5NzJ8MHwxfHNlYXJjaHwzfHxMYXR2aWF8ZW58MHx8fHwxNjQ3NDI0NzMx&ixlib=rb-1.2.1",
+              },
+              { keyword: "doctor", id: 1, imageChecked: false },
+            ],
+            id: 1,
+          },
+        ],
+        setId: 0,
+      },
+      editingSet: {
+        name: "First set",
+        terms: [],
+        setId: 0,
+      },
     },
     {
-      name: "Second set",
-      terms: [],
-      setId: 1,
+      savedSet: {
+        name: "Second set",
+        terms: [],
+        setId: 1,
+      },
+
+      editingSet: {
+        name: "Second set",
+        terms: [],
+        setId: 1,
+      },
     },
   ],
   currentSetId: 0,
@@ -72,9 +92,12 @@ const initialState: IMnemory = {
   currentSearchedImages: [],
 };
 
-function setNewTerms(state: IMnemory, newTerms: ITerm[]): ISet[] {
+function setNewTerms(state: IMnemory, newTerms: ITerm[]): ISetStatus[] {
   const newSets = state.sets.map((set) => {
-    if (set.setId === state.currentSetId) return { ...set, terms: newTerms };
+    if (set.editingSet.setId === state.currentSetId) {
+      const newEditingSet: ISet = { ...set.editingSet, terms: newTerms };
+      return { ...set, editingSet: newEditingSet };
+    }
     return set;
   });
 
@@ -86,17 +109,17 @@ const mnemoryReducer = (
   action: Action
 ): IMnemory => {
   let newSets = state.sets;
-  let newTerms = state.sets[state.currentSetId].terms;
+  let newTerms = state.sets[state.currentSetId].editingSet.terms;
   switch (action.type) {
     // Terms actions.
     case ActionType.ADDING_TERM:
-      newTerms = state.sets[state.currentSetId].terms;
+      newTerms = state.sets[state.currentSetId].editingSet.terms;
       newTerms.splice(action.payload.indexToAdd, 0, action.payload.term);
       newSets = setNewTerms(state, newTerms);
       return { ...state, sets: newSets };
 
     case ActionType.DELETING_TERM:
-      newTerms = state.sets[state.currentSetId].terms.filter(
+      newTerms = state.sets[state.currentSetId].editingSet.terms.filter(
         (term) => term.id !== action.payload.id
       );
       newSets = setNewTerms(state, newTerms);
@@ -104,7 +127,7 @@ const mnemoryReducer = (
 
     // Term keywords actions.
     case ActionType.ADDING_KEYWORD:
-      newTerms = state.sets[state.currentSetId].terms.map((term) => {
+      newTerms = state.sets[state.currentSetId].editingSet.terms.map((term) => {
         if (term.id === action.payload) {
           return {
             ...term,
@@ -124,7 +147,7 @@ const mnemoryReducer = (
       return { ...state, sets: newSets };
 
     case ActionType.DELETING_KEYWORD:
-      newTerms = state.sets[state.currentSetId].terms.map((term) => {
+      newTerms = state.sets[state.currentSetId].editingSet.terms.map((term) => {
         if (term.id === action.payload.termId) {
           const newTermKeywords = term.descriptionKeywords.filter(
             (keyword) => keyword.id !== action.payload.keywordId
@@ -141,7 +164,7 @@ const mnemoryReducer = (
 
     // Term keyword image actions.
     case ActionType.DELETING_KEYWORD_IMAGE:
-      newTerms = state.sets[state.currentSetId].terms.map((term) => {
+      newTerms = state.sets[state.currentSetId].editingSet.terms.map((term) => {
         if (term.id === action.payload.termId) {
           const newTermKeywords = term.descriptionKeywords.map((keyword) => {
             if (keyword.id === action.payload.keywordId) {
@@ -161,7 +184,7 @@ const mnemoryReducer = (
 
     case ActionType.TOGGLE_KEYWORD_IMAGE:
       let newImageQuery = "";
-      newTerms = state.sets[state.currentSetId].terms.map((term) => {
+      newTerms = state.sets[state.currentSetId].editingSet.terms.map((term) => {
         const newTermKeywords = term.descriptionKeywords.map((keyword) => {
           if (
             keyword.id === action.payload.keywordId &&
@@ -185,7 +208,7 @@ const mnemoryReducer = (
       };
 
     case ActionType.SET_KEYWORD_IMAGE:
-      newTerms = state.sets[state.currentSetId].terms.map((term) => {
+      newTerms = state.sets[state.currentSetId].editingSet.terms.map((term) => {
         if (term.id === action.payload.termId) {
           const newTermKeywords = term.descriptionKeywords.map((keyword) => {
             if (keyword.id === action.payload.keywordId) {

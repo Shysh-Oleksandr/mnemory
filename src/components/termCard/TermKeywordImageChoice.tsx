@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
-import { ITerm } from "./Term";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreactors, State } from "../../state";
-import { bindActionCreators, Dispatch } from "redux";
-import { useForm } from "react-hook-form";
-import { Action } from "../../state/Actions";
 import Slider from "react-slick";
+import { bindActionCreators, Dispatch } from "redux";
+import { actionCreactors, State } from "../../state";
+import { Action } from "../../state/Actions";
+import { ITerm } from "./Term";
 
 type Props = { term: ITerm };
 

@@ -22,7 +22,9 @@ const EditPage = (props: Props) => {
           </Link>
         }
       />
-      <TermsList terms={mnemoryState.sets[mnemoryState.currentSetId].terms} />
+      <TermsList
+        terms={mnemoryState.sets[mnemoryState.currentSetId].editingSet.terms}
+      />
       <AddTermBtn />
       <button className="btn ml-auto block mt-2 !px-24 !py-4">Save</button>
     </div>

@@ -1,9 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ITerm } from "../components/termCard/Term";
-import { actionCreactors, State } from "../state";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
+import { actionCreactors, State } from "../state";
 
 type Props = {};
 
@@ -18,7 +17,7 @@ const HomePage = (props: Props) => {
       <h3 className="text-2xl mb-2">Your sets</h3>
       <div className="flex">
         {mnemoryState.sets.map((set) => {
-          const keyword = set.terms
+          const keyword = set.savedSet.terms
             .map((term) => {
               let keyword = term.descriptionKeywords.find(
                 (keyword) => keyword.image
@@ -29,16 +28,16 @@ const HomePage = (props: Props) => {
           const keywordImage = keyword?.image;
           return (
             <Link
-              to={`/set/${set.setId}`}
+              to={`/set/${set.savedSet.setId}`}
               className="mr-4 mt-2 basis-1/3 rounded-lg cursor-pointer border-solid border-transparent hover:bg-slate-600 hover:border-white border-b-4 transition-all bg-slate-700 max-w-sm p-4"
-              key={set.setId}
-              onClick={() => setCurrentSetId(set.setId)}
+              key={set.savedSet.setId}
+              onClick={() => setCurrentSetId(set.savedSet.setId)}
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <h4 className="text-2xl font-bold">{set.name}</h4>
+                  <h4 className="text-2xl font-bold">{set.savedSet.name}</h4>
                   <h5 className="text-lg text-slate-400">
-                    {set.terms.length} terms
+                    {set.savedSet.terms.length} terms
                   </h5>
                 </div>
                 <div>
@@ -53,7 +52,7 @@ const HomePage = (props: Props) => {
                 </div>
               </div>
               <div className="mt-1">
-                <p className="text-lg">{set.description}</p>
+                <p className="text-lg">{set.savedSet.description}</p>
               </div>
             </Link>
           );
