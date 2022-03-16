@@ -26,7 +26,7 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
     <div className="term-description-keyword relative flex flex-col items-center m-1 w-36">
       {descriptionKeyword.image ? (
         <div
-          className="relative flex flex-col items-center w-full h-[80px] overflow-hidden rounded-xl bg-center bg-cover bg-no-repeat"
+          className="w-full h-[80px] rounded-xl bg-center bg-cover bg-no-repeat"
           style={{ backgroundImage: `urL(${descriptionKeyword.image})` }}
         >
           <button

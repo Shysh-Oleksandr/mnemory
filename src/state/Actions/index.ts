@@ -2,12 +2,12 @@ import { ActionType } from "../Action-types";
 import { ITerm } from "../../components/termCard/Term";
 
 interface AddingAction {
-  type: ActionType.ADDING;
+  type: ActionType.ADDING_TERM;
   payload: { term: ITerm; indexToAdd: number };
 }
 
 interface DeletingAction {
-  type: ActionType.DELETING;
+  type: ActionType.DELETING_TERM;
   payload: ITerm;
 }
 
@@ -41,6 +41,11 @@ interface SetSearchedImagesAction {
   payload: string[];
 }
 
+interface SetCurrentSetIdAction {
+  type: ActionType.SET_CURRENT_SET_ID;
+  payload: number;
+}
+
 export type Action =
   | AddingAction
   | DeletingAction
@@ -49,4 +54,5 @@ export type Action =
   | ToggleKeywordImageAction
   | SetKeywordImageAction
   | SetSearchedImagesAction
+  | SetCurrentSetIdAction
   | DeletingKeywordAction;

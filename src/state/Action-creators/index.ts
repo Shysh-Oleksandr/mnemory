@@ -6,7 +6,7 @@ import { ITerm } from "../../components/termCard/Term";
 export const addTerm = (term: ITerm, indexToAdd: number) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
-      type: ActionType.ADDING,
+      type: ActionType.ADDING_TERM,
       payload: { term: term, indexToAdd: indexToAdd },
     });
   };
@@ -15,7 +15,7 @@ export const addTerm = (term: ITerm, indexToAdd: number) => {
 export const deleteTerm = (term: ITerm) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
-      type: ActionType.DELETING,
+      type: ActionType.DELETING_TERM,
       payload: term,
     });
   };
@@ -75,6 +75,15 @@ export const setSearchedImages = (searchedImages: string[]) => {
     dispatch({
       type: ActionType.SET_SEARCHED_IMAGES,
       payload: searchedImages,
+    });
+  };
+};
+
+export const setCurrentSetId = (setId: number) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.SET_CURRENT_SET_ID,
+      payload: setId,
     });
   };
 };
