@@ -19,6 +19,12 @@ export interface IMnemory {
   currentImageQuery: string;
   currentSearchedImages: string[];
   currentSetId: number;
+  areImagesLoading: boolean;
+  showConfirmModal: {
+    toShow: boolean;
+    onClick?: React.MouseEventHandler<HTMLAnchorElement> | undefined;
+    to: string;
+  };
 }
 
 const initialState: IMnemory = {
@@ -90,6 +96,8 @@ const initialState: IMnemory = {
   currentSetId: 0,
   currentImageQuery: "",
   currentSearchedImages: [],
+  areImagesLoading: true,
+  showConfirmModal: { toShow: false, to: "/" },
 };
 
 function validateTerms(terms: ITerm[]): ITerm[] {
@@ -264,6 +272,9 @@ const mnemoryReducer = (
     case ActionType.SET_SEARCHED_IMAGES:
       return { ...state, currentSearchedImages: action.payload };
 
+    case ActionType.SET_ARE_IMAGES_LOADING:
+      return { ...state, areImagesLoading: action.payload };
+
     case ActionType.SET_KEYWORD_INFO:
       newTerms = currentEditingSet.terms.map((term) => {
         if (term.id === action.payload.termId) {
@@ -354,6 +365,16 @@ const mnemoryReducer = (
       return {
         ...state,
         sets: newSets,
+      };
+
+    case ActionType.SET_SHOW_CONFIRM_MODAL:
+      return {
+        ...state,
+        showConfirmModal: {
+          toShow: action.payload.toShow,
+          onClick: action.payload.onClick,
+          to: action.payload.to,
+        },
       };
 
     default:

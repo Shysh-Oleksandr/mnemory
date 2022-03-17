@@ -15,4 +15,6 @@ export enum ActionType {
   SET_KEYWORD_INFO = "Set keyword info",
   SAVE_CURRENT_SET = "Save current set",
   COPY_SAVED_SET = "Copy saved set",
+  SET_ARE_IMAGES_LOADING = "Set are images loading",
+  SET_SHOW_CONFIRM_MODAL = "Set show confirm modal",
 }

@@ -80,6 +80,28 @@ export const setSearchedImages = (searchedImages: string[]) => {
   };
 };
 
+export const setAreImagesLoading = (areImagesLoading: boolean) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.SET_ARE_IMAGES_LOADING,
+      payload: areImagesLoading,
+    });
+  };
+};
+
+export const setShowConfirmModal = (
+  showConfrimModal: boolean,
+  onClick: React.MouseEventHandler<HTMLAnchorElement> | undefined = undefined,
+  to: string
+) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.SET_SHOW_CONFIRM_MODAL,
+      payload: { toShow: showConfrimModal, onClick: onClick, to: to },
+    });
+  };
+};
+
 export const setCurrentSetId = (setId: number) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({

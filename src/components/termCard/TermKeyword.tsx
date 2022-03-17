@@ -17,12 +17,17 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
     toggleTermKeywordImage,
     setSearchedImages,
     setKeywordInfo,
+    setAreImagesLoading,
   } = bindActionCreators(actionCreactors, dispatch);
 
   const toggleImageChoice = () => {
     toggleTermKeywordImage(termId, descriptionKeyword.id);
     !descriptionKeyword.imageChecked &&
-      fetchImages(descriptionKeyword.keyword, setSearchedImages);
+      fetchImages(
+        descriptionKeyword.keyword,
+        setSearchedImages,
+        setAreImagesLoading
+      );
   };
 
   return (

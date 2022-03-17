@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { MutatingDots } from "react-loader-spinner";
 import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
 import { bindActionCreators, Dispatch } from "redux";
@@ -14,8 +15,12 @@ export const fetchImages = async (
   query: string,
   setSearchedImages: (
     searchedImages: string[]
+  ) => (dispatch: Dispatch<Action>) => void,
+  setAreImagesLoading: (
+    areImagesLoading: boolean
   ) => (dispatch: Dispatch<Action>) => void
 ) => {
+  setAreImagesLoading(true);
   let response = await fetch(
     `https://api.unsplash.com/search/photos?page=1&query=${query}&client_id=ZiayMmOG_HV-OOVULOC8bxjPCyBlJO23BKeXIl9zh-M`
   );
@@ -23,7 +28,6 @@ export const fetchImages = async (
   let fetchedImages: string[] = data.results.map(
     (result: any) => result.urls.raw
   );
-
   setSearchedImages(fetchedImages);
 };
 
@@ -32,8 +36,14 @@ const TermKeywordImageChoice = ({ term }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const dispatch = useDispatch();
-  const { toggleTermKeywordImage, setTermKeywordImage, setSearchedImages } =
-    bindActionCreators(actionCreactors, dispatch);
+  const {
+    toggleTermKeywordImage,
+    setTermKeywordImage,
+    setSearchedImages,
+    setAreImagesLoading,
+  } = bindActionCreators(actionCreactors, dispatch);
+
+  const [loadedImages, setLoadedImages] = useState<string[]>([]);
 
   const foundKeyword = term.descriptionKeywords.find(
     (keyword) => keyword.imageChecked
@@ -52,7 +62,20 @@ const TermKeywordImageChoice = ({ term }: Props) => {
     if (inputRef.current) {
       inputRef.current.value = mnemoryState.currentImageQuery;
     }
+    setLoadedImages([]);
+    console.log("image query change");
   }, [mnemoryState.currentImageQuery]);
+
+  useEffect(() => {
+    if (
+      loadedImages.length >= mnemoryState.currentSearchedImages.length / 2 &&
+      mnemoryState.areImagesLoading
+    ) {
+      setAreImagesLoading(false);
+      console.log("false loading");
+    }
+    console.log(loadedImages.length);
+  }, [loadedImages]);
 
   function getFileImageUrl(e: React.ChangeEvent<HTMLInputElement>): string {
     let file = e.target.files![0];
@@ -70,7 +93,12 @@ const TermKeywordImageChoice = ({ term }: Props) => {
   function searchKeywordImages(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (inputRef.current!.value.length > 1) {
-      fetchImages(inputRef.current!.value, setSearchedImages);
+      setLoadedImages([]);
+      fetchImages(
+        inputRef.current!.value,
+        setSearchedImages,
+        setAreImagesLoading
+      );
     }
   }
 
@@ -123,16 +151,33 @@ const TermKeywordImageChoice = ({ term }: Props) => {
         </label>
       </form>
       <div className="mt-5 min-w-0 relative px-6">
-        <Slider {...settings}>
+        {mnemoryState.areImagesLoading && inputRef.current?.value !== "" && (
+          <MutatingDots
+            wrapperClass="justify-center items-center"
+            ariaLabel="loading-indicator"
+            color="#fb923c"
+            secondaryColor="#2dd4bf"
+            width={150}
+            height={110}
+          />
+        )}
+        <Slider
+          {...settings}
+          className={`${mnemoryState.areImagesLoading ? "hidden" : ""}`}
+        >
           {mnemoryState.currentSearchedImages.map((imageUrl: string, index) => {
             return (
               <div className="h-36 px-1" key={`${index}-${imageUrl}`}>
                 <img
+                  onLoad={() => setLoadedImages([...loadedImages, imageUrl])}
                   onClick={() => {
                     toggleTermKeywordImage(term.id);
                     setTermKeywordImage(term.id, foundKeyword.id, imageUrl);
                   }}
-                  className="mx-auto h-full rounded-md hover:border-2 border-solid border-orange-400 cursor-pointer transition-all"
+                  className={`${
+                    loadedImages.includes(imageUrl) ? "" : "invisible"
+                  }
+                  } mx-auto h-full rounded-md hover:border-2 border-solid border-orange-400 cursor-pointer transition-all`}
                   src={imageUrl}
                 />
               </div>

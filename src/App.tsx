@@ -12,18 +12,25 @@ import EditPage from "./pages/EditPage";
 import LearnPage from "./pages/LearnPage";
 import ErrorPage from "./pages/ErrorPage";
 import SetPage from "./pages/SetPage";
+import ConfirmModal from "./components/UI/ConfirmModal";
 
 function App() {
   const mnemoryState = useSelector((state: State) => state.mnemory);
   const dispatch = useDispatch();
 
-  const { addTerm } = bindActionCreators(actionCreactors, dispatch);
+  const { setShowConfirmModal } = bindActionCreators(actionCreactors, dispatch);
 
   return (
     <Router>
-      <div className="App div-padding pt-16 pb-6">
-        <Navbar />
-
+      {mnemoryState.showConfirmModal.toShow && (
+        <ConfirmModal
+          setShowConfirmModal={setShowConfirmModal}
+          onClick={mnemoryState.showConfirmModal.onClick}
+          to={mnemoryState.showConfirmModal.to}
+        />
+      )}
+      <Navbar />
+      <div className="App div-padding pb-6">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/create" element={<CreatePage />} />

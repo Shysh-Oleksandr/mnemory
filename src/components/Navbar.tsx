@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreactors, State } from "../state";
@@ -19,8 +19,9 @@ const Navbar = (props: Props) => {
     };
   });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const { addSet, copySavedSet } = bindActionCreators(
+  const { addSet, copySavedSet, setShowConfirmModal } = bindActionCreators(
     actionCreactors,
     dispatch
   );
@@ -38,11 +39,23 @@ const Navbar = (props: Props) => {
     },
   };
   return (
-    <div className="div-padding z-50 absolute top-0 left-0 w-full bg-slate-800 border-b-[1px] border-solid h-16 border-slate-700 flex items-center justify-between">
+    <div className="div-padding static w-full bg-slate-800 border-b-[1px] border-solid h-16 border-slate-700 flex items-center justify-between">
       <nav className="flex items-end">
-        <Link to="/" className="text-4xl block text-white py-4 font-bold mr-6">
+        <button
+          onClick={() => {
+            if (
+              window.location.pathname === "/create" ||
+              window.location.pathname === "/edit"
+            ) {
+              setShowConfirmModal(true, undefined, "/");
+            } else {
+              navigate("/");
+            }
+          }}
+          className="text-4xl block text-white py-4 font-bold mr-6"
+        >
           Mnemory
-        </Link>
+        </button>
         <Link
           onClick={copySavedSet}
           to="/edit"
@@ -51,9 +64,21 @@ const Navbar = (props: Props) => {
           Edit
         </Link>
       </nav>
-      <Link to="/create" className="btn" onClick={() => addSet(emptySet)}>
+      <button
+        onClick={() => {
+          if (
+            window.location.pathname === "/create" ||
+            window.location.pathname === "/edit"
+          ) {
+            setShowConfirmModal(true, () => addSet(emptySet), "/create");
+          } else {
+            navigate("/create");
+          }
+        }}
+        className="btn"
+      >
         Create set
-      </Link>
+      </button>
     </div>
   );
 };

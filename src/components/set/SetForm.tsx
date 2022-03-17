@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { actionCreactors, State } from "../../state";
+import ConfirmModal from "../UI/ConfirmModal";
 import Input from "./../UI/Input";
 
 type Props = {
@@ -11,12 +12,11 @@ type Props = {
 };
 
 const SetForm = ({ buttonText, titleContent }: Props) => {
-  const dispatch = useDispatch();
   const nameRef = useRef() as RefObject<HTMLInputElement>;
   const descriptionRef = useRef() as RefObject<HTMLInputElement>;
   const mnemoryState = useSelector((state: State) => state.mnemory);
   const [stickyClass, setStickyClass] = useState<string>("relative");
-
+  const dispatch = useDispatch();
   const { setSetInfo, saveCurrentSet } = bindActionCreators(
     actionCreactors,
     dispatch

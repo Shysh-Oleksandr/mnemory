@@ -85,6 +85,20 @@ interface CopySavedSetAction {
   type: ActionType.COPY_SAVED_SET;
 }
 
+interface SetAreImagesLoadingAction {
+  type: ActionType.SET_ARE_IMAGES_LOADING;
+  payload: boolean;
+}
+
+interface SetShowConfirmModalAction {
+  type: ActionType.SET_SHOW_CONFIRM_MODAL;
+  payload: {
+    toShow: boolean;
+    onClick?: React.MouseEventHandler<HTMLAnchorElement> | undefined;
+    to: string;
+  };
+}
+
 export type Action =
   | AddingAction
   | DeletingAction
@@ -101,4 +115,6 @@ export type Action =
   | DeleteSetAction
   | SaveSetAction
   | CopySavedSetAction
+  | SetAreImagesLoadingAction
+  | SetShowConfirmModalAction
   | DeletingKeywordAction;
