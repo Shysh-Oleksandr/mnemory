@@ -14,10 +14,12 @@ const SaveBtn = ({ buttonText }: Props) => {
   const { saveCurrentSet } = bindActionCreators(actionCreactors, dispatch);
   return (
     <button
+      type="submit"
+      form={`set-form-${mnemoryState.currentSetId}`}
       onClick={saveCurrentSet}
       className="btn ml-auto block mt-2 !px-24 !py-4"
     >
-      <Link to={`/set/${mnemoryState.currentSetId}`}>{buttonText}</Link>
+      {buttonText}
     </button>
   );
 };

@@ -7,6 +7,7 @@ type Props = {
   labelClassName?: string;
   inputId: string;
   labelText: string;
+  required?: boolean;
   reference: RefObject<HTMLInputElement>;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
@@ -19,6 +20,7 @@ const Input = ({
   inputId,
   labelText,
   reference,
+  required,
   onChange,
 }: Props) => {
   return (
@@ -31,6 +33,7 @@ const Input = ({
         className={`${inputClassName} term-input`}
         id={inputId}
         ref={reference}
+        required={required}
       />
       <label htmlFor={inputId} className={`${labelClassName} term-input-label`}>
         {labelText}

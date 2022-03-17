@@ -309,8 +309,6 @@ const mnemoryReducer = (
       };
 
     case ActionType.SAVE_CURRENT_SET:
-      console.log("save curr set");
-
       newSets = state.sets.map((set) => {
         if (set.editingSet.setId === state.currentSetId) {
           const newEditingSet: ISet = {
@@ -327,9 +325,6 @@ const mnemoryReducer = (
       };
 
     case ActionType.COPY_SAVED_SET:
-      console.log("copy saved set");
-      console.log(state);
-
       newSets = state.sets.map((set) => {
         if (set.editingSet.setId === state.currentSetId) {
           const newSavedSet: ISet = {
