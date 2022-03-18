@@ -15,7 +15,7 @@ const SetForm = ({ buttonText, titleContent }: Props) => {
   const nameRef = useRef() as RefObject<HTMLInputElement>;
   const descriptionRef = useRef() as RefObject<HTMLInputElement>;
   const mnemoryState = useSelector((state: State) => state.mnemory);
-  const [stickyClass, setStickyClass] = useState<string>("relative");
+  const [stickyClass, setStickyClass] = useState<string>("static");
   const dispatch = useDispatch();
   const { setSetInfo, saveCurrentSet } = bindActionCreators(
     actionCreactors,
@@ -36,12 +36,15 @@ const SetForm = ({ buttonText, titleContent }: Props) => {
     if (window !== undefined) {
       let windowHeight = window.scrollY;
       windowHeight > 64
-        ? setStickyClass("fixed top-0 left-0 z-50 div-padding")
-        : setStickyClass("relative");
+        ? setStickyClass("fixed top-0 left-0 z-20 div-padding")
+        : setStickyClass("static");
     }
   };
 
-  const saveSet = () => {
+  const saveSet = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("subm");
+
     saveCurrentSet();
     navigate(`/set/${mnemoryState.currentSetId}`);
   };
@@ -50,7 +53,7 @@ const SetForm = ({ buttonText, titleContent }: Props) => {
     <form
       id={`set-form-${mnemoryState.currentSetId}`}
       className="mb-10"
-      onSubmit={saveSet}
+      onSubmit={(e) => saveSet(e)}
     >
       <div
         className={`flex w-full justify-between items-center py-6 bg-slate-800 ${stickyClass}`}

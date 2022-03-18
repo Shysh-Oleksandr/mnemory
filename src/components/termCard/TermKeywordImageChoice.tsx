@@ -63,7 +63,6 @@ const TermKeywordImageChoice = ({ term }: Props) => {
       inputRef.current.value = mnemoryState.currentImageQuery;
     }
     setLoadedImages([]);
-    console.log("image query change");
   }, [mnemoryState.currentImageQuery]);
 
   useEffect(() => {
@@ -72,9 +71,7 @@ const TermKeywordImageChoice = ({ term }: Props) => {
       mnemoryState.areImagesLoading
     ) {
       setAreImagesLoading(false);
-      console.log("false loading");
     }
-    console.log(loadedImages.length);
   }, [loadedImages]);
 
   function getFileImageUrl(e: React.ChangeEvent<HTMLInputElement>): string {

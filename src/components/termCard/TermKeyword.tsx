@@ -51,7 +51,7 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
           htmlFor={`${termId}-${descriptionKeyword.id}`}
           className={`term-keyword-image-filler ${
             descriptionKeyword.imageChecked ? "checked" : ""
-          } w-full h-[80px] rounded-xl cursor-pointer flex justify-center transition-all items-center border-2 border-dashed border-white`}
+          } w-full h-[80px] rounded-xl static cursor-pointer flex justify-center transition-all items-center border-2 border-dashed border-white`}
         >
           <input
             type="checkbox"

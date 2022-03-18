@@ -1,9 +1,9 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
 import SetForm from "../components/set/SetForm";
 import SaveBtn from "../components/UI/SaveBtn";
-import { State } from "../state";
+import { actionCreactors, State } from "../state";
 import AddTermBtn from "./../components/AddTermBtn";
 import TermsList from "./../components/TermsList";
 
@@ -11,16 +11,27 @@ type Props = {};
 
 const EditPage = (props: Props) => {
   const mnemoryState = useSelector((state: State) => state.mnemory);
-
+  const dispatch = useDispatch();
+  const { setShowConfirmModal } = bindActionCreators(actionCreactors, dispatch);
   return (
     <div>
       <SetForm
         buttonText="Save"
         titleContent={
-          <Link to="/set/3" className="text-xl">
+          <button
+            type="button"
+            onClick={() =>
+              setShowConfirmModal(
+                true,
+                undefined,
+                `/set/${mnemoryState.currentSetId}`
+              )
+            }
+            className="text-xl"
+          >
             <span className="mr-3 text-teal-400 hover:text-orange-400 transition-colors">{`<`}</span>
             Back to the set
-          </Link>
+          </button>
         }
       />
       <TermsList
