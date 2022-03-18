@@ -34,8 +34,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/create" element={<CreatePage />} />
-          <Route path="/edit" element={<EditPage />} />
-          <Route path="/learn" element={<LearnPage />} />
+          <Route path="/set/:setid/edit/" element={<EditPage />} />
+          <Route path="/set/:setid/learn" element={<LearnPage />} />
           <Route path="/set/:setid" element={<SetPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>

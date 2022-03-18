@@ -58,7 +58,7 @@ const Navbar = (props: Props) => {
         </button>
         <Link
           onClick={copySavedSet}
-          to="/edit"
+          to={`/set/${mnemoryState.currentSetId}/edit`}
           className="text-2xl block text-white py-4 font-bold mr-6"
         >
           Edit
@@ -68,7 +68,8 @@ const Navbar = (props: Props) => {
         onClick={() => {
           if (
             window.location.pathname === "/create" ||
-            window.location.pathname === "/edit"
+            window.location.pathname ===
+              `/set/${mnemoryState.currentSetId}/edit`
           ) {
             setShowConfirmModal(true, () => addSet(emptySet), "/create");
           } else {
