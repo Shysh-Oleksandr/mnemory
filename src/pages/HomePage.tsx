@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { actionCreactors, State } from "../state";
+import { ISetStatus } from "../state/Reducers/MnemoryReducer";
 
 type Props = {};
 
@@ -12,24 +13,25 @@ const HomePage = (props: Props) => {
 
   const { setCurrentSetId } = bindActionCreators(actionCreactors, dispatch);
 
+  const getSetImage = (set: ISetStatus): string | undefined => {
+    let keywords = set.savedSet.terms.map((term) => {
+      let keyword = term.descriptionKeywords.find((keyword) => keyword.image);
+      return keyword;
+    });
+    keywords = keywords.filter((keyword) => keyword !== undefined);
+    const keywordImage =
+      keywords.length === 0 ? undefined : keywords[keywords.length - 1]!.image;
+    return keywordImage;
+  };
+
   return (
     <div className="mt-8">
       <h3 className="text-2xl mb-2">Your sets</h3>
       <div className="flex flex-wrap gap-3">
         {mnemoryState.sets
-          .filter((set) => set.savedSet.name)
+          // .filter((set) => set.savedSet.name)
           .map((set) => {
-            let keywords = set.savedSet.terms.map((term) => {
-              let keyword = term.descriptionKeywords.find(
-                (keyword) => keyword.image
-              );
-              return keyword;
-            });
-            keywords = keywords.filter((keyword) => keyword !== undefined);
-            const keywordImage =
-              keywords.length === 0
-                ? undefined
-                : keywords[keywords.length - 1]!.image;
+            const keywordImage = getSetImage(set);
             return (
               <Link
                 to={`/set/${set.savedSet.setId + 1}`}

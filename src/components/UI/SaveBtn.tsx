@@ -15,7 +15,7 @@ const SaveBtn = ({ buttonText }: Props) => {
   return (
     <button
       type="submit"
-      form={`set-form-${mnemoryState.currentSetId}`}
+      form={`set-form-${mnemoryState.currentSetId + 1}`}
       onClick={saveCurrentSet}
       className="btn ml-auto block mt-2 !px-24 !py-4"
     >

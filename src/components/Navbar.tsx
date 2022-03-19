@@ -71,11 +71,11 @@ const Navbar = (props: Props) => {
             setShowConfirmModal(
               true,
               () => addSet(emptySet),
-              `/create/${mnemoryState.sets.length}`
+              `/create/${mnemoryState.sets.length + 1}`
             );
           } else {
             addSet(emptySet);
-            navigate(`/create/${mnemoryState.sets.length}`);
+            navigate(`/create/${mnemoryState.sets.length + 1}`);
           }
         }}
         className="btn"

@@ -36,7 +36,7 @@ const SetForm = ({ buttonText, titleContent }: Props) => {
   const stickNavbar = () => {
     if (window !== undefined) {
       let windowHeight = window.scrollY;
-      windowHeight > 64
+      windowHeight > 110
         ? setStickyClass("fixed top-0 left-0 z-20 div-padding")
         : setStickyClass("static");
     }
@@ -45,14 +45,15 @@ const SetForm = ({ buttonText, titleContent }: Props) => {
   const saveSet = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("subm");
+    console.log(e.currentTarget.id);
 
     saveCurrentSet();
-    navigate(`/set/${mnemoryState.currentSetId}`);
+    navigate(`/set/${mnemoryState.currentSetId + 1}`);
   };
 
   return (
     <form
-      id={`set-form-${mnemoryState.currentSetId}`}
+      id={`set-form-${mnemoryState.currentSetId + 1}`}
       className="mb-10"
       onSubmit={(e) => saveSet(e)}
     >
@@ -62,7 +63,7 @@ const SetForm = ({ buttonText, titleContent }: Props) => {
         {titleContent}
         <button
           type="submit"
-          form={`set-form-${mnemoryState.currentSetId}`}
+          form={`set-form-${mnemoryState.currentSetId + 1}`}
           className="btn"
         >
           {buttonText}

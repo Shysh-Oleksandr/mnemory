@@ -124,13 +124,11 @@ export const isSetChanged = (
   const isChanged =
     JSON.stringify(currentSet.editingSet) !==
     JSON.stringify(currentSet.savedSet);
-  console.log(currentSet.editingSet, currentSet.savedSet);
 
   if (isEmpty && !isChanged) {
     console.log("delete set");
     deleteSet(currentSet.editingSet.setId);
   }
-  console.log(isChanged);
   return isChanged;
 };
 

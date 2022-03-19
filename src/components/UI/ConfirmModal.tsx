@@ -28,6 +28,9 @@ const ConfirmModal = ({ setShowConfirmModal, onClick, to }: Props) => {
     dispatch
   );
 
+  const isSetNameBlank =
+    mnemoryState.sets[mnemoryState.currentSetId].editingSet.name === "";
+
   useEffect(() => {
     document.documentElement.classList.add("stop-scrolling");
 
@@ -65,8 +68,17 @@ const ConfirmModal = ({ setShowConfirmModal, onClick, to }: Props) => {
           <button
             className="block btn mx-2 !px-10"
             onClick={(e) => {
+              if (
+                isSetNameBlank &&
+                mnemoryState.sets[mnemoryState.currentSetId].savedSet.name ===
+                  ""
+              ) {
+                console.log("del");
+
+                deleteSet(mnemoryState.currentSetId);
+              }
+
               setShowConfirmModal(false, onClick, to);
-              isSetChanged(mnemoryState, deleteSet);
               navigate(to);
               if (onClick) onClick(e);
             }}
@@ -76,7 +88,15 @@ const ConfirmModal = ({ setShowConfirmModal, onClick, to }: Props) => {
           <button
             className="block btn mx-2 !px-10 !text-white !bg-slate-900 hover:!bg-black"
             onClick={(e) => {
-              saveCurrentSet();
+              if (isSetNameBlank) {
+                console.log("del");
+
+                deleteSet(mnemoryState.currentSetId);
+              } else {
+                saveCurrentSet();
+                console.log("d agter");
+              }
+
               setShowConfirmModal(false, onClick, to);
               navigate(to);
               if (onClick) onClick(e);
