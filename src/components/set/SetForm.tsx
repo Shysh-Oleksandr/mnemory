@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { actionCreactors, State } from "../../state";
+import { ISetStatus } from "../../state/Reducers/MnemoryReducer";
 import ConfirmModal from "../UI/ConfirmModal";
 import Input from "./../UI/Input";
 

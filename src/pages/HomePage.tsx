@@ -32,7 +32,7 @@ const HomePage = (props: Props) => {
                 : keywords[keywords.length - 1]!.image;
             return (
               <Link
-                to={`/set/${set.savedSet.setId}`}
+                to={`/set/${set.savedSet.setId + 1}`}
                 className="basis-[32%] rounded-lg cursor-pointer border-solid border-transparent hover:bg-slate-600 hover:border-white border-b-4 transition-all bg-slate-700 p-4"
                 key={set.savedSet.setId}
                 onClick={() => setCurrentSetId(set.savedSet.setId)}

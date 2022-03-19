@@ -18,7 +18,7 @@ const CreatePage = (props: Props) => {
         titleContent={<h2 className="text-2xl">Create a new set</h2>}
       />
       <TermsList
-        terms={mnemoryState.sets[mnemoryState.currentSetId].editingSet.terms}
+        terms={mnemoryState.sets[mnemoryState.sets.length - 1].editingSet.terms}
       />
       <AddTermBtn />
       <SaveBtn buttonText="Create" />

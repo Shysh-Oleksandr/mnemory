@@ -33,7 +33,7 @@ function App() {
       <div className="App div-padding pb-6">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/create" element={<CreatePage />} />
+          <Route path="/create/:setid" element={<CreatePage />} />
           <Route path="/set/:setid/edit/" element={<EditPage />} />
           <Route path="/set/:setid/learn" element={<LearnPage />} />
           <Route path="/set/:setid" element={<SetPage />} />

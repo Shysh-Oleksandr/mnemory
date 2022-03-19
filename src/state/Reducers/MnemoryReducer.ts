@@ -1,3 +1,4 @@
+import { Dispatch } from "react";
 import { ITerm } from "../../components/termCard/Term";
 import { ActionType } from "../Action-types";
 import { Action } from "../Actions";
@@ -113,6 +114,25 @@ function validateTerms(terms: ITerm[]): ITerm[] {
 
   return validatedTerms;
 }
+
+export const isSetChanged = (
+  mnemoryState: IMnemory,
+  deleteSet: any
+): boolean => {
+  const currentSet = mnemoryState.sets[mnemoryState.currentSetId];
+  const isEmpty = currentSet.editingSet.name === "";
+  const isChanged =
+    JSON.stringify(currentSet.editingSet) !==
+    JSON.stringify(currentSet.savedSet);
+  console.log(currentSet.editingSet, currentSet.savedSet);
+
+  if (isEmpty && !isChanged) {
+    console.log("delete set");
+    deleteSet(currentSet.editingSet.setId);
+  }
+  console.log(isChanged);
+  return isChanged;
+};
 
 function setNewTerms(state: IMnemory, newTerms: ITerm[]): ISetStatus[] {
   const newSets = state.sets.map((set) => {
@@ -303,6 +323,8 @@ const mnemoryReducer = (
       return { ...state, currentSetId: action.payload };
 
     case ActionType.ADDING_SET:
+      console.log("add set");
+
       return {
         ...state,
         currentSetId: action.payload.editingSet.setId,

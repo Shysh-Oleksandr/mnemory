@@ -1,9 +1,9 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { actionCreactors, State } from "../state";
-import { ISetStatus } from "../state/Reducers/MnemoryReducer";
+import { ISetStatus, isSetChanged } from "../state/Reducers/MnemoryReducer";
 import { ITerm } from "./termCard/Term";
 
 type Props = {};
@@ -20,16 +20,13 @@ const Navbar = (props: Props) => {
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const { addSet, copySavedSet, setShowConfirmModal } = bindActionCreators(
-    actionCreactors,
-    dispatch
-  );
+  const { addSet, copySavedSet, setShowConfirmModal, deleteSet } =
+    bindActionCreators(actionCreactors, dispatch);
 
   const emptySet: ISetStatus = {
     savedSet: {
       name: "",
-      terms: [],
+      terms: emptyTerms,
       setId: mnemoryState.sets.length,
     },
     editingSet: {
@@ -38,15 +35,19 @@ const Navbar = (props: Props) => {
       setId: mnemoryState.sets.length,
     },
   };
+
+  const isCreateOrEditPage =
+    window.location.pathname.startsWith("/create") ||
+    window.location.pathname.endsWith("/edit");
+
   return (
     <div className="div-padding static w-full bg-slate-800 border-b-[1px] border-solid h-16 border-slate-700 flex items-center justify-between">
       <nav className="flex items-end">
         <button
           onClick={() => {
-            if (
-              window.location.pathname === "/create" ||
-              window.location.pathname === "/edit"
-            ) {
+            console.log(isSetChanged(mnemoryState, deleteSet));
+
+            if (isCreateOrEditPage && isSetChanged(mnemoryState, deleteSet)) {
               setShowConfirmModal(true, undefined, "/");
             } else {
               navigate("/");
@@ -58,7 +59,7 @@ const Navbar = (props: Props) => {
         </button>
         <Link
           onClick={copySavedSet}
-          to={`/set/${mnemoryState.currentSetId}/edit`}
+          to={`/set/${mnemoryState.currentSetId + 1}/edit`}
           className="text-2xl block text-white py-4 font-bold mr-6"
         >
           Edit
@@ -66,14 +67,15 @@ const Navbar = (props: Props) => {
       </nav>
       <button
         onClick={() => {
-          if (
-            window.location.pathname === "/create" ||
-            window.location.pathname ===
-              `/set/${mnemoryState.currentSetId}/edit`
-          ) {
-            setShowConfirmModal(true, () => addSet(emptySet), "/create");
+          if (isCreateOrEditPage && isSetChanged(mnemoryState, deleteSet)) {
+            setShowConfirmModal(
+              true,
+              () => addSet(emptySet),
+              `/create/${mnemoryState.sets.length}`
+            );
           } else {
-            navigate("/create");
+            addSet(emptySet);
+            navigate(`/create/${mnemoryState.sets.length}`);
           }
         }}
         className="btn"

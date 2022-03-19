@@ -4,6 +4,7 @@ import { bindActionCreators, Dispatch } from "redux";
 import { actionCreactors, State } from "../../state";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { isSetChanged } from "../../state/Reducers/MnemoryReducer";
 
 type Props = {
   setShowConfirmModal: (
@@ -22,7 +23,10 @@ const ConfirmModal = ({ setShowConfirmModal, onClick, to }: Props) => {
 
   const ref = useRef() as React.MutableRefObject<HTMLDivElement>;
 
-  const { saveCurrentSet } = bindActionCreators(actionCreactors, dispatch);
+  const { saveCurrentSet, deleteSet } = bindActionCreators(
+    actionCreactors,
+    dispatch
+  );
 
   useEffect(() => {
     document.documentElement.classList.add("stop-scrolling");
@@ -60,9 +64,11 @@ const ConfirmModal = ({ setShowConfirmModal, onClick, to }: Props) => {
         <div className="flex justify-center items-center">
           <button
             className="block btn mx-2 !px-10"
-            onClick={() => {
+            onClick={(e) => {
               setShowConfirmModal(false, onClick, to);
+              isSetChanged(mnemoryState, deleteSet);
               navigate(to);
+              if (onClick) onClick(e);
             }}
           >
             Don't save
