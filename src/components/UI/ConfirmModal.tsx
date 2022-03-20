@@ -69,8 +69,6 @@ const ConfirmModal = ({ setShowConfirmModal, onClick, to }: Props) => {
             className="block btn mx-2 !px-10"
             onClick={(e) => {
               if (currentSet.savedSet.name === "") {
-                console.log("del");
-
                 deleteSet(mnemoryState.currentSetId);
               }
 
@@ -85,12 +83,9 @@ const ConfirmModal = ({ setShowConfirmModal, onClick, to }: Props) => {
             className="block btn mx-2 !px-10 !text-white !bg-slate-900 hover:!bg-black"
             onClick={(e) => {
               if (currentSet.editingSet.name === "") {
-                console.log("del");
-
                 deleteSet(mnemoryState.currentSetId);
               } else {
                 saveCurrentSet();
-                console.log("d agter");
               }
 
               setShowConfirmModal(false, onClick, to);

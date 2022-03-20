@@ -17,10 +17,10 @@ const SetTermsList = ({ set }: Props) => {
             <h5 className="border-right text-xl pl-3 pr-7 mr-8">
               {term.id + 1}.
             </h5>
-            <h4 className="border-right text-2xl basis-1/5 shrink-0 pr-2 mr-8">
+            <h4 className="border-right text-2xl basis-1/5 shrink-0 pr-4 mr-8">
               {term.term}
             </h4>
-            <h4 className="text-2xl mr-8 pr-2 border-right basis-1/6 shrink-0 ">
+            <h4 className="text-2xl mr-8 pr-4 border-right basis-1/6 shrink-0 ">
               {term.definition}
             </h4>
             <div className="flex flex-wrap items-end">

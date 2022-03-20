@@ -1,11 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { actionCreactors, State } from "../state";
 import { ISetStatus } from "../state/Reducers/MnemoryReducer";
-import { ITerm } from "./termCard/Term";
 import { isSetChanged } from "./../Helpers/functions";
+import { ITerm } from "./termCard/Term";
 
 type Props = {};
 
@@ -20,8 +20,8 @@ const Navbar = (props: Props) => {
       id: index,
     };
   });
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { addSet, copySavedSet, setShowConfirmModal, deleteSet } =
     bindActionCreators(actionCreactors, dispatch);
 
@@ -47,8 +47,6 @@ const Navbar = (props: Props) => {
       <nav className="flex items-end">
         <button
           onClick={() => {
-            console.log(isSetChanged(mnemoryState, deleteSet));
-
             if (isCreateOrEditPage && isSetChanged(mnemoryState, deleteSet)) {
               setShowConfirmModal(true, undefined, "/");
             } else {
@@ -59,13 +57,6 @@ const Navbar = (props: Props) => {
         >
           Mnemory
         </button>
-        <Link
-          onClick={copySavedSet}
-          to={`/set/${mnemoryState.currentSetId + 1}/edit`}
-          className="text-2xl block text-white py-4 font-bold mr-6"
-        >
-          Edit
-        </Link>
       </nav>
       <button
         onClick={() => {

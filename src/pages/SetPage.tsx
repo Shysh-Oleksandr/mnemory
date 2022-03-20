@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { actionCreactors, State } from "../state";
 import { getCurrentSet } from "./../Helpers/functions";
@@ -10,7 +10,10 @@ type Props = {};
 
 const SetPage = (props: Props) => {
   const dispatch = useDispatch();
-  const { deleteSet } = bindActionCreators(actionCreactors, dispatch);
+  const { copySavedSet, deleteSet } = bindActionCreators(
+    actionCreactors,
+    dispatch
+  );
   const mnemoryState = useSelector((state: State) => state.mnemory);
   const navigate = useNavigate();
   const currentSet = getCurrentSet(mnemoryState);
@@ -31,16 +34,23 @@ const SetPage = (props: Props) => {
         </div>
         <SetTermsList set={savedSet} />
       </div>
-      <div>
-        {/* <button
-          className="text-3xl"
+      <div className="mt-6 flex items-center">
+        <Link
+          onClick={copySavedSet}
+          to={`/set/${savedSet.setId + 1}/edit`}
+          className="btn block !py-4 text-center basis-9/12 font-bold mr-4"
+        >
+          Edit set
+        </Link>
+        <button
+          className="btn block basis-3/12 whitespace-nowrap !text-white !py-4 font-bold !bg-red-800 hover:!bg-red-900"
           onClick={() => {
-            deleteSet(mnemoryState.currentSetId);
+            deleteSet(savedSet.setId);
             navigate("/");
           }}
         >
-          Delete this set
-        </button> */}
+          Delete set
+        </button>
       </div>
     </div>
   );

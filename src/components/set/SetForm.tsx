@@ -49,8 +49,6 @@ const SetForm = ({ buttonText, titleContent }: Props) => {
 
   const saveSet = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("subm");
-    console.log(e.currentTarget.id);
 
     saveCurrentSet();
     navigate(`/set/${mnemoryState.currentSetId + 1}`);
