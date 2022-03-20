@@ -30,12 +30,14 @@ const SetForm = ({ buttonText, titleContent }: Props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    window.addEventListener("scroll", stickNavbar);
+    nameRef.current!.value = "";
+    descriptionRef.current!.value = "";
 
+    window.addEventListener("scroll", stickNavbar);
     return () => {
       window.removeEventListener("scroll", stickNavbar);
     };
-  }, []);
+  }, [mnemoryState.currentSetId]);
 
   const stickNavbar = () => {
     if (window !== undefined) {

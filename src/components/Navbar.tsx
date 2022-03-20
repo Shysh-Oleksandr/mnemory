@@ -41,8 +41,6 @@ const Navbar = (props: Props) => {
     window.location.pathname.startsWith("/create") ||
     window.location.pathname.endsWith("/edit");
 
-  console.log(mnemoryState);
-
   return (
     <div className="div-padding static w-full bg-slate-800 border-b-[1px] border-solid h-16 border-slate-700 flex items-center justify-between">
       <nav className="flex items-end">

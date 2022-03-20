@@ -1,18 +1,26 @@
-import React, { RefObject, useRef } from "react";
+import React, { RefObject, useEffect, useRef } from "react";
 import Input from "../UI/Input";
 import { ITerm } from "./Term";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actionCreactors } from "../../state";
+import { actionCreactors, State } from "../../state";
 
 type Props = { term: ITerm };
 
 const TermInfo = ({ term }: Props) => {
   const dispatch = useDispatch();
+  const mnemoryState = useSelector((state: State) => state.mnemory);
+
   const nameRef = useRef() as RefObject<HTMLInputElement>;
   const descriptionRef = useRef() as RefObject<HTMLInputElement>;
 
   const { setTermInfo } = bindActionCreators(actionCreactors, dispatch);
+
+  useEffect(() => {
+    nameRef.current!.value = "";
+    descriptionRef.current!.value = "";
+  }, [mnemoryState.currentSetId]);
+
   return (
     <div className="term-info">
       <Input

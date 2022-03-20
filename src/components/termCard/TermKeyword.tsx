@@ -1,13 +1,15 @@
-import React, { RefObject, useRef } from "react";
-import { useDispatch } from "react-redux";
+import React, { RefObject, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actionCreactors } from "../../state";
+import { actionCreactors, State } from "../../state";
 import { Keyword } from "./Term";
 import { fetchImages } from "./TermKeywordImageChoice";
 
 type Props = { termId: number; descriptionKeyword: Keyword };
 
 const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
+  const mnemoryState = useSelector((state: State) => state.mnemory);
+
   const nameRef = useRef() as RefObject<HTMLInputElement>;
   const descriptionRef = useRef() as RefObject<HTMLTextAreaElement>;
   const dispatch = useDispatch();
@@ -19,6 +21,11 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
     setKeywordInfo,
     setAreImagesLoading,
   } = bindActionCreators(actionCreactors, dispatch);
+
+  useEffect(() => {
+    nameRef.current!.value = "";
+    descriptionRef.current!.value = "";
+  }, [mnemoryState.currentSetId]);
 
   const toggleImageChoice = () => {
     toggleTermKeywordImage(termId, descriptionKeyword.id);

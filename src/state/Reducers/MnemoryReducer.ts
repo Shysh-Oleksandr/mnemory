@@ -330,6 +330,8 @@ const mnemoryReducer = (
       };
 
     case ActionType.SET_SET_INFO:
+      console.log(action.payload);
+
       newSets = state.sets.map((set) => {
         if (set.editingSet.setId === state.currentSetId) {
           const newEditingSet: ISet = {
