@@ -19,6 +19,7 @@ const TermCardSeparator = ({ cardId }: Props) => {
 
   const emptyTerm = {
     term: "",
+    definition: "",
     descriptionKeywords: [{ keyword: "", id: 0, imageChecked: false }],
     id: currentSet.editingSet.terms.length,
   };

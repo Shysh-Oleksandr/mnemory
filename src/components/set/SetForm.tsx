@@ -7,7 +7,7 @@ import { ISetStatus } from "../../state/Reducers/MnemoryReducer";
 import ConfirmModal from "../UI/ConfirmModal";
 import Input from "./../UI/Input";
 import { IMnemory } from "./../../state/Reducers/MnemoryReducer";
-import { getCurrentSet } from "../../Helpers/functions";
+import { clearInput, getCurrentSet } from "../../Helpers/functions";
 
 type Props = {
   buttonText: string;
@@ -30,8 +30,7 @@ const SetForm = ({ buttonText, titleContent }: Props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    nameRef.current!.value = "";
-    descriptionRef.current!.value = "";
+    clearInput(nameRef, descriptionRef);
 
     window.addEventListener("scroll", stickNavbar);
     return () => {
@@ -42,7 +41,7 @@ const SetForm = ({ buttonText, titleContent }: Props) => {
   const stickNavbar = () => {
     if (window !== undefined) {
       let windowHeight = window.scrollY;
-      windowHeight > 110
+      windowHeight > 130
         ? setStickyClass("fixed top-0 left-0 z-20 div-padding")
         : setStickyClass("static");
     }

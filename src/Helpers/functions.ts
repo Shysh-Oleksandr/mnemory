@@ -1,3 +1,4 @@
+import { RefObject } from "react";
 import { ITerm } from "../components/termCard/Term";
 import { ISet, ISetStatus } from "../state/Reducers/MnemoryReducer";
 import { IMnemory } from "./../state/Reducers/MnemoryReducer";
@@ -51,4 +52,14 @@ export function setNewTerms(state: IMnemory, newTerms: ITerm[]): ISetStatus[] {
   });
 
   return newSets;
+}
+
+export function clearInput(
+  ...args: RefObject<HTMLInputElement | HTMLTextAreaElement>[]
+) {
+  if (window.location.pathname.startsWith("/create")) {
+    args.forEach((inputRef) => {
+      inputRef.current!.value = "";
+    });
+  }
 }

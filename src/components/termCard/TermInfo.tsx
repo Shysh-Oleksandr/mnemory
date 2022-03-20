@@ -4,6 +4,7 @@ import { ITerm } from "./Term";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreactors, State } from "../../state";
+import { clearInput } from "../../Helpers/functions";
 
 type Props = { term: ITerm };
 
@@ -17,8 +18,7 @@ const TermInfo = ({ term }: Props) => {
   const { setTermInfo } = bindActionCreators(actionCreactors, dispatch);
 
   useEffect(() => {
-    nameRef.current!.value = "";
-    descriptionRef.current!.value = "";
+    clearInput(nameRef, descriptionRef);
   }, [mnemoryState.currentSetId]);
 
   return (

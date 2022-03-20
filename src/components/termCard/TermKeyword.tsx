@@ -1,6 +1,7 @@
 import React, { RefObject, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
+import { clearInput } from "../../Helpers/functions";
 import { actionCreactors, State } from "../../state";
 import { Keyword } from "./Term";
 import { fetchImages } from "./TermKeywordImageChoice";
@@ -23,8 +24,7 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
   } = bindActionCreators(actionCreactors, dispatch);
 
   useEffect(() => {
-    nameRef.current!.value = "";
-    descriptionRef.current!.value = "";
+    clearInput(nameRef, descriptionRef);
   }, [mnemoryState.currentSetId]);
 
   const toggleImageChoice = () => {

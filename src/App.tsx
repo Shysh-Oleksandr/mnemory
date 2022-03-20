@@ -2,17 +2,15 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import AddTermBtn from "./components/AddTermBtn";
 import Navbar from "./components/Navbar";
-import TermsList from "./components/TermsList";
-import { actionCreactors, State } from "./state";
-import HomePage from "./pages/HomePage";
+import ConfirmModal from "./components/UI/ConfirmModal";
 import CreatePage from "./pages/CreatePage";
 import EditPage from "./pages/EditPage";
-import LearnPage from "./pages/LearnPage";
 import ErrorPage from "./pages/ErrorPage";
+import HomePage from "./pages/HomePage";
+import LearnPage from "./pages/LearnPage";
 import SetPage from "./pages/SetPage";
-import ConfirmModal from "./components/UI/ConfirmModal";
+import { actionCreactors, State } from "./state";
 
 function App() {
   const mnemoryState = useSelector((state: State) => state.mnemory);

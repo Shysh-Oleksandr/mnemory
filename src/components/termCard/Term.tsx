@@ -14,7 +14,7 @@ export type Keyword = {
 
 export interface ITerm {
   term: string;
-  definition?: string;
+  definition: string;
   descriptionKeywords: Keyword[];
   id: number;
 }

@@ -15,6 +15,7 @@ const Navbar = (props: Props) => {
   const emptyTerms: ITerm[] = new Array(4).fill(0).map((term, index) => {
     return {
       term: "",
+      definition: "",
       descriptionKeywords: [{ keyword: "", id: 0, imageChecked: false }],
       id: index,
     };

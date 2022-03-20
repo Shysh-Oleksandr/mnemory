@@ -7,7 +7,7 @@ type Props = {
   terms: ITerm[];
 };
 
-const TermsList = ({ terms }: Props) => {
+const TermsEditList = ({ terms }: Props) => {
   return (
     <div>
       {terms.map((term, index) => {
@@ -23,4 +23,4 @@ const TermsList = ({ terms }: Props) => {
   );
 };
 
-export default TermsList;
+export default TermsEditList;

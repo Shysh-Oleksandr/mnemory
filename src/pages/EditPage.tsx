@@ -2,10 +2,11 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import SetForm from "../components/set/SetForm";
+import TermsEditList from "../components/TermsEditList";
 import SaveBtn from "../components/UI/SaveBtn";
 import { actionCreactors, State } from "../state";
 import AddTermBtn from "./../components/AddTermBtn";
-import TermsList from "./../components/TermsList";
+import { getCurrentSet } from "./../Helpers/functions";
 
 type Props = {};
 
@@ -34,9 +35,7 @@ const EditPage = (props: Props) => {
           </button>
         }
       />
-      <TermsList
-        terms={mnemoryState.sets[mnemoryState.currentSetId].editingSet.terms}
-      />
+      <TermsEditList terms={getCurrentSet(mnemoryState).editingSet.terms} />
       <AddTermBtn />
       <SaveBtn buttonText="Save" />
     </div>

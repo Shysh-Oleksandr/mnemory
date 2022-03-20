@@ -1,10 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import TermsEditList from "../components/TermsEditList";
 import SaveBtn from "../components/UI/SaveBtn";
 import { State } from "../state";
 import AddTermBtn from "./../components/AddTermBtn";
 import SetForm from "./../components/set/SetForm";
-import TermsList from "./../components/TermsList";
 
 type Props = {};
 
@@ -17,7 +17,7 @@ const CreatePage = (props: Props) => {
         buttonText="Create"
         titleContent={<h2 className="text-2xl">Create a new set</h2>}
       />
-      <TermsList
+      <TermsEditList
         terms={mnemoryState.sets[mnemoryState.sets.length - 1].editingSet.terms}
       />
       <AddTermBtn />

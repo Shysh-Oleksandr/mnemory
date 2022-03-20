@@ -80,3 +80,7 @@ ul {
 .stop-scrolling {
   @apply overflow-hidden;
 }
+
+.border-right {
+  @apply border-r-2 border-solid border-slate-900;
+}
