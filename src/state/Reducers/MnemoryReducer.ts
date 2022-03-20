@@ -1,7 +1,9 @@
 import { Dispatch } from "react";
 import { ITerm } from "../../components/termCard/Term";
+import { setNewTerms, validateTerms } from "../../Helpers/functions";
 import { ActionType } from "../Action-types";
 import { Action } from "../Actions";
+import { getCurrentSet } from "./../../Helpers/functions";
 
 export interface ISet {
   name: string;
@@ -101,54 +103,11 @@ const initialState: IMnemory = {
   showConfirmModal: { toShow: false, to: "/" },
 };
 
-function validateTerms(terms: ITerm[]): ITerm[] {
-  // Removing terms with empty name.
-  let validatedTerms = terms.filter((term) => term.term !== "");
-  // Removing empty keywords from term.
-  validatedTerms = validatedTerms.map((term) => {
-    let validatedKeywords = term.descriptionKeywords.filter(
-      (keyword) => keyword.keyword !== ""
-    );
-    return { ...term, descriptionKeywords: validatedKeywords };
-  });
-
-  return validatedTerms;
-}
-
-export const isSetChanged = (
-  mnemoryState: IMnemory,
-  deleteSet: any
-): boolean => {
-  const currentSet = mnemoryState.sets[mnemoryState.currentSetId];
-  const isEmpty = currentSet.editingSet.name === "";
-  const isChanged =
-    JSON.stringify(currentSet.editingSet) !==
-    JSON.stringify(currentSet.savedSet);
-
-  if (isEmpty && !isChanged) {
-    console.log("delete set");
-    deleteSet(currentSet.editingSet.setId);
-  }
-  return isChanged;
-};
-
-function setNewTerms(state: IMnemory, newTerms: ITerm[]): ISetStatus[] {
-  const newSets = state.sets.map((set) => {
-    if (set.editingSet.setId === state.currentSetId) {
-      const newEditingSet: ISet = { ...set.editingSet, terms: newTerms };
-      return { ...set, editingSet: newEditingSet };
-    }
-    return set;
-  });
-
-  return newSets;
-}
-
 const mnemoryReducer = (
   state: IMnemory = initialState,
   action: Action
 ): IMnemory => {
-  const currentEditingSet: ISet = state.sets[state.currentSetId].editingSet;
+  const currentEditingSet: ISet = getCurrentSet(state).editingSet;
   let newSets = state.sets;
   let newTerms = currentEditingSet.terms;
   switch (action.type) {

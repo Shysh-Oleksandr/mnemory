@@ -4,7 +4,8 @@ import { bindActionCreators, Dispatch } from "redux";
 import { actionCreactors, State } from "../../state";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { isSetChanged } from "../../state/Reducers/MnemoryReducer";
+import { ISetStatus } from "../../state/Reducers/MnemoryReducer";
+import { getCurrentSet } from "../../Helpers/functions";
 
 type Props = {
   setShowConfirmModal: (
@@ -28,8 +29,7 @@ const ConfirmModal = ({ setShowConfirmModal, onClick, to }: Props) => {
     dispatch
   );
 
-  const isSetNameBlank =
-    mnemoryState.sets[mnemoryState.currentSetId].editingSet.name === "";
+  const currentSet: ISetStatus = getCurrentSet(mnemoryState);
 
   useEffect(() => {
     document.documentElement.classList.add("stop-scrolling");
@@ -68,11 +68,7 @@ const ConfirmModal = ({ setShowConfirmModal, onClick, to }: Props) => {
           <button
             className="block btn mx-2 !px-10"
             onClick={(e) => {
-              if (
-                isSetNameBlank &&
-                mnemoryState.sets[mnemoryState.currentSetId].savedSet.name ===
-                  ""
-              ) {
+              if (currentSet.savedSet.name === "") {
                 console.log("del");
 
                 deleteSet(mnemoryState.currentSetId);
@@ -88,7 +84,7 @@ const ConfirmModal = ({ setShowConfirmModal, onClick, to }: Props) => {
           <button
             className="block btn mx-2 !px-10 !text-white !bg-slate-900 hover:!bg-black"
             onClick={(e) => {
-              if (isSetNameBlank) {
+              if (currentSet.editingSet.name === "") {
                 console.log("del");
 
                 deleteSet(mnemoryState.currentSetId);

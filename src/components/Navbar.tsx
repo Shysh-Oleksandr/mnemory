@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { actionCreactors, State } from "../state";
-import { ISetStatus, isSetChanged } from "../state/Reducers/MnemoryReducer";
+import { ISetStatus } from "../state/Reducers/MnemoryReducer";
 import { ITerm } from "./termCard/Term";
+import { isSetChanged } from "./../Helpers/functions";
 
 type Props = {};
 
@@ -39,6 +40,8 @@ const Navbar = (props: Props) => {
   const isCreateOrEditPage =
     window.location.pathname.startsWith("/create") ||
     window.location.pathname.endsWith("/edit");
+
+  console.log(mnemoryState);
 
   return (
     <div className="div-padding static w-full bg-slate-800 border-b-[1px] border-solid h-16 border-slate-700 flex items-center justify-between">

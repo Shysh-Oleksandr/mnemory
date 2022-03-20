@@ -6,6 +6,8 @@ import { actionCreactors, State } from "../../state";
 import { ISetStatus } from "../../state/Reducers/MnemoryReducer";
 import ConfirmModal from "../UI/ConfirmModal";
 import Input from "./../UI/Input";
+import { IMnemory } from "./../../state/Reducers/MnemoryReducer";
+import { getCurrentSet } from "../../Helpers/functions";
 
 type Props = {
   buttonText: string;
@@ -22,6 +24,8 @@ const SetForm = ({ buttonText, titleContent }: Props) => {
     actionCreactors,
     dispatch
   );
+
+  const currentSet: ISetStatus = getCurrentSet(mnemoryState);
 
   const navigate = useNavigate();
 
@@ -74,9 +78,7 @@ const SetForm = ({ buttonText, titleContent }: Props) => {
           setSetInfo(nameRef.current?.value!, descriptionRef.current?.value!)
         }
         placeholder="Enter set name..."
-        defaultValue={
-          mnemoryState.sets[mnemoryState.currentSetId].savedSet.name || ""
-        }
+        defaultValue={currentSet.savedSet.name || ""}
         inputClassName="set-form-input"
         inputId="set-name"
         labelText="Name"
@@ -88,10 +90,7 @@ const SetForm = ({ buttonText, titleContent }: Props) => {
           setSetInfo(nameRef.current?.value!, descriptionRef.current?.value!)
         }
         placeholder="Enter description..."
-        defaultValue={
-          mnemoryState.sets[mnemoryState.currentSetId].savedSet.description ||
-          ""
-        }
+        defaultValue={currentSet.savedSet.description || ""}
         inputClassName="set-form-input"
         inputId="set-definition"
         labelText="Description"

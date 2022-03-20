@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
+import { getCurrentSet } from "../../Helpers/functions";
 import { actionCreactors, State } from "../../state";
+import { ISetStatus } from "../../state/Reducers/MnemoryReducer";
 
 type Props = { cardId: number };
 
@@ -11,13 +13,14 @@ const TermCardSeparator = ({ cardId }: Props) => {
   });
   const mnemoryState = useSelector((state: State) => state.mnemory);
   const dispatch = useDispatch();
+  const currentSet: ISetStatus = getCurrentSet(mnemoryState);
 
   const { addTerm } = bindActionCreators(actionCreactors, dispatch);
 
   const emptyTerm = {
     term: "",
     descriptionKeywords: [{ keyword: "", id: 0, imageChecked: false }],
-    id: mnemoryState.sets[mnemoryState.currentSetId].editingSet.terms.length,
+    id: currentSet.editingSet.terms.length,
   };
 
   return (
@@ -30,9 +33,7 @@ const TermCardSeparator = ({ cardId }: Props) => {
         setStyle({ transform: "scale(0)" });
       }}
     >
-      {cardId !==
-        mnemoryState.sets[mnemoryState.currentSetId].editingSet.terms.length -
-          1 && (
+      {cardId !== currentSet.editingSet.terms.length - 1 && (
         <button
           style={style}
           onClick={() => addTerm(emptyTerm, cardId + 1)}
