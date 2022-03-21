@@ -38,3 +38,19 @@
 .card-back {
   transform: rotateX(180deg);
 }
+
+.keyword-description {
+  transition: all 0.4s 0s;
+}
+
+.set-keyword:hover .keyword-description {
+  @apply max-h-24;
+}
+
+.set-keyword:hover .keyword-description.big-size {
+  @apply max-h-48;
+}
+
+.set-keyword:hover .keyword-description-text {
+  @apply opacity-100;
+}

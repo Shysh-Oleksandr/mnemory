@@ -1,5 +1,6 @@
 import React from "react";
 import { ISet } from "./../../state/Reducers/MnemoryReducer";
+import KeywordsList from "./KeywordsList";
 
 type Props = {
   set: ISet;
@@ -23,40 +24,7 @@ const SetTermsList = ({ set }: Props) => {
             <h4 className="text-2xl mr-8 pr-4 border-right basis-1/6 shrink-0 ">
               {term.definition}
             </h4>
-            <div className="flex flex-wrap items-end">
-              {term.descriptionKeywords.map((keyword) => {
-                return (
-                  <div
-                    className="set-keyword mx-2 text-center"
-                    key={`${set.setId}-${term.id}-${keyword.id}`}
-                  >
-                    {keyword.image && (
-                      <div
-                        className="set-keyword-image relative w-full min-w-[110px] h-[70px] rounded-t-xl bg-center bg-cover bg-no-repeat"
-                        style={{
-                          backgroundImage: `urL(${keyword.image})`,
-                        }}
-                      >
-                        {keyword.descriptionText && (
-                          <p className="h-0 absolute hidden bottom-0 translate-y-full bg-slate-800 bg-opacity-50 p-4">
-                            {keyword.descriptionText}
-                          </p>
-                        )}
-                      </div>
-                    )}
-                    <h5
-                      className={`text-lg ${
-                        keyword.image
-                          ? "rounded-b-2xl mb-1"
-                          : "rounded-2xl my-1"
-                      } bg-slate-800 px-4 py-1`}
-                    >
-                      {keyword.keyword}
-                    </h5>
-                  </div>
-                );
-              })}
-            </div>
+            <KeywordsList term={term} isBigSize={false} />
           </div>
         );
       })}

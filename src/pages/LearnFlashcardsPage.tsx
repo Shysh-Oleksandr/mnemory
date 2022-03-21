@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
+import KeywordsList from "../components/set/KeywordsList";
 import { getCurrentSet } from "../Helpers/functions";
 import { actionCreactors, State } from "../state";
 import "../styles/flashcards.css";
@@ -11,6 +12,7 @@ type Props = {};
 const LearnFlashcardsPage = (props: Props) => {
   const [currentTermIndex, setCurrentTermIndex] = useState<number>(0);
   const [isCurrentSideFront, setIsCurrentSideFront] = useState<boolean>(true);
+  const [showDefinition, setShowDefinition] = useState<boolean>(false);
   const dispatch = useDispatch();
   const { copySavedSet, deleteSet } = bindActionCreators(
     actionCreactors,
@@ -25,6 +27,7 @@ const LearnFlashcardsPage = (props: Props) => {
   const changeCurrentTerm = (newTermIndex: number) => {
     setCurrentTermIndex(newTermIndex);
     setIsCurrentSideFront(true);
+    setShowDefinition(false);
   };
 
   return (
@@ -67,47 +70,31 @@ const LearnFlashcardsPage = (props: Props) => {
             } bg-slate-700 w-full h-full rounded-xl cursor-pointer`}
             onClick={() => setIsCurrentSideFront(!isCurrentSideFront)}
           >
-            <div className="card-front flex items-center justify-center h-full">
+            <div className="card-front flex items-center justify-center h-full p-8">
               <h3 className="text-5xl cursor-text">
                 {savedSet.terms[currentTermIndex].term}
               </h3>
             </div>
 
-            <div className="card-back">
-              <div className="term-images flex justify-center flex-wrap items-end p-4">
-                {currentTerm.descriptionKeywords.map((keyword) => {
-                  return (
-                    <div
-                      className="set-keyword mx-2 text-center"
-                      key={`${savedSet.setId}-${currentTerm.id}-${keyword.id}`}
-                    >
-                      {keyword.image && (
-                        <div
-                          className="set-keyword-image relative w-full min-w-[110px] h-[70px] rounded-t-xl bg-center bg-cover bg-no-repeat"
-                          style={{
-                            backgroundImage: `urL(${keyword.image})`,
-                          }}
-                        >
-                          {keyword.descriptionText && (
-                            <p className="h-0 absolute hidden bottom-0 translate-y-full bg-slate-800 bg-opacity-50 p-4">
-                              {keyword.descriptionText}
-                            </p>
-                          )}
-                        </div>
-                      )}
-                      <h5
-                        className={`text-lg ${
-                          keyword.image
-                            ? "rounded-b-2xl mb-1"
-                            : "rounded-2xl my-1"
-                        } bg-slate-800 px-4 py-1`}
-                      >
-                        {keyword.keyword}
-                      </h5>
-                    </div>
-                  );
-                })}
+            <div className="card-back overflow-y-auto flex flex-col">
+              <div className="term-images justify-center flex p-4 grow items-start">
+                <KeywordsList term={currentTerm} isBigSize={true} />
               </div>
+              {showDefinition ? (
+                <h4 className="w-full px-8 py-3 text-center bg-slate-900 rounded-b-xl text-2xl">
+                  {currentTerm.definition}
+                </h4>
+              ) : (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowDefinition(true);
+                  }}
+                  className="btn w-full !rounded-xl !rounded-t-none !py-3"
+                >
+                  Show definition
+                </button>
+              )}
             </div>
           </div>
           {currentTermIndex !== termsLength && (
