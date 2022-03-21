@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import KeywordsList from "../components/set/KeywordsList";
-import { getCurrentSet } from "../Helpers/functions";
+import { getCurrentSet, shuffle } from "../Helpers/functions";
 import { actionCreactors, State } from "../state";
 import "../styles/flashcards.css";
 
@@ -22,8 +22,9 @@ const LearnFlashcardsPage = (props: Props) => {
   const mnemoryState = useSelector((state: State) => state.mnemory);
   const currentSet = getCurrentSet(mnemoryState);
   const savedSet = currentSet.savedSet;
-  const currentTerm = savedSet.terms[currentTermIndex];
-  const termsLength = savedSet.terms.length;
+  const [shuffledTerms, setShuffledTerms] = useState([...savedSet.terms]);
+  const currentTerm = shuffledTerms[currentTermIndex];
+  const termsLength = shuffledTerms.length;
 
   const changeCurrentTerm = (newTermIndex: number) => {
     setCurrentTermIndex(newTermIndex);
@@ -57,7 +58,19 @@ const LearnFlashcardsPage = (props: Props) => {
             </span>
           </div>
           <div className="mt-80">
-            <button className="btn block w-full mb-4">Shuffle</button>
+            <button
+              onClick={() => {
+                setShuffledTerms(shuffle(shuffledTerms));
+
+                setCurrentTermIndex(0);
+                isCurrentSideFront || !isStartSideFront
+                  ? setShowDefinition(!showDefinition)
+                  : setIsCurrentSideFront(isStartSideFront);
+              }}
+              className="btn block w-full mb-4"
+            >
+              Shuffle
+            </button>
             <button className="btn block w-full">Settings</button>
           </div>
         </div>
@@ -69,12 +82,12 @@ const LearnFlashcardsPage = (props: Props) => {
             className={`current-card card ${
               isCurrentSideFront ? "" : "flipped"
             } bg-slate-700 w-full h-full rounded-xl cursor-pointer`}
-            onClick={() => setIsCurrentSideFront(!isCurrentSideFront)}
+            onClick={() => {
+              setIsCurrentSideFront(!isCurrentSideFront);
+            }}
           >
             <div className="card-front flex items-center justify-center h-full p-8">
-              <h3 className="text-5xl cursor-text">
-                {savedSet.terms[currentTermIndex].term}
-              </h3>
+              <h3 className="text-5xl cursor-text">{currentTerm.term}</h3>
             </div>
 
             <div className="card-back overflow-y-auto flex flex-col">
