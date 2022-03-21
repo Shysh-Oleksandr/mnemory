@@ -8,7 +8,7 @@ import CreatePage from "./pages/CreatePage";
 import EditPage from "./pages/EditPage";
 import ErrorPage from "./pages/ErrorPage";
 import HomePage from "./pages/HomePage";
-import LearnPage from "./pages/LearnPage";
+import LearnFlashcardsPage from "./pages/LearnFlashcardsPage";
 import SetPage from "./pages/SetPage";
 import { actionCreactors, State } from "./state";
 
@@ -33,7 +33,10 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/create/:setid" element={<CreatePage />} />
           <Route path="/set/:setid/edit/" element={<EditPage />} />
-          <Route path="/set/:setid/learn" element={<LearnPage />} />
+          <Route
+            path="/set/:setid/learn/flashcards"
+            element={<LearnFlashcardsPage />}
+          />
           <Route path="/set/:setid" element={<SetPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>

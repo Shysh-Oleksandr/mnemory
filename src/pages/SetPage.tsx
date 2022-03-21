@@ -26,6 +26,15 @@ const SetPage = (props: Props) => {
         <h2 className="text-4xl font-bold py-1">{savedSet.name}</h2>
         <h3 className="text-2xl">{savedSet.description}</h3>
       </div>
+      <div>
+        <Link
+          onClick={copySavedSet}
+          to={`/set/${savedSet.setId + 1}/learn/flashcards`}
+          className="btn block !py-4 text-center font-bold !bg-green-600 hover:!bg-green-700 my-8 !text-slate-800"
+        >
+          Learn flashcards
+        </Link>
+      </div>
       <div className="set-terms-list">
         <div className="flex justify-between items-center">
           <h4 className="text-2xl mb-4">

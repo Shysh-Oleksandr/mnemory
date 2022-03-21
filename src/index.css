@@ -42,7 +42,10 @@ textarea {
 }
 
 body {
-  @apply bg-slate-800 text-white overflow-x-hidden;
+  @apply bg-slate-800 text-white overflow-x-hidden h-full;
+}
+#root {
+  @apply h-full;
 }
 ol,
 ul {
