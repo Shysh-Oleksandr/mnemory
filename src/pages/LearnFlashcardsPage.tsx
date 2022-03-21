@@ -12,6 +12,7 @@ type Props = {};
 const LearnFlashcardsPage = (props: Props) => {
   const [currentTermIndex, setCurrentTermIndex] = useState<number>(0);
   const [isCurrentSideFront, setIsCurrentSideFront] = useState<boolean>(true);
+  const [isStartSideFront, setIsStartSideFront] = useState<boolean>(true);
   const [showDefinition, setShowDefinition] = useState<boolean>(false);
   const dispatch = useDispatch();
   const { copySavedSet, deleteSet } = bindActionCreators(
@@ -26,7 +27,7 @@ const LearnFlashcardsPage = (props: Props) => {
 
   const changeCurrentTerm = (newTermIndex: number) => {
     setCurrentTermIndex(newTermIndex);
-    setIsCurrentSideFront(true);
+    setIsCurrentSideFront(isStartSideFront);
     setShowDefinition(false);
   };
 
@@ -108,7 +109,13 @@ const LearnFlashcardsPage = (props: Props) => {
             }
             className="mx-4 text-xl rounded-full h-10 w-10 transition-colors hover:bg-slate-700 bg-slate-600"
           >{`<`}</button>
-          <button className="mx-4 text-xl rounded-full h-10 w-10 transition-colors hover:bg-slate-700 bg-slate-600">{`<->`}</button>
+          <button
+            onClick={() => {
+              setIsStartSideFront(!isStartSideFront);
+              setIsCurrentSideFront(!isStartSideFront);
+            }}
+            className="mx-4 text-xl rounded-full h-10 w-10 transition-colors hover:bg-slate-700 bg-slate-600"
+          >{`<->`}</button>
           <button
             onClick={() => {
               currentTermIndex !== termsLength - 1 &&
