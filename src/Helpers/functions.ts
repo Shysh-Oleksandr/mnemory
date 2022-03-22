@@ -2,6 +2,7 @@ import { RefObject } from "react";
 import { ITerm } from "../components/termCard/Term";
 import { ISet, ISetStatus } from "../state/Reducers/MnemoryReducer";
 import { IMnemory } from "./../state/Reducers/MnemoryReducer";
+import { MAX_BG_CARDS } from "./../pages/LearnFlashcardsPage";
 
 export function getCurrentSet(mnemoryState: IMnemory): ISetStatus {
   return mnemoryState.sets.find(
@@ -81,3 +82,14 @@ export function shuffle(array: any[]) {
 
   return array;
 }
+
+export const calcTermsLeft = (
+  currentTermIndex: number,
+  termsLength: number
+): number => {
+  const termLeft =
+    termsLength - (currentTermIndex + 1) <= MAX_BG_CARDS
+      ? termsLength - (currentTermIndex + 1)
+      : MAX_BG_CARDS;
+  return termLeft;
+};
