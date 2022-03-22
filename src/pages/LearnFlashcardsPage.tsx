@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import KeywordsList from "../components/set/KeywordsList";
+import TermCard from "../components/set/TermCard";
 import { getCurrentSet, shuffle } from "../Helpers/functions";
 import { actionCreactors, State } from "../state";
 import "../styles/flashcards.css";
@@ -25,11 +26,23 @@ const LearnFlashcardsPage = (props: Props) => {
   const [shuffledTerms, setShuffledTerms] = useState([...savedSet.terms]);
   const currentTerm = shuffledTerms[currentTermIndex];
   const termsLength = shuffledTerms.length;
+  const cardRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   const changeCurrentTerm = (newTermIndex: number) => {
     setCurrentTermIndex(newTermIndex);
     setIsCurrentSideFront(isStartSideFront);
     setShowDefinition(false);
+
+    cardRef.current.style.transform =
+      currentTermIndex < newTermIndex
+        ? "translateX(50%) rotateY(-50deg) translateZ(0)"
+        : "translateX(-50%) rotateY(50deg) translateZ(0)";
+    cardRef.current.style.transition = "transform 0.05s ease";
+
+    setTimeout(() => {
+      cardRef.current.style.transition = "transform 0.24s ease";
+      cardRef.current.style.transform = "none";
+    }, 100);
   };
 
   return (
@@ -76,44 +89,17 @@ const LearnFlashcardsPage = (props: Props) => {
         </div>
       </div>
       <div className="learn-cards-content basis-5/6 relative">
-        <div className="cards absolute bottom-16 top-0 left-0 right-0">
-          {currentTermIndex !== 0 && <div className="previous-card"></div>}
-          <div
-            className={`current-card card ${
-              isCurrentSideFront ? "" : "flipped"
-            } bg-slate-700 w-full h-full rounded-xl cursor-pointer`}
-            onClick={() => {
-              setIsCurrentSideFront(!isCurrentSideFront);
-            }}
-          >
-            <div className="card-front flex items-center justify-center h-full p-8">
-              <h3 className="text-5xl cursor-text">{currentTerm.term}</h3>
-            </div>
-
-            <div className="card-back overflow-y-auto flex flex-col">
-              <div className="term-images justify-center flex p-4 grow items-start">
-                <KeywordsList term={currentTerm} isBigSize={true} />
-              </div>
-              {showDefinition ? (
-                <h4 className="w-full px-8 py-3 text-center bg-slate-900 rounded-b-xl text-2xl">
-                  {currentTerm.definition}
-                </h4>
-              ) : (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowDefinition(true);
-                  }}
-                  className="btn w-full !rounded-xl !rounded-t-none !py-3"
-                >
-                  Show definition
-                </button>
-              )}
-            </div>
-          </div>
-          {currentTermIndex !== termsLength && (
-            <div className="next-card"></div>
-          )}
+        <div
+          className="cards absolute bottom-16 top-0 left-0 right-0"
+          ref={cardRef}
+        >
+          <TermCard
+            currentTerm={currentTerm}
+            showDefinition={showDefinition}
+            setShowDefinition={setShowDefinition}
+            setIsCurrentSideFront={setIsCurrentSideFront}
+            isCurrentSideFront={isCurrentSideFront}
+          />
         </div>
         <div className="navigation flex items-center justify-center absolute bottom-0 left-1/2 -translate-x-1/2">
           <button
