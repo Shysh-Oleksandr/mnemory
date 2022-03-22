@@ -8,7 +8,7 @@
   -ms-transform-origin: 100% center;
   transform-origin: 100% center;
 
-  box-shadow: 20px 0px 30px rgba(0, 0, 0, 0.2);
+  transform: rotateX(10deg);
 }
 
 .learn-cards-content {
@@ -20,6 +20,10 @@
   -moz-transform-origin: 100% center;
   -ms-transform-origin: 100% center;
   transform-origin: 100% center;
+}
+
+.bg-cards {
+  transform: rotateX(35deg) translateY(51px) translateZ(-80px);
 }
 
 .card {
