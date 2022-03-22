@@ -23,7 +23,7 @@ const FlashcardsInfo = ({
   const currentSet = getCurrentSet(mnemoryState);
   const savedSet = currentSet.savedSet;
   return (
-    <div className="learn-cards-info basis-1/6 mr-8">
+    <div className="learn-cards-info basis-1/5 mr-16">
       <Link to={`/set/${savedSet.setId + 1}`} className="text-xl">
         <span className="text-teal-400 mr-2">{`<`}</span>
         Back to the set
