@@ -99,6 +99,14 @@ interface SetShowConfirmModalAction {
   };
 }
 
+interface SetIsStartSideFront {
+  type: ActionType.SET_IS_START_SIDE_FRONT;
+}
+
+interface SetShowDefinition {
+  type: ActionType.SET_SHOW_DEFINITION;
+}
+
 export type Action =
   | AddingAction
   | DeletingAction
@@ -117,4 +125,6 @@ export type Action =
   | CopySavedSetAction
   | SetAreImagesLoadingAction
   | SetShowConfirmModalAction
+  | SetShowDefinition
+  | SetIsStartSideFront
   | DeletingKeywordAction;

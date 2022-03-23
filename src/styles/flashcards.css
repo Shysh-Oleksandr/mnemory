@@ -12,6 +12,8 @@
 }
 
 .learn-cards-content {
+  min-height: 85vh;
+
   perspective: 1200px;
   -webkit-perspective: 1200px;
   -moz-perspective: 1200px;
@@ -70,4 +72,34 @@
 
 .set-keyword:hover .keyword-description-text {
   @apply opacity-100;
+}
+
+.toggle-btn {
+  @apply bg-teal-400 rounded-[50px] cursor-pointer flex items-center justify-between p-[5px] relative h-[30px] w-[70px] md:scale-150 sm:scale-125 scale-110;
+}
+
+.toggle-btn i {
+  @apply text-sm;
+}
+
+.toggle-checkbox {
+  @apply absolute opacity-0;
+}
+
+.toggle-checkbox:checked + .toggle-btn .ball {
+  @apply translate-x-[40px];
+}
+
+.toggle-checkbox:checked + .toggle-btn .second-icon,
+.toggle-btn .first-icon {
+  @apply opacity-0;
+}
+
+.toggle-checkbox:checked + .toggle-btn .first-icon,
+.toggle-btn .second-icon {
+  @apply opacity-100;
+}
+
+.toggle-btn .ball {
+  @apply rounded-full bg-slate-800 transition-transform absolute top-[2px] left-[2px] h-[25px] w-[25px] translate-x-0;
 }

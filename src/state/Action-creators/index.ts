@@ -167,6 +167,22 @@ export const copySavedSet = () => {
   };
 };
 
+export const setShowDefinition = () => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.SET_SHOW_DEFINITION,
+    });
+  };
+};
+
+export const setIsStartSideFront = () => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.SET_IS_START_SIDE_FRONT,
+    });
+  };
+};
+
 export const setKeywordInfo = (
   name: string,
   description: string,

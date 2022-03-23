@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import FlashcardsInfo from "../components/set/FlashcardsInfo";
+import KeywordsList from "../components/set/KeywordsList";
 import TermCard from "../components/set/TermCard";
 import { ITerm } from "../components/termCard/Term";
 import { calcTermsLeft, getCurrentSet, shuffle } from "../Helpers/functions";
@@ -11,11 +12,19 @@ import "../styles/flashcards.css";
 export const MAX_BG_CARDS = 5;
 
 const LearnFlashcardsPage = () => {
+  const learnState = useSelector((state: State) => state.learn);
+
   const [currentTermIndex, setCurrentTermIndex] = useState<number>(0);
-  const [isCurrentSideFront, setIsCurrentSideFront] = useState<boolean>(true);
+  const [isStartSideFront, setIsStartSideFront] = useState<boolean>(
+    learnState.isStartSideFront
+  );
+  const [isCurrentSideFront, setIsCurrentSideFront] =
+    useState<boolean>(isStartSideFront);
   const [isFinished, setIsFinished] = useState<boolean>(false);
-  const [isStartSideFront, setIsStartSideFront] = useState<boolean>(true);
-  const [showDefinition, setShowDefinition] = useState<boolean>(false);
+  const [updateState, setUpdateState] = useState<boolean>(false);
+  const [showDefinition, setShowDefinition] = useState<boolean>(
+    learnState.showDefinition
+  );
   const mnemoryState = useSelector((state: State) => state.mnemory);
   const currentSet = getCurrentSet(mnemoryState);
   const savedSet = currentSet.savedSet;
@@ -60,7 +69,7 @@ const LearnFlashcardsPage = () => {
   const changeCurrentTerm = (newTermIndex: number) => {
     setCurrentTermIndex(newTermIndex);
     setIsCurrentSideFront(isStartSideFront);
-    setShowDefinition(false);
+    setShowDefinition(learnState.showDefinition);
 
     setCardTransform(newTermIndex);
   };
@@ -69,14 +78,14 @@ const LearnFlashcardsPage = () => {
     setShuffledTerms(shuffle(shuffledTerms));
 
     setCurrentTermIndex(0);
-    isCurrentSideFront || !isStartSideFront
-      ? setShowDefinition(!showDefinition)
-      : setIsCurrentSideFront(isStartSideFront);
+    setUpdateState(!updateState);
+    setIsCurrentSideFront(isStartSideFront);
 
     setCardTransform(0);
   };
 
   const restart = () => {
+    setIsStartSideFront(learnState.isStartSideFront);
     setCardTransform(0);
     setCurrentTermIndex(0);
     setIsFinished(false);
@@ -142,7 +151,13 @@ const LearnFlashcardsPage = () => {
                     style={{ bottom: `${64 + index * 12}px` }}
                     className={`bg-slate-700 h-full w-full rounded-xl absolute left-0 border-solid border-b-4 p-8 border-slate-400 text-5xl flex items-center justify-center`}
                   >
-                    {shuffledTerms[currentTermIndex + 1].term}
+                    {isCurrentSideFront ? (
+                      <div>{shuffledTerms[currentTermIndex + 1].term}</div>
+                    ) : (
+                      <div className="term-images justify-center flex p-4 grow items-start">
+                        <KeywordsList term={currentTerm} isBigSize={true} />
+                      </div>
+                    )}
                   </div>
                 );
               })}

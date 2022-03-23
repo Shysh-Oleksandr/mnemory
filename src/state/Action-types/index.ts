@@ -17,4 +17,6 @@ export enum ActionType {
   COPY_SAVED_SET = "Copy saved set",
   SET_ARE_IMAGES_LOADING = "Set are images loading",
   SET_SHOW_CONFIRM_MODAL = "Set show confirm modal",
+  SET_SHOW_DEFINITION = "Set show definition",
+  SET_IS_START_SIDE_FRONT = "Set is start card front",
 }

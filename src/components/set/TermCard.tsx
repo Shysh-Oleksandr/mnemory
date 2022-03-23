@@ -34,21 +34,22 @@ const TermCard = ({
         <div className="term-images justify-center flex p-4 grow items-start">
           <KeywordsList term={currentTerm} isBigSize={true} />
         </div>
-        {showDefinition ? (
-          <h4 className="w-full px-8 py-3 text-center bg-slate-900 rounded-b-xl text-2xl">
-            {currentTerm.definition}
-          </h4>
-        ) : (
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowDefinition(true);
-            }}
-            className="btn w-full !rounded-xl !rounded-t-none !py-3"
-          >
-            Show definition
-          </button>
-        )}
+        {currentTerm.definition &&
+          (showDefinition ? (
+            <h4 className="w-full px-8 py-3 text-center bg-slate-900 rounded-b-xl text-2xl">
+              {currentTerm.definition}
+            </h4>
+          ) : (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowDefinition(true);
+              }}
+              className="btn w-full !rounded-xl !rounded-t-none !py-3"
+            >
+              Show definition
+            </button>
+          ))}
       </div>
     </div>
   );
