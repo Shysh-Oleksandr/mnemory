@@ -15,7 +15,9 @@ const CreatePage = (props: Props) => {
     <div>
       <SetForm
         buttonText="Create"
-        titleContent={<h2 className="text-2xl">Create a new set</h2>}
+        titleContent={
+          <h2 className="md:text-3xl text-2xl">Create a new set</h2>
+        }
       />
       <TermsEditList
         terms={mnemoryState.sets[mnemoryState.sets.length - 1].editingSet.terms}

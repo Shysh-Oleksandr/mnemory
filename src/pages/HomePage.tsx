@@ -25,17 +25,17 @@ const HomePage = (props: Props) => {
   };
 
   return (
-    <div className="mt-8">
-      <h3 className="text-2xl mb-2">Your sets</h3>
+    <div className="md:mt-8 mt-4">
+      <h3 className="md:text-3xl text-2xl mb-2">Your sets</h3>
       <div className="flex flex-wrap gap-3">
         {mnemoryState.sets
-          // .filter((set) => set.savedSet.name)
+          .filter((set) => set.savedSet.name)
           .map((set) => {
             const keywordImage = getSetImage(set);
             return (
               <Link
                 to={`/set/${set.savedSet.setId + 1}`}
-                className="basis-[32%] rounded-lg cursor-pointer border-solid border-transparent hover:bg-slate-600 hover:border-white border-b-4 transition-all bg-slate-700 p-4"
+                className="lg:basis-[32%] sm:basis-[48%] basis-full rounded-lg cursor-pointer border-solid border-transparent hover:bg-slate-600 hover:border-white border-b-4 transition-all bg-slate-700 p-4"
                 key={set.savedSet.setId}
                 onClick={() => setCurrentSetId(set.savedSet.setId)}
               >

@@ -22,7 +22,7 @@ const TermInfo = ({ term }: Props) => {
   }, [mnemoryState.currentSetId]);
 
   return (
-    <div className="term-info">
+    <div className="term-info basis-1/4 shrink">
       <Input
         defaultValue={term.term}
         onChange={() =>

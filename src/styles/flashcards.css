@@ -12,7 +12,7 @@
 }
 
 .learn-cards-content {
-  min-height: 85vh;
+  @apply md:min-h-[85vh] sm:min-h-[75vh] min-h-[70vh];
 
   perspective: 1200px;
   -webkit-perspective: 1200px;

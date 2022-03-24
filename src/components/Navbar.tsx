@@ -53,7 +53,7 @@ const Navbar = (props: Props) => {
               navigate("/");
             }
           }}
-          className="text-4xl block text-white py-4 font-bold mr-6"
+          className="md:text-4xl text-3xl block text-white py-4 font-bold mr-6"
         >
           Mnemory
         </button>

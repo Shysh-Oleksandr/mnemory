@@ -12,7 +12,7 @@ const TermDescription = ({ term }: Props) => {
   const { addTermKeyword } = bindActionCreators(actionCreactors, dispatch);
 
   return (
-    <div className="term-description flex ml-8 mt-1 flex-wrap items-end">
+    <div className="term-description flex md:ml-8 sm:ml-4 ml-0 sm:mt-1 mt-4 flex-wrap items-end basis-3/4 grow">
       {term.descriptionKeywords.map((descriptionKeyword) => {
         return (
           <TermKeyword

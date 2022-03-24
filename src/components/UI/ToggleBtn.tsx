@@ -17,7 +17,7 @@ function ToggleBtn({
   id,
 }: Props) {
   return (
-    <button className="block mb-6 mt-4 mx-auto">
+    <button className="block mb-6 mt-4 md:mx-auto ml-8">
       <input
         onChange={onChange}
         type="checkbox"

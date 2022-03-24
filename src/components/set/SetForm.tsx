@@ -57,11 +57,11 @@ const SetForm = ({ buttonText, titleContent }: Props) => {
   return (
     <form
       id={`set-form-${mnemoryState.currentSetId + 1}`}
-      className="mb-10"
+      className="md:mb-10 mb-6"
       onSubmit={(e) => saveSet(e)}
     >
       <div
-        className={`flex w-full justify-between items-center py-6 bg-slate-800 ${stickyClass}`}
+        className={`flex w-full justify-between items-center md:py-6 py-3 bg-slate-800 ${stickyClass}`}
       >
         {titleContent}
         <button

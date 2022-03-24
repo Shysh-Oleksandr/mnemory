@@ -99,12 +99,12 @@ const LearnFlashcardsPage = () => {
   if (termsLength === 0) {
     return (
       <div className="flex justify-center flex-col">
-        <h2 className="text-3xl my-4 text-center">
+        <h2 className="sm:text-3xl text-2xl my-4 text-center">
           There's no terms in this set.
         </h2>
         <Link
           to={`/set/${savedSet.setId + 1}`}
-          className="btn text-center !py-4"
+          className="btn text-center sm:!py-4 !py-3"
         >
           Back to the set
         </Link>
@@ -113,7 +113,7 @@ const LearnFlashcardsPage = () => {
   }
 
   return (
-    <div className="learn-cards flex h-full mt-4 justify-between">
+    <div className="learn-cards relative flex md:flex-row flex-col h-full mt-4 justify-between md:pb-0 sm:pb-28 pb-48">
       <FlashcardsInfo
         shuffleTerms={shuffleTerms}
         currentTermIndex={currentTermIndex}
@@ -142,27 +142,30 @@ const LearnFlashcardsPage = () => {
               isCurrentSideFront={isCurrentSideFront}
             />
           </div>
-          <div className="bg-cards absolute bottom-20 top-0 left-0 right-0">
+          <div className="bg-cards absolute bottom-20 top-0 sm:left-0 sm:right-0 left-[4.5%] right-[4.5%]">
             {termsLeft &&
               termsLeft.map((term, index) => {
                 return (
                   <div
                     key={`${currentTerm.id}-bg-card-${index}`}
                     style={{ bottom: `${64 + index * 12}px` }}
-                    className={`bg-slate-700 h-full w-full rounded-xl absolute left-0 border-solid border-b-4 p-8 border-slate-400 text-5xl flex items-center justify-center`}
+                    className={`bg-slate-700 h-full w-full rounded-xl overflow-hidden absolute left-0 border-solid border-b-4 p-8 border-slate-400 text-5xl flex items-center justify-center`}
                   >
                     {isCurrentSideFront ? (
                       <div>{shuffledTerms[currentTermIndex + 1].term}</div>
                     ) : (
-                      <div className="term-images justify-center flex p-4 grow items-start">
-                        <KeywordsList term={currentTerm} isBigSize={true} />
+                      <div className="term-images justify-center flex p-4 grow items-start mb-[30%] -z-10">
+                        <KeywordsList
+                          term={shuffledTerms[currentTermIndex + 1]}
+                          isBigSize={true}
+                        />
                       </div>
                     )}
                   </div>
                 );
               })}
           </div>
-          <div className="navigation flex items-center justify-center absolute bottom-0 left-1/2 -translate-x-1/2">
+          <div className="navigation flex items-center justify-center absolute md:bottom-4 bottom-6 left-1/2 -translate-x-1/2">
             <button
               onClick={() =>
                 currentTermIndex !== 0 &&

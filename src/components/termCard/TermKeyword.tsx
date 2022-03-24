@@ -38,10 +38,10 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
   };
 
   return (
-    <div className="term-description-keyword relative flex flex-col items-center m-1 mx-2 w-36">
+    <div className="term-description-keyword relative flex flex-col items-center m-1 mx-2 md:w-36 w-28">
       {descriptionKeyword.image ? (
         <div
-          className="w-full h-[80px] rounded-xl bg-center bg-cover bg-no-repeat"
+          className="w-full md:h-[80px] h-[70px] rounded-xl bg-center bg-cover bg-no-repeat"
           style={{ backgroundImage: `urL(${descriptionKeyword.image})` }}
         >
           <button
@@ -58,7 +58,7 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
           htmlFor={`${termId}-${descriptionKeyword.id}`}
           className={`term-keyword-image-filler ${
             descriptionKeyword.imageChecked ? "checked" : ""
-          } w-full h-[80px] rounded-xl static cursor-pointer flex justify-center transition-all items-center border-2 border-dashed border-white`}
+          } w-full md:h-[80px] h-[70px] rounded-xl static cursor-pointer flex justify-center transition-all items-center border-2 border-dashed border-white`}
         >
           <input
             type="checkbox"

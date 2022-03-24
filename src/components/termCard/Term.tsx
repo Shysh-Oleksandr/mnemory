@@ -31,7 +31,7 @@ const Term = ({ term, index }: Props) => {
       key={`${term}-${term.id}`}
     >
       <TermHeader index={index} term={term} />
-      <div className="term-body flex py-2 px-6">
+      <div className="term-body flex py-2 px-6 sm:flex-row flex-col">
         <TermInfo term={term} />
         <TermDescription term={term} />
       </div>

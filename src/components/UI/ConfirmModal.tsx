@@ -55,18 +55,18 @@ const ConfirmModal = ({ setShowConfirmModal, onClick, to }: Props) => {
   return (
     <div className="fixed z-50 h-full w-full top-0 flex justify-center items-center">
       <div
-        className="bg-slate-800 rounded-xl p-10 pt-6 basis-2/5 modal fixed block"
+        className="bg-slate-800 rounded-xl md:p-10 sm:p-8 p-6 md:pt-6 pt-4 lg:basis-2/5 sm:basis-3/5 basis-5/6 modal mx-4 fixed block"
         ref={ref}
       >
-        <h2 className="lg:text-[1.7rem] leading-8 text-center py-1">
+        <h2 className="text-[1.7rem] leading-8 text-center py-1">
           Do you want to save the changes?
         </h2>
-        <h3 className="mb-8 lg:text-[1.3rem] leading-8 text-center">
+        <h3 className="md:mb-8 mb-6 text-[1.3rem] leading-8 text-center">
           Information you changed is not saved.
         </h3>
         <div className="flex justify-center items-center">
           <button
-            className="block btn mx-2 !px-10"
+            className="block btn mx-2 sm:!px-10 !px-6"
             onClick={(e) => {
               if (currentSet.savedSet.name === "") {
                 deleteSet(mnemoryState.currentSetId);
@@ -80,7 +80,7 @@ const ConfirmModal = ({ setShowConfirmModal, onClick, to }: Props) => {
             Don't save
           </button>
           <button
-            className="block btn mx-2 !px-10 !text-white !bg-slate-900 hover:!bg-black"
+            className="block btn mx-2 sm:!px-10 !px-6 !text-white !bg-slate-900 hover:!bg-black"
             onClick={(e) => {
               if (currentSet.editingSet.name === "") {
                 deleteSet(mnemoryState.currentSetId);

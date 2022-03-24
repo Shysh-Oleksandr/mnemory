@@ -38,7 +38,7 @@ const EditPage = (props: Props) => {
                 navigate(`/set/${mnemoryState.currentSetId + 1}`);
               }
             }}
-            className="text-xl"
+            className="md:text-2xl text-xl"
           >
             <span className="mr-3 text-teal-400 hover:text-orange-400 transition-colors">{`<`}</span>
             Back to the set

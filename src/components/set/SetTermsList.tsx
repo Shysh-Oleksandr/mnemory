@@ -12,16 +12,16 @@ const SetTermsList = ({ set }: Props) => {
       {set.terms.map((term) => {
         return (
           <div
-            className="set-term px-4 py-2 bg-slate-700 flex my-2 rounded-lg items-center"
+            className="set-term sm:px-4 px-2 sm:py-2 py-1 bg-slate-700 flex my-2 rounded-lg items-center"
             key={`${set.setId}-${term.id}`}
           >
-            <h5 className="border-right text-xl pl-3 pr-7 mr-8">
+            <h5 className="border-right text-xl md:pl-3 pl-1 md:pr-7 pr-4 md:mr-8 mr-3">
               {term.id + 1}.
             </h5>
-            <h4 className="border-right text-2xl basis-1/5 shrink-0 pr-4 mr-8">
+            <h4 className="border-right md:text-2xl text-xl basis-1/5 shrink-0 md:pr-4 pr-2 md:mr-8 mr-4 break-all sm:break-normal">
               {term.term}
             </h4>
-            <h4 className="text-2xl mr-8 pr-4 border-right basis-1/6 shrink-0 ">
+            <h4 className="md:text-2xl text-xl md:pr-4 pr-2 md:mr-8 mr-4 border-right basis-1/6 shrink-0 break-all sm:break-normal">
               {term.definition}
             </h4>
             <KeywordsList term={term} isBigSize={false} />

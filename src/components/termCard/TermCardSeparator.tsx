@@ -8,9 +8,15 @@ import { ISetStatus } from "../../state/Reducers/MnemoryReducer";
 type Props = { cardId: number };
 
 const TermCardSeparator = ({ cardId }: Props) => {
-  const [style, setStyle] = useState({
-    transform: "scale(0)",
-  });
+  const addIconStyle =
+    window.screen.width > 992
+      ? {
+          transform: "scale(0)",
+        }
+      : {
+          transform: "scale(1)",
+        };
+  const [style, setStyle] = useState(addIconStyle);
   const mnemoryState = useSelector((state: State) => state.mnemory);
   const dispatch = useDispatch();
   const currentSet: ISetStatus = getCurrentSet(mnemoryState);
@@ -26,19 +32,19 @@ const TermCardSeparator = ({ cardId }: Props) => {
 
   return (
     <div
-      className="h-6 relative"
+      className="sm:h-6 h-4 relative"
       onMouseEnter={(e) => {
         setStyle({ transform: "scale(1)" });
       }}
       onMouseLeave={(e) => {
-        setStyle({ transform: "scale(0)" });
+        window.screen.width > 992 && setStyle({ transform: "scale(0)" });
       }}
     >
       {cardId !== currentSet.editingSet.terms.length - 1 && (
         <button
           style={style}
           onClick={() => addTerm(emptyTerm, cardId + 1)}
-          className="round-btn left-1/2 block -translate-x-1/2 -top-2 text-3xl h-10 w-10"
+          className="round-btn left-[calc(50%-20px)] block sm:-top-2 -top-3 text-3xl h-10 w-10"
         >
           +
         </button>

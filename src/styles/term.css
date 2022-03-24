@@ -1,5 +1,5 @@
 .term-input {
-  @apply text-2xl bg-transparent block border-b-[3px] p-2 pl-0 border-white border-solid outline-none focus:border-orange-400;
+  @apply md:text-2xl text-xl bg-transparent block border-b-[3px] md:p-2 p-[6px] !pl-0 border-white border-solid outline-none focus:border-orange-400;
 }
 
 .term-input-label {
@@ -7,7 +7,7 @@
 }
 
 .term-id {
-  @apply text-lg font-bold;
+  @apply text-xl font-bold;
 }
 
 .add-term-btn:hover .add-term-text {

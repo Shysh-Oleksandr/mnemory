@@ -21,13 +21,15 @@ const TermCard = ({
     <div
       className={`current-card card ${
         isCurrentSideFront ? "" : "flipped"
-      } bg-slate-700 w-full h-full rounded-xl cursor-pointer`}
+      } bg-slate-700 sm:w-full w-[90%] mx-auto h-full rounded-xl cursor-pointer`}
       onClick={() => {
         setIsCurrentSideFront(!isCurrentSideFront);
       }}
     >
       <div className="card-front border-b-[5px] rounded-xl border-solid border-slate-500 flex items-center justify-center h-full p-8">
-        <h3 className="text-5xl cursor-text">{currentTerm.term}</h3>
+        <h3 className="md:text-5xl sm:text-4xl text-3xl text-center cursor-text">
+          {currentTerm.term}
+        </h3>
       </div>
 
       <div className="card-back overflow-y-auto flex flex-col">
