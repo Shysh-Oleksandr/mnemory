@@ -103,3 +103,7 @@
 .toggle-btn .ball {
   @apply rounded-full bg-slate-800 transition-transform absolute top-[2px] left-[2px] h-[25px] w-[25px] translate-x-0;
 }
+
+.navigation-btn {
+  @apply mx-4 text-xl rounded-full flex justify-center items-center h-10 w-10 transition-colors hover:bg-slate-700 bg-slate-600;
+}

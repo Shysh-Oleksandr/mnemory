@@ -5,6 +5,8 @@ import { clearInput } from "../../Helpers/functions";
 import { actionCreactors, State } from "../../state";
 import { Keyword } from "./Term";
 import { fetchImages } from "./TermKeywordImageChoice";
+import { CgClose } from "react-icons/cg";
+import { BsCardImage } from "react-icons/bs";
 
 type Props = { termId: number; descriptionKeyword: Keyword };
 
@@ -48,9 +50,9 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
             onClick={() =>
               deleteTermKeywordImage(termId, descriptionKeyword.id)
             }
-            className="absolute rounded-md bg-slate-700 h-8 w-8 block justify-center items-center top-1 right-3 text-lg transition-colors hover:text-orange-400 hover:bg-slate-800"
+            className="absolute rounded-md bg-slate-700 h-[28px] w-[28px] flex justify-center items-center top-[6px] right-[6px] text-xl transition-colors hover:text-orange-400 hover:bg-slate-800"
           >
-            X
+            <CgClose />
           </button>
         </div>
       ) : (
@@ -66,7 +68,10 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
             onChange={toggleImageChoice}
             id={`${termId}-${descriptionKeyword.id}`}
           />
-          <h4 className="term-keyword-image-label transition-all text-lg">
+          <h4 className="term-keyword-image-label transition-all text-lg flex flex-col items-center tracking-wider">
+            <span className="block text-2xl">
+              <BsCardImage />
+            </span>
             Image
           </h4>
         </label>
@@ -89,9 +94,9 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
         />
         <button
           onClick={() => deleteTermKeyword(termId, descriptionKeyword.id)}
-          className="round-btn term-description-keyword-delete block justify-center items-center -top-2 -right-1 text-md h-6 w-6"
+          className="round-btn term-description-keyword-delete flex justify-center items-center -top-2 -right-1 text-md h-6 w-6"
         >
-          X
+          <CgClose />
         </button>
       </div>
       <textarea

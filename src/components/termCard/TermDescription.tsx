@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import { actionCreactors } from "../../state";
 import { ITerm } from "./Term";
 import TermKeyword from "./TermKeyword";
+import { CgClose } from "react-icons/cg";
 
 type Props = { term: ITerm };
 
@@ -24,9 +25,9 @@ const TermDescription = ({ term }: Props) => {
       })}
       <button
         onClick={() => addTermKeyword(term.id)}
-        className="rounded-full black_input text-3xl h-11 w-11 m-1"
+        className="rounded-full black_input text-xl h-11 w-11 m-1 rotate-45 flex justify-center items-center"
       >
-        +
+        <CgClose />
       </button>
     </div>
   );

@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import { actionCreactors, State } from "../state";
 import SetTermsList from "./../components/set/SetTermsList";
 import { getCurrentSet } from "./../Helpers/functions";
+import { MdDelete, MdEdit } from "react-icons/md";
 
 type Props = {};
 
@@ -48,6 +49,9 @@ const SetPage = (props: Props) => {
           to={`/set/${savedSet.setId + 1}/edit`}
           className="btn block sm:!py-4 !py-3 text-center lg:basis-9/12 sm:basis-8/12 basis-7/12 sm:shrink-0 font-bold mr-4"
         >
+          <span className="inline-block relative top-1">
+            <MdEdit />
+          </span>{" "}
           Edit set
         </Link>
         <button
@@ -57,6 +61,9 @@ const SetPage = (props: Props) => {
             navigate("/");
           }}
         >
+          <span className="inline-block relative top-1">
+            <MdDelete />
+          </span>{" "}
           Delete set
         </button>
       </div>

@@ -2,12 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import FlashcardsInfo from "../components/set/FlashcardsInfo";
+import FlashcardsNavigation from "../components/set/FlashcardsNavigation";
 import KeywordsList from "../components/set/KeywordsList";
 import TermCard from "../components/set/TermCard";
 import { ITerm } from "../components/termCard/Term";
 import { calcTermsLeft, getCurrentSet, shuffle } from "../Helpers/functions";
 import { State } from "../state";
 import "../styles/flashcards.css";
+import FlashcardsFinished from "./../components/set/FlashcardsFinished";
 
 export const MAX_BG_CARDS = 5;
 
@@ -121,13 +123,7 @@ const LearnFlashcardsPage = () => {
         isFinished={isFinished}
       />
       {isFinished ? (
-        <div className="text-center mt-8 basis-4/5">
-          <h2 className="text-5xl font-bold">Brilliant!</h2>
-          <h4 className="text-xl my-4">You learnt {termsLength} terms!</h4>
-          <button onClick={restart} className="btn !py-4 w-10/12">
-            Learn again
-          </button>
-        </div>
+        <FlashcardsFinished termsLength={termsLength} restart={restart} />
       ) : (
         <div className="learn-cards-content basis-4/5 relative">
           <div
@@ -165,30 +161,15 @@ const LearnFlashcardsPage = () => {
                 );
               })}
           </div>
-          <div className="navigation flex items-center justify-center absolute md:bottom-4 bottom-6 left-1/2 -translate-x-1/2">
-            <button
-              onClick={() =>
-                currentTermIndex !== 0 &&
-                changeCurrentTerm(currentTermIndex - 1)
-              }
-              className="mx-4 text-xl rounded-full h-10 w-10 transition-colors hover:bg-slate-700 bg-slate-600"
-            >{`<`}</button>
-            <button
-              onClick={() => {
-                setIsStartSideFront(!isStartSideFront);
-                setIsCurrentSideFront(!isStartSideFront);
-              }}
-              className="mx-4 text-xl rounded-full h-10 w-10 transition-colors hover:bg-slate-700 bg-slate-600"
-            >{`<->`}</button>
-            <button
-              onClick={() => {
-                currentTermIndex !== termsLength - 1
-                  ? changeCurrentTerm(currentTermIndex + 1)
-                  : setIsFinished(true);
-              }}
-              className="mx-4 text-xl rounded-full h-10 w-10 transition-colors hover:bg-slate-700 bg-slate-600"
-            >{`>`}</button>
-          </div>
+          <FlashcardsNavigation
+            currentTermIndex={currentTermIndex}
+            changeCurrentTerm={changeCurrentTerm}
+            isStartSideFront={isStartSideFront}
+            setIsStartSideFront={setIsStartSideFront}
+            termsLength={termsLength}
+            setIsCurrentSideFront={setIsCurrentSideFront}
+            setIsFinished={setIsFinished}
+          />
         </div>
       )}
     </div>

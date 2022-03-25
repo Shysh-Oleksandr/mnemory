@@ -8,6 +8,7 @@ import SaveBtn from "../components/UI/SaveBtn";
 import { actionCreactors, State } from "../state";
 import AddTermBtn from "./../components/AddTermBtn";
 import { getCurrentSet, isSetChanged } from "./../Helpers/functions";
+import { BsArrowLeft } from "react-icons/bs";
 
 type Props = {};
 
@@ -38,9 +39,11 @@ const EditPage = (props: Props) => {
                 navigate(`/set/${mnemoryState.currentSetId + 1}`);
               }
             }}
-            className="md:text-2xl text-xl"
+            className="back-btn md:text-2xl text-xl"
           >
-            <span className="mr-3 text-teal-400 hover:text-orange-400 transition-colors">{`<`}</span>
+            <span className="mr-3 text-teal-400 inline-block relative top-1 transition-colors">
+              <BsArrowLeft />
+            </span>
             Back to the set
           </button>
         }

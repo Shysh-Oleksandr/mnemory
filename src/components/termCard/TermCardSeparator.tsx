@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import { getCurrentSet } from "../../Helpers/functions";
 import { actionCreactors, State } from "../../state";
 import { ISetStatus } from "../../state/Reducers/MnemoryReducer";
+import { CgClose } from "react-icons/cg";
 
 type Props = { cardId: number };
 
@@ -44,9 +45,11 @@ const TermCardSeparator = ({ cardId }: Props) => {
         <button
           style={style}
           onClick={() => addTerm(emptyTerm, cardId + 1)}
-          className="round-btn left-[calc(50%-20px)] block sm:-top-2 -top-3 text-3xl h-10 w-10"
+          className="round-btn left-[calc(50%-20px)] flex justify-center items-center sm:-top-2 -top-3 text-2xl h-10 w-10"
         >
-          +
+          <span className="rotate-45">
+            <CgClose />
+          </span>
         </button>
       )}
     </div>

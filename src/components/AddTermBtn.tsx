@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import { getCurrentSet } from "../Helpers/functions";
 import { actionCreactors, State } from "../state";
 import { ISetStatus } from "../state/Reducers/MnemoryReducer";
+import { CgClose } from "react-icons/cg";
 
 const AddTermBtn = () => {
   const mnemoryState = useSelector((state: State) => state.mnemory);
@@ -30,7 +31,10 @@ const AddTermBtn = () => {
           {newTermIndex + 1}
         </h4>
         <h3 className="add-term-text md:text-2xl text-xl inline-block pb-2 font-bold tracking-wide border-solid border-b-4 transition-all border-orange-400">
-          + Add a new card
+          <span className="rotate-45 inline-block relative top-1">
+            <CgClose />
+          </span>
+          <span> Add a new card</span>
         </h3>
       </div>
     </button>

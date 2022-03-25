@@ -87,3 +87,7 @@ ul {
 .border-right {
   @apply border-r-2 border-solid border-slate-900;
 }
+
+.back-btn:hover span {
+  @apply text-orange-400;
+}

@@ -6,6 +6,7 @@ import { bindActionCreators, Dispatch } from "redux";
 import { actionCreactors, State } from "../../state";
 import { Action } from "../../state/Actions";
 import { ITerm } from "./Term";
+import { AiOutlineArrowRight } from "react-icons/ai";
 
 type Props = { term: ITerm };
 
@@ -116,10 +117,10 @@ const TermKeywordImageChoice = ({ term }: Props) => {
               ref={inputRef}
             />
             <button
-              className="absolute right-0 top-1/2 -translate-y-1/2 hover:text-orange-500 text-orange-400 transition-colors"
+              className="absolute right-0 top-1/2 -translate-y-1/2 text-2xl hover:text-orange-500 text-orange-400 transition-colors"
               type="submit"
             >
-              ►
+              <AiOutlineArrowRight />
             </button>
           </div>
           <div>
@@ -174,7 +175,7 @@ const TermKeywordImageChoice = ({ term }: Props) => {
                   className={`${
                     loadedImages.includes(imageUrl) ? "" : "invisible"
                   }
-                  } mx-auto h-full rounded-md hover:border-2 border-solid border-orange-400 cursor-pointer transition-all`}
+                  } mx-auto h-full rounded-xl hover:border-[3px] border-solid border-orange-400 cursor-pointer transition-all`}
                   src={imageUrl}
                 />
               </div>
