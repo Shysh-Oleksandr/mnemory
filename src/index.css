@@ -43,6 +43,7 @@ textarea {
 
 body {
   @apply bg-slate-800 text-white overflow-x-hidden h-full;
+  font-family: "Noto Serif", serif;
 }
 #root {
   @apply h-full;

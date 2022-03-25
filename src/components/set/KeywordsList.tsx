@@ -9,7 +9,7 @@ type Props = {
 const KeywordsList = ({ term, isBigSize }: Props) => {
   return (
     <div
-      className={`flex flex-wrap items-end overflow-hidden ${
+      className={`flex flex-wrap items-end ${
         isBigSize ? "justify-center" : ""
       }`}
     >

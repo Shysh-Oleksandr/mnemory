@@ -79,7 +79,7 @@
 }
 
 .toggle-btn i {
-  @apply text-sm;
+  @apply text-xs;
 }
 
 .toggle-checkbox {
