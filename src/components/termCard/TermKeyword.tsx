@@ -29,9 +29,9 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
     clearInput(nameRef, descriptionRef);
   }, [mnemoryState.currentSetId]);
 
-  useEffect(() => {
-    nameRef.current?.focus();
-  }, []);
+  // useEffect(() => {
+  //   nameRef.current?.focus();
+  // }, []);
 
   const toggleImageChoice = () => {
     toggleTermKeywordImage(termId, descriptionKeyword.id);

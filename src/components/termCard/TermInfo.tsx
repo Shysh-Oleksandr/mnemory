@@ -21,11 +21,11 @@ const TermInfo = ({ term }: Props) => {
     clearInput(nameRef, descriptionRef);
   }, [mnemoryState.currentSetId]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      nameRef.current?.focus();
-    }, 0.1);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     nameRef.current?.focus();
+  //   }, 0.1);
+  // }, []);
 
   return (
     <div className="term-info basis-1/4 shrink">

@@ -2,6 +2,7 @@ import { Dispatch } from "react";
 import { ITerm } from "../../components/termCard/Term";
 import {
   getRandomNumber,
+  insert,
   setNewTerms,
   validateTerms,
 } from "../../Helpers/functions";
@@ -117,9 +118,14 @@ const mnemoryReducer = (
   switch (action.type) {
     // Terms actions.
     case ActionType.ADDING_TERM:
-      newTerms = currentEditingSet.terms;
-      newTerms.splice(action.payload.indexToAdd, 0, action.payload.term);
+      newTerms = insert(
+        currentEditingSet.terms,
+        action.payload.indexToAdd,
+        action.payload.term
+      );
       newSets = setNewTerms(state, newTerms);
+      console.log(getCurrentSet(state));
+
       return { ...state, sets: newSets };
 
     case ActionType.DELETING_TERM:
@@ -130,6 +136,8 @@ const mnemoryReducer = (
       return { ...state, sets: newSets };
 
     case ActionType.SET_TERM_INFO:
+      console.log("term info");
+
       newTerms = currentEditingSet.terms.map((term) => {
         if (term.id === action.payload.termId) {
           return {
@@ -257,6 +265,8 @@ const mnemoryReducer = (
       return { ...state, areImagesLoading: action.payload };
 
     case ActionType.SET_KEYWORD_INFO:
+      console.log("key info");
+
       newTerms = currentEditingSet.terms.map((term) => {
         if (term.id === action.payload.termId) {
           const newTermKeywords = term.descriptionKeywords.map((keyword) => {
@@ -303,6 +313,8 @@ const mnemoryReducer = (
       };
 
     case ActionType.SAVE_CURRENT_SET:
+      console.log("save");
+
       newSets = state.sets.map((set) => {
         if (set.editingSet.setId === state.currentSetId) {
           const newEditingSet: ISet = {
@@ -319,6 +331,8 @@ const mnemoryReducer = (
       };
 
     case ActionType.COPY_SAVED_SET:
+      console.log("copy");
+
       newSets = state.sets.map((set) => {
         if (set.editingSet.setId === state.currentSetId) {
           const newSavedSet: ISet = {
@@ -334,6 +348,8 @@ const mnemoryReducer = (
       };
 
     case ActionType.SET_SET_INFO:
+      console.log("set info");
+
       newSets = state.sets.map((set) => {
         if (set.editingSet.setId === state.currentSetId) {
           const newEditingSet: ISet = {

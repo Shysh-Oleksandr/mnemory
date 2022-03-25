@@ -97,3 +97,12 @@ export const calcTermsLeft = (
 export function getRandomNumber(n: number = 10000000000) {
   return Math.floor(Math.random() * n) + 1;
 }
+
+export const insert = (arr: any[], index: number, newItem: any) => [
+  // part of the array before the specified index
+  ...arr.slice(0, index),
+  // inserted item
+  newItem,
+  // part of the array after the specified index
+  ...arr.slice(index),
+];
