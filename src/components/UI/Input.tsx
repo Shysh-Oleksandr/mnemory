@@ -26,6 +26,7 @@ const Input = ({
   return (
     <div>
       <input
+        tabIndex={0}
         onChange={(e) => onChange(e)}
         type="text"
         defaultValue={defaultValue}

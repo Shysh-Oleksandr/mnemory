@@ -29,6 +29,10 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
     clearInput(nameRef, descriptionRef);
   }, [mnemoryState.currentSetId]);
 
+  useEffect(() => {
+    nameRef.current?.focus();
+  }, []);
+
   const toggleImageChoice = () => {
     toggleTermKeywordImage(termId, descriptionKeyword.id);
     !descriptionKeyword.imageChecked &&
@@ -79,6 +83,7 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
       <div className="relative">
         <input
           ref={nameRef}
+          tabIndex={0}
           onChange={() =>
             setKeywordInfo(
               nameRef.current?.value!,
