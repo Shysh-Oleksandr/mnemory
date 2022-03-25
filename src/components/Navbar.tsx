@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { actionCreactors, State } from "../state";
 import { ISetStatus } from "../state/Reducers/MnemoryReducer";
-import { isSetChanged } from "./../Helpers/functions";
+import { getRandomNumber, isSetChanged } from "./../Helpers/functions";
 import { ITerm } from "./termCard/Term";
 
 type Props = {};
@@ -16,8 +16,10 @@ const Navbar = (props: Props) => {
     return {
       term: "",
       definition: "",
-      descriptionKeywords: [{ keyword: "", id: 0, imageChecked: false }],
-      id: index,
+      descriptionKeywords: [
+        { keyword: "", id: getRandomNumber(), imageChecked: false },
+      ],
+      id: getRandomNumber(),
     };
   });
   const navigate = useNavigate();

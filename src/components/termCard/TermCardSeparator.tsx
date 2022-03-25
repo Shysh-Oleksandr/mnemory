@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getCurrentSet } from "../../Helpers/functions";
+import { getCurrentSet, getRandomNumber } from "../../Helpers/functions";
 import { actionCreactors, State } from "../../state";
 import { ISetStatus } from "../../state/Reducers/MnemoryReducer";
 import { CgClose } from "react-icons/cg";
@@ -27,8 +27,10 @@ const TermCardSeparator = ({ cardId }: Props) => {
   const emptyTerm = {
     term: "",
     definition: "",
-    descriptionKeywords: [{ keyword: "", id: 0, imageChecked: false }],
-    id: currentSet.editingSet.terms.length,
+    descriptionKeywords: [
+      { keyword: "", id: getRandomNumber(), imageChecked: false },
+    ],
+    id: getRandomNumber(),
   };
 
   return (

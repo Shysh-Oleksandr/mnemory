@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getCurrentSet } from "../Helpers/functions";
+import { getCurrentSet, getRandomNumber } from "../Helpers/functions";
 import { actionCreactors, State } from "../state";
 import { ISetStatus } from "../state/Reducers/MnemoryReducer";
 import { CgClose } from "react-icons/cg";
@@ -17,8 +17,10 @@ const AddTermBtn = () => {
   const emptyTerm = {
     term: "",
     definition: "",
-    descriptionKeywords: [{ keyword: "", id: 0, imageChecked: false }],
-    id: newTermIndex,
+    descriptionKeywords: [
+      { keyword: "", id: getRandomNumber(), imageChecked: false },
+    ],
+    id: getRandomNumber(),
   };
 
   return (

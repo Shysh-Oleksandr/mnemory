@@ -1,6 +1,10 @@
 import { Dispatch } from "react";
 import { ITerm } from "../../components/termCard/Term";
-import { setNewTerms, validateTerms } from "../../Helpers/functions";
+import {
+  getRandomNumber,
+  setNewTerms,
+  validateTerms,
+} from "../../Helpers/functions";
 import { ActionType } from "../Action-types";
 import { Action } from "../Actions";
 import { getCurrentSet } from "./../../Helpers/functions";
@@ -154,7 +158,7 @@ const mnemoryReducer = (
               {
                 keyword: "",
                 imageChecked: false,
-                id: term.descriptionKeywords.length,
+                id: getRandomNumber(),
               },
             ],
           };
