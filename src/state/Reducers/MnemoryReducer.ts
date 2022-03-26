@@ -129,7 +129,6 @@ const mnemoryReducer = (
   const currentEditingSet: ISet = getCurrentSet(state).editingSet;
   let newSets = state.sets;
   let newTerms = currentEditingSet.terms;
-  const commonSet = state.sets.find((set) => set.editingSet.setId === 0);
 
   switch (action.type) {
     // Terms actions.

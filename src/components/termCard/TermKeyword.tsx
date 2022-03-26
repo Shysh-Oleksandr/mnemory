@@ -1,10 +1,9 @@
 import { RefObject, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import { clearInput } from "../../Helpers/functions";
+import { clearInput, fetchImages } from "../../Helpers/functions";
 import { actionCreactors, State } from "../../state";
 import { Keyword } from "./Term";
-import { fetchImages } from "./TermKeywordImageChoice";
 import { CgClose } from "react-icons/cg";
 import { BsCardImage } from "react-icons/bs";
 import { getCurrentSet } from "./../../Helpers/functions";

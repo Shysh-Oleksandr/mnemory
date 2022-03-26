@@ -4,12 +4,39 @@ import { ISet, ISetStatus } from "../state/Reducers/MnemoryReducer";
 import { IMnemory } from "./../state/Reducers/MnemoryReducer";
 import { MAX_BG_CARDS } from "./../pages/LearnFlashcardsPage";
 import { setSetInfo } from "../state/Action-creators";
+import { Action } from "../state/Actions";
+import { Dispatch } from "redux";
 
 export function getCurrentSet(mnemoryState: IMnemory): ISetStatus {
   return mnemoryState.sets.find(
     (set) => set.editingSet.setId === mnemoryState.currentSetId
   )!;
 }
+
+export const fetchImages = async (
+  query: string,
+  setSearchedImages: (
+    searchedImages: string[]
+  ) => (dispatch: Dispatch<Action>) => void,
+  setAreImagesLoading: (
+    areImagesLoading: boolean
+  ) => (dispatch: Dispatch<Action>) => void,
+  setKeywordImage?: (query: string, foundImage: string) => void
+) => {
+  setAreImagesLoading(true);
+  let response = await fetch(
+    `https://api.unsplash.com/search/photos?page=1&query=${query}&client_id=ZiayMmOG_HV-OOVULOC8bxjPCyBlJO23BKeXIl9zh-M`
+  );
+  let data = await response.json();
+  let fetchedImages: string[] = data.results.map(
+    (result: any) => result.urls.raw
+  );
+  setSearchedImages(fetchedImages);
+
+  if (setKeywordImage) {
+    setKeywordImage(query, fetchedImages[0]);
+  }
+};
 
 export function validateTerms(terms: ITerm[]): ITerm[] {
   // Removing terms with empty name.

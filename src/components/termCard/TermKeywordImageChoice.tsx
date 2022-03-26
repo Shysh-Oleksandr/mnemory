@@ -1,36 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
+import { AiOutlineArrowRight } from "react-icons/ai";
 import { MutatingDots } from "react-loader-spinner";
 import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
-import { bindActionCreators, Dispatch } from "redux";
+import { bindActionCreators } from "redux";
+import { fetchImages } from "../../Helpers/functions";
 import { actionCreactors, State } from "../../state";
-import { Action } from "../../state/Actions";
 import { ITerm } from "./Term";
-import { AiOutlineArrowRight } from "react-icons/ai";
 
 type Props = { term: ITerm };
-
-const CLIENT_API = "gK52De2Tm_dL5o1IXKa9FROBAJ-LIYqR41xBdlg3X2k"; // Another one
-
-export const fetchImages = async (
-  query: string,
-  setSearchedImages: (
-    searchedImages: string[]
-  ) => (dispatch: Dispatch<Action>) => void,
-  setAreImagesLoading: (
-    areImagesLoading: boolean
-  ) => (dispatch: Dispatch<Action>) => void
-) => {
-  setAreImagesLoading(true);
-  let response = await fetch(
-    `https://api.unsplash.com/search/photos?page=1&query=${query}&client_id=ZiayMmOG_HV-OOVULOC8bxjPCyBlJO23BKeXIl9zh-M`
-  );
-  let data = await response.json();
-  let fetchedImages: string[] = data.results.map(
-    (result: any) => result.urls.raw
-  );
-  setSearchedImages(fetchedImages);
-};
 
 const TermKeywordImageChoice = ({ term }: Props) => {
   const mnemoryState = useSelector((state: State) => state.mnemory);
