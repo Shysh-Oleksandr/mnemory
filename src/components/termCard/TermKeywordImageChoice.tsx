@@ -57,6 +57,29 @@ const TermKeywordImageChoice = ({ term }: Props) => {
     slidesToShow: 4,
     slidesToScroll: 4,
     variableWidth: false,
+    responsive: [
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 470,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   useEffect(() => {
@@ -105,14 +128,14 @@ const TermKeywordImageChoice = ({ term }: Props) => {
   return (
     <div className="keyword-image-choice bg-slate-900 text-slate-100 rounded-lg py-6 px-6">
       <form onSubmit={(e) => searchKeywordImages(e)}>
-        <div className="flex items-center">
-          <div className="relative ">
+        <div className="flex items-center flex-col md:flex-row md:mb-10 mb-6">
+          <div className="relative w-full md:w-auto">
             <input
               type="text"
               key={foundKeyword.keyword}
               defaultValue={foundKeyword.keyword}
               placeholder={foundKeyword.keyword}
-              className="keyword-image-input term-input"
+              className="keyword-image-input term-input w-full md:w-auto"
               id={`term-${term.id}-${foundKeyword.id}`}
               ref={inputRef}
             />
@@ -122,6 +145,12 @@ const TermKeywordImageChoice = ({ term }: Props) => {
             >
               <AiOutlineArrowRight />
             </button>
+            <label
+              htmlFor={`term-${term.id}-${foundKeyword.id}`}
+              className="keyword-image-input-label absolute -bottom-6"
+            >
+              Search by image
+            </label>
           </div>
           <div>
             <input
@@ -134,19 +163,13 @@ const TermKeywordImageChoice = ({ term }: Props) => {
               }}
             />
             <label
-              className="cursor-pointer block px-6 py-[0.6rem] ml-8 bg-orange-400 text-xl transition-colors hover:bg-orange-500 font-bold rounded-md"
+              className="cursor-pointer block px-6 py-[0.6rem] md:ml-8 md:mt-0 sm:mt-6 mt-8 bg-orange-400 text-xl transition-colors hover:bg-orange-500 font-bold rounded-md"
               htmlFor={`term-${term.id}-${foundKeyword.id}-image`}
             >
               Or upload your image
             </label>
           </div>
         </div>
-        <label
-          htmlFor={`term-${term.id}-${foundKeyword.id}`}
-          className="keyword-image-input-label"
-        >
-          Search by image
-        </label>
       </form>
       <div className="mt-5 min-w-0 relative px-6">
         {mnemoryState.areImagesLoading && inputRef.current?.value !== "" && (
@@ -165,7 +188,7 @@ const TermKeywordImageChoice = ({ term }: Props) => {
         >
           {mnemoryState.currentSearchedImages.map((imageUrl: string, index) => {
             return (
-              <div className="h-36 px-1" key={`${index}-${imageUrl}`}>
+              <div className="lg:h-32 h-28 px-1" key={`${index}-${imageUrl}`}>
                 <img
                   onLoad={() => setLoadedImages([...loadedImages, imageUrl])}
                   onClick={() => {

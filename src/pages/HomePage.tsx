@@ -26,7 +26,7 @@ const HomePage = (props: Props) => {
 
   return (
     <div className="md:mt-8 mt-4">
-      <h3 className="md:text-3xl text-2xl mb-2">Your sets</h3>
+      <h3 className="md:text-3xl text-2xl md:mb-4 mb-2">Your sets</h3>
       <div className="flex flex-wrap gap-3">
         {mnemoryState.sets
           .filter((set) => set.savedSet.name)
