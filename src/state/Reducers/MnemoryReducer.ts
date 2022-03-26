@@ -124,8 +124,6 @@ const mnemoryReducer = (
         action.payload.term
       );
       newSets = setNewTerms(state, newTerms);
-      console.log(getCurrentSet(state));
-
       return { ...state, sets: newSets };
 
     case ActionType.DELETING_TERM:
@@ -136,8 +134,6 @@ const mnemoryReducer = (
       return { ...state, sets: newSets };
 
     case ActionType.SET_TERM_INFO:
-      console.log("term info");
-
       newTerms = currentEditingSet.terms.map((term) => {
         if (term.id === action.payload.termId) {
           return {
@@ -265,8 +261,6 @@ const mnemoryReducer = (
       return { ...state, areImagesLoading: action.payload };
 
     case ActionType.SET_KEYWORD_INFO:
-      console.log("key info");
-
       newTerms = currentEditingSet.terms.map((term) => {
         if (term.id === action.payload.termId) {
           const newTermKeywords = term.descriptionKeywords.map((keyword) => {
@@ -294,8 +288,6 @@ const mnemoryReducer = (
       return { ...state, currentSetId: action.payload };
 
     case ActionType.ADDING_SET:
-      console.log("add set");
-
       return {
         ...state,
         currentSetId: action.payload.editingSet.setId,
@@ -313,8 +305,6 @@ const mnemoryReducer = (
       };
 
     case ActionType.SAVE_CURRENT_SET:
-      console.log("save");
-
       newSets = state.sets.map((set) => {
         if (set.editingSet.setId === state.currentSetId) {
           const newEditingSet: ISet = {
@@ -331,8 +321,6 @@ const mnemoryReducer = (
       };
 
     case ActionType.COPY_SAVED_SET:
-      console.log("copy");
-
       newSets = state.sets.map((set) => {
         if (set.editingSet.setId === state.currentSetId) {
           const newSavedSet: ISet = {
@@ -348,8 +336,6 @@ const mnemoryReducer = (
       };
 
     case ActionType.SET_SET_INFO:
-      console.log("set info");
-
       newSets = state.sets.map((set) => {
         if (set.editingSet.setId === state.currentSetId) {
           const newEditingSet: ISet = {

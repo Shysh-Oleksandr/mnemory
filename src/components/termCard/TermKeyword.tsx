@@ -1,4 +1,4 @@
-import React, { RefObject, useEffect, useRef } from "react";
+import { RefObject, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { clearInput } from "../../Helpers/functions";
@@ -7,6 +7,7 @@ import { Keyword } from "./Term";
 import { fetchImages } from "./TermKeywordImageChoice";
 import { CgClose } from "react-icons/cg";
 import { BsCardImage } from "react-icons/bs";
+import { getCurrentSet } from "./../../Helpers/functions";
 
 type Props = { termId: number; descriptionKeyword: Keyword };
 
@@ -29,11 +30,18 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
     clearInput(nameRef, descriptionRef);
   }, [mnemoryState.currentSetId]);
 
-  // useEffect(() => {
-  //   nameRef.current?.focus();
-  // }, []);
+  useEffect(() => {
+    const savedTerms = getCurrentSet(mnemoryState).savedSet.terms;
+    const savedTerm = savedTerms.find((term) => term.id === termId);
+    if (!savedTerm) {
+      nameRef.current?.focus();
+      return;
+    }
+    if (savedTerm.descriptionKeywords.includes(descriptionKeyword)) return;
+    nameRef.current?.focus();
+  }, []);
 
-  const toggleImageChoice = () => {
+  function toggleImageChoice(): void {
     toggleTermKeywordImage(termId, descriptionKeyword.id);
     !descriptionKeyword.imageChecked &&
       fetchImages(
@@ -41,7 +49,7 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
         setSearchedImages,
         setAreImagesLoading
       );
-  };
+  }
 
   return (
     <div className="term-description-keyword relative flex flex-col items-center m-1 mx-2 md:w-36 w-28">

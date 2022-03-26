@@ -21,7 +21,6 @@ const EditPage = (props: Props) => {
     actionCreactors,
     dispatch
   );
-  console.log(getCurrentSet(mnemoryState));
 
   return (
     <div>

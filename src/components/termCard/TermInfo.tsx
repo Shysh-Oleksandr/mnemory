@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreactors, State } from "../../state";
 import { clearInput } from "../../Helpers/functions";
+import { getCurrentSet } from "./../../Helpers/functions";
 
 type Props = { term: ITerm };
 
@@ -21,11 +22,15 @@ const TermInfo = ({ term }: Props) => {
     clearInput(nameRef, descriptionRef);
   }, [mnemoryState.currentSetId]);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     nameRef.current?.focus();
-  //   }, 0.1);
-  // }, []);
+  useEffect(() => {
+    // Don't focus initial inputs.
+    if (getCurrentSet(mnemoryState).savedSet.terms.includes(term)) {
+      return;
+    }
+    setTimeout(() => {
+      nameRef.current?.focus();
+    }, 0.1);
+  }, []);
 
   return (
     <div className="term-info basis-1/4 shrink">
