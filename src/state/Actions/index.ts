@@ -12,6 +12,11 @@ interface DeletingAction {
   payload: ITerm;
 }
 
+interface ReorderTermsAction {
+  type: ActionType.REORDER_TERMS;
+  payload: ITerm[];
+}
+
 interface AddingKeywordAction {
   type: ActionType.ADDING_KEYWORD;
   payload: number;
@@ -110,6 +115,7 @@ interface SetShowDefinition {
 export type Action =
   | AddingAction
   | DeletingAction
+  | ReorderTermsAction
   | AddingKeywordAction
   | DeletingKeywordImageAction
   | ToggleKeywordImageAction

@@ -133,6 +133,10 @@ const mnemoryReducer = (
       newSets = setNewTerms(state, newTerms);
       return { ...state, sets: newSets };
 
+    case ActionType.REORDER_TERMS:
+      newSets = setNewTerms(state, action.payload);
+      return { ...state, sets: newSets };
+
     case ActionType.SET_TERM_INFO:
       newTerms = currentEditingSet.terms.map((term) => {
         if (term.id === action.payload.termId) {

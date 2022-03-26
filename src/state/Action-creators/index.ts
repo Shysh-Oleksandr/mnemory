@@ -22,6 +22,15 @@ export const deleteTerm = (term: ITerm) => {
   };
 };
 
+export const reorderTerms = (terms: ITerm[]) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.REORDER_TERMS,
+      payload: terms,
+    });
+  };
+};
+
 export const addTermKeyword = (termId: number) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
