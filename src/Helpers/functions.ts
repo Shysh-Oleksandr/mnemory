@@ -3,6 +3,7 @@ import { ITerm } from "../components/termCard/Term";
 import { ISet, ISetStatus } from "../state/Reducers/MnemoryReducer";
 import { IMnemory } from "./../state/Reducers/MnemoryReducer";
 import { MAX_BG_CARDS } from "./../pages/LearnFlashcardsPage";
+import { setSetInfo } from "../state/Action-creators";
 
 export function getCurrentSet(mnemoryState: IMnemory): ISetStatus {
   return mnemoryState.sets.find(
@@ -46,6 +47,25 @@ export function setNewTerms(state: IMnemory, newTerms: ITerm[]): ISetStatus[] {
     if (set.editingSet.setId === state.currentSetId) {
       const newEditingSet: ISet = { ...set.editingSet, terms: newTerms };
       return { ...set, editingSet: newEditingSet };
+    }
+    return set;
+  });
+
+  return newSets;
+}
+
+export function setNewCommonSet(sets: ISetStatus[]): ISetStatus[] {
+  const allTerms: ITerm[] = [];
+  sets.map(
+    (set) =>
+      set.savedSet.setId !== 0 &&
+      set.savedSet.terms.map((term) => term.term !== "" && allTerms.push(term))
+  );
+
+  const newSets = sets.map((set) => {
+    if (set.editingSet.setId === 0) {
+      const newSavedSet: ISet = { ...set.savedSet, terms: allTerms };
+      return { ...set, savedSet: newSavedSet };
     }
     return set;
   });

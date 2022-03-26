@@ -29,7 +29,7 @@ const HomePage = (props: Props) => {
       <h3 className="md:text-3xl text-2xl md:mb-4 mb-2">Your sets</h3>
       <div className="flex flex-wrap gap-3">
         {mnemoryState.sets
-          .filter((set) => set.savedSet.name)
+          // .filter((set) => set.savedSet.name)
           .map((set) => {
             const keywordImage = getSetImage(set);
             return (

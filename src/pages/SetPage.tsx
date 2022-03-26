@@ -43,30 +43,32 @@ const SetPage = (props: Props) => {
         </div>
         <SetTermsList set={savedSet} />
       </div>
-      <div className="mt-6 flex items-center">
-        <Link
-          onClick={copySavedSet}
-          to={`/set/${savedSet.setId + 1}/edit`}
-          className="btn block sm:!py-4 !py-3 text-center lg:basis-9/12 sm:basis-8/12 basis-7/12 sm:shrink-0 font-bold mr-4"
-        >
-          <span className="inline-block relative top-1">
-            <MdEdit />
-          </span>{" "}
-          Edit set
-        </Link>
-        <button
-          className="btn block lg:basis-3/12 sm:basis-4/12 basis-5/12 whitespace-nowrap !text-white sm:!py-4 !py-3 font-bold !bg-red-800 hover:!bg-red-900"
-          onClick={() => {
-            deleteSet(savedSet.setId);
-            navigate("/");
-          }}
-        >
-          <span className="inline-block relative top-1">
-            <MdDelete />
-          </span>{" "}
-          Delete set
-        </button>
-      </div>
+      {currentSet.savedSet.setId !== 0 && (
+        <div className="mt-6 flex items-center">
+          <Link
+            onClick={copySavedSet}
+            to={`/set/${savedSet.setId + 1}/edit`}
+            className="btn block sm:!py-4 !py-3 text-center lg:basis-9/12 sm:basis-8/12 basis-7/12 sm:shrink-0 font-bold mr-4"
+          >
+            <span className="inline-block relative top-1">
+              <MdEdit />
+            </span>{" "}
+            Edit set
+          </Link>
+          <button
+            className="btn block lg:basis-3/12 sm:basis-4/12 basis-5/12 whitespace-nowrap !text-white sm:!py-4 !py-3 font-bold !bg-red-800 hover:!bg-red-900"
+            onClick={() => {
+              deleteSet(savedSet.setId);
+              navigate("/");
+            }}
+          >
+            <span className="inline-block relative top-1">
+              <MdDelete />
+            </span>{" "}
+            Delete set
+          </button>
+        </div>
+      )}
     </div>
   );
 };

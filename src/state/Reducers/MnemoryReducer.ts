@@ -3,6 +3,7 @@ import { ITerm } from "../../components/termCard/Term";
 import {
   getRandomNumber,
   insert,
+  setNewCommonSet,
   setNewTerms,
   validateTerms,
 } from "../../Helpers/functions";
@@ -37,6 +38,19 @@ export interface IMnemory {
 
 const initialState: IMnemory = {
   sets: [
+    {
+      savedSet: {
+        name: "All terms",
+        description: "",
+        terms: [],
+        setId: 0,
+      },
+      editingSet: {
+        name: "All terms",
+        terms: [],
+        setId: 0,
+      },
+    },
     {
       savedSet: {
         name: "First set",
@@ -79,12 +93,12 @@ const initialState: IMnemory = {
             id: 1,
           },
         ],
-        setId: 0,
+        setId: 2,
       },
       editingSet: {
         name: "First set",
         terms: [],
-        setId: 0,
+        setId: 2,
       },
     },
     {
@@ -115,6 +129,8 @@ const mnemoryReducer = (
   const currentEditingSet: ISet = getCurrentSet(state).editingSet;
   let newSets = state.sets;
   let newTerms = currentEditingSet.terms;
+  const commonSet = state.sets.find((set) => set.editingSet.setId === 0);
+
   switch (action.type) {
     // Terms actions.
     case ActionType.ADDING_TERM:
@@ -124,6 +140,7 @@ const mnemoryReducer = (
         action.payload.term
       );
       newSets = setNewTerms(state, newTerms);
+
       return { ...state, sets: newSets };
 
     case ActionType.DELETING_TERM:
@@ -292,20 +309,24 @@ const mnemoryReducer = (
       return { ...state, currentSetId: action.payload };
 
     case ActionType.ADDING_SET:
+      newSets = setNewCommonSet([...state.sets, action.payload]);
+
       return {
         ...state,
         currentSetId: action.payload.editingSet.setId,
-        sets: [...state.sets, action.payload],
+        sets: newSets,
       };
 
     case ActionType.DELETING_SET:
       const filteredSets = state.sets.filter(
         (set) => set.editingSet.setId !== action.payload
       );
+      newSets = setNewCommonSet(filteredSets);
+
       return {
         ...state,
         currentSetId: 0,
-        sets: filteredSets,
+        sets: newSets,
       };
 
     case ActionType.SAVE_CURRENT_SET:
@@ -319,6 +340,8 @@ const mnemoryReducer = (
         }
         return set;
       });
+      newSets = setNewCommonSet(newSets);
+
       return {
         ...state,
         sets: newSets,
