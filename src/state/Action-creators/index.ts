@@ -176,6 +176,15 @@ export const copySavedSet = () => {
   };
 };
 
+export const setSortedSets = (sortedSets: ISetStatus[], sortMethod: string) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.SET_SORTED_SETS,
+      payload: { sortedSets: sortedSets, sortMethod: sortMethod },
+    });
+  };
+};
+
 export const setShowDefinition = () => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({

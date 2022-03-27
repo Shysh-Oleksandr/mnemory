@@ -19,6 +19,7 @@ const SetPage = (props: Props) => {
   const navigate = useNavigate();
   const currentSet = getCurrentSet(mnemoryState);
   const savedSet = currentSet.savedSet;
+  console.log(currentSet.savedSet);
 
   return (
     <div className="set-page">

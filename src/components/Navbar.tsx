@@ -24,19 +24,25 @@ const Navbar = (props: Props) => {
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { addSet, copySavedSet, setShowConfirmModal, deleteSet } =
-    bindActionCreators(actionCreactors, dispatch);
+  const { addSet, setShowConfirmModal, deleteSet } = bindActionCreators(
+    actionCreactors,
+    dispatch
+  );
 
   const emptySet: ISetStatus = {
     savedSet: {
       name: "",
       terms: emptyTerms,
       setId: mnemoryState.sets.length,
+      createdDate: new Date(),
+      lastVisitedDate: new Date(),
     },
     editingSet: {
       name: "",
       terms: emptyTerms,
       setId: mnemoryState.sets.length,
+      createdDate: new Date(),
+      lastVisitedDate: new Date(),
     },
   };
 

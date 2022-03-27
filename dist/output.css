@@ -710,6 +710,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-left: 0px;
 }
 
+.ml-4 {
+  margin-left: 1rem;
+}
+
 .mt-8 {
   margin-top: 2rem;
 }
@@ -724,14 +728,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .ml-8 {
   margin-left: 2rem;
-}
-
-.ml-2 {
-  margin-left: 0.5rem;
-}
-
-.ml-4 {
-  margin-left: 1rem;
 }
 
 .block {
@@ -1181,6 +1177,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding: 1.5rem;
 }
 
+.p-2 {
+  padding: 0.5rem;
+}
+
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
@@ -1241,9 +1241,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 2rem;
 }
 
-.\!px-2 {
-  padding-left: 0.5rem !important;
-  padding-right: 0.5rem !important;
+.\!px-1 {
+  padding-left: 0.25rem !important;
+  padding-right: 0.25rem !important;
 }
 
 .py-\[0\.6rem\] {
@@ -1264,11 +1264,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .\!px-20 {
   padding-left: 5rem !important;
   padding-right: 5rem !important;
-}
-
-.\!px-1 {
-  padding-left: 0.25rem !important;
-  padding-right: 0.25rem !important;
 }
 
 .pb-6 {
@@ -1370,11 +1365,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
-}
-
-.\!text-xl {
-  font-size: 1.25rem !important;
-  line-height: 1.75rem !important;
 }
 
 .text-\[1\.7rem\] {
@@ -1911,11 +1901,6 @@ ul {
     font-size: 1.125rem;
     line-height: 1.75rem;
   }
-
-  .sm\:\!text-2xl {
-    font-size: 1.5rem !important;
-    line-height: 2rem !important;
-  }
 }
 
 @media (min-width: 768px) {
@@ -1967,6 +1952,10 @@ ul {
 
   .md\:mt-0 {
     margin-top: 0px;
+  }
+
+  .md\:mb-6 {
+    margin-bottom: 1.5rem;
   }
 
   .md\:block {

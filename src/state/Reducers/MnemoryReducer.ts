@@ -7,6 +7,7 @@ import {
   setNewTerms,
   validateTerms,
 } from "../../Helpers/functions";
+import { SortedMethods } from "../../pages/HomePage";
 import { ActionType } from "../Action-types";
 import { Action } from "../Actions";
 import { getCurrentSet } from "./../../Helpers/functions";
@@ -16,6 +17,8 @@ export interface ISet {
   description?: string;
   terms: ITerm[];
   setId: number;
+  createdDate: Date | null;
+  lastVisitedDate: Date | null;
 }
 
 export interface ISetStatus {
@@ -34,6 +37,7 @@ export interface IMnemory {
     onClick?: React.MouseEventHandler<HTMLAnchorElement> | undefined;
     to: string;
   };
+  sortMethod: string;
 }
 
 const initialState: IMnemory = {
@@ -44,11 +48,15 @@ const initialState: IMnemory = {
         description: "",
         terms: [],
         setId: 0,
+        createdDate: null,
+        lastVisitedDate: null,
       },
       editingSet: {
         name: "All terms",
         terms: [],
         setId: 0,
+        createdDate: null,
+        lastVisitedDate: null,
       },
     },
     {
@@ -94,11 +102,15 @@ const initialState: IMnemory = {
           },
         ],
         setId: 2,
+        createdDate: null,
+        lastVisitedDate: null,
       },
       editingSet: {
         name: "First set",
         terms: [],
         setId: 2,
+        createdDate: null,
+        lastVisitedDate: null,
       },
     },
     {
@@ -106,12 +118,16 @@ const initialState: IMnemory = {
         name: "Second set",
         terms: [],
         setId: 1,
+        createdDate: null,
+        lastVisitedDate: null,
       },
 
       editingSet: {
         name: "Second set",
         terms: [],
         setId: 1,
+        createdDate: null,
+        lastVisitedDate: null,
       },
     },
   ],
@@ -120,6 +136,7 @@ const initialState: IMnemory = {
   currentSearchedImages: [],
   areImagesLoading: true,
   showConfirmModal: { toShow: false, to: "/" },
+  sortMethod: SortedMethods.LATEST,
 };
 
 const mnemoryReducer = (
@@ -305,7 +322,17 @@ const mnemoryReducer = (
 
     // Set actions.
     case ActionType.SET_CURRENT_SET_ID:
-      return { ...state, currentSetId: action.payload };
+      newSets = state.sets.map((set) => {
+        if (set.editingSet.setId === action.payload) {
+          const newSavedSet: ISet = {
+            ...set.savedSet,
+            lastVisitedDate: new Date(),
+          };
+          return { ...set, savedSet: newSavedSet };
+        }
+        return set;
+      });
+      return { ...state, currentSetId: action.payload, sets: newSets };
 
     case ActionType.ADDING_SET:
       newSets = setNewCommonSet([...state.sets, action.payload]);
@@ -359,6 +386,13 @@ const mnemoryReducer = (
       return {
         ...state,
         sets: newSets,
+      };
+
+    case ActionType.SET_SORTED_SETS:
+      return {
+        ...state,
+        sets: action.payload.sortedSets,
+        sortMethod: action.payload.sortMethod,
       };
 
     case ActionType.SET_SET_INFO:

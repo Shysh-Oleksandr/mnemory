@@ -1,17 +1,31 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { actionCreactors, State } from "../state";
 import { ISetStatus } from "../state/Reducers/MnemoryReducer";
 
-type Props = {};
+export enum SortedMethods {
+  LATEST = "latest",
+  OLDEST = "oldest",
+  NEWEST = "newest",
+  TERMS = "terms",
+}
 
-const HomePage = (props: Props) => {
+const HomePage = () => {
   const mnemoryState = useSelector((state: State) => state.mnemory);
   const dispatch = useDispatch();
+  const selectRef = useRef() as React.MutableRefObject<HTMLSelectElement>;
 
-  const { setCurrentSetId } = bindActionCreators(actionCreactors, dispatch);
+  const { setCurrentSetId, setSortedSets } = bindActionCreators(
+    actionCreactors,
+    dispatch
+  );
+
+  useEffect(() => {
+    // selectRef.current.value = mnemoryState.sortedMethod;
+    sortSets(mnemoryState.sortMethod);
+  }, []);
 
   const getSetImage = (set: ISetStatus): string | undefined => {
     let keywords = set.savedSet.terms.map((term) => {
@@ -24,9 +38,62 @@ const HomePage = (props: Props) => {
     return keywordImage;
   };
 
+  const sortSets = (sortMethod: string) => {
+    let sortedSets = mnemoryState.sets;
+    switch (sortMethod) {
+      case SortedMethods.LATEST:
+        sortedSets = sortedSets.sort((a, b) => {
+          return a.savedSet.lastVisitedDate! <= b.savedSet.lastVisitedDate!
+            ? 1
+            : -1;
+        });
+        break;
+      case SortedMethods.NEWEST:
+        sortedSets = sortedSets.sort((a, b) => {
+          return a.savedSet.createdDate! >= b.savedSet.createdDate! ? 1 : -1;
+        });
+        break;
+      case SortedMethods.OLDEST:
+        sortedSets = sortedSets.sort((a, b) => {
+          return a.savedSet.lastVisitedDate! >= b.savedSet.lastVisitedDate!
+            ? 1
+            : -1;
+        });
+        break;
+      case SortedMethods.TERMS:
+        sortedSets = sortedSets.sort((a, b) => {
+          return a.savedSet.terms.length < b.savedSet.terms.length
+            ? 1
+            : a.savedSet.terms.length === b.savedSet.terms.length
+            ? 0
+            : -1;
+        });
+        break;
+      default:
+        break;
+    }
+
+    setSortedSets(sortedSets, sortMethod);
+  };
+
   return (
     <div className="md:mt-8 mt-4">
-      <h3 className="md:text-3xl text-2xl md:mb-4 mb-2">Your sets</h3>
+      <div className="flex items-center justify-between md:mb-6 mb-3">
+        <h3 className="md:text-3xl text-2xl">Your sets</h3>
+        <select
+          ref={selectRef}
+          defaultValue={mnemoryState.sortMethod}
+          onChange={(e) => sortSets(e.target.value)}
+          name="sort-select"
+          id="sort-select"
+          className="bg-slate-700 p-2 rounded-lg"
+        >
+          <option value={SortedMethods.LATEST}>Latest</option>
+          <option value={SortedMethods.NEWEST}>Newest</option>
+          <option value={SortedMethods.OLDEST}>Oldest</option>
+          <option value={SortedMethods.TERMS}>Terms length</option>
+        </select>
+      </div>
       <div className="flex flex-wrap gap-3">
         {mnemoryState.sets
           // .filter((set) => set.savedSet.name)

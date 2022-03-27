@@ -112,6 +112,11 @@ interface SetShowDefinition {
   type: ActionType.SET_SHOW_DEFINITION;
 }
 
+interface SetSortedSets {
+  type: ActionType.SET_SORTED_SETS;
+  payload: { sortedSets: ISetStatus[]; sortMethod: string };
+}
+
 export type Action =
   | AddingAction
   | DeletingAction
@@ -133,4 +138,5 @@ export type Action =
   | SetShowConfirmModalAction
   | SetShowDefinition
   | SetIsStartSideFront
+  | SetSortedSets
   | DeletingKeywordAction;
