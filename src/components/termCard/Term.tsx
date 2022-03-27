@@ -16,6 +16,7 @@ export interface ITerm {
   term: string;
   definition: string;
   descriptionKeywords: Keyword[];
+  placeholderId: number;
   id: number;
 }
 

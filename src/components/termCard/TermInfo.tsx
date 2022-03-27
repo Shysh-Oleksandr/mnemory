@@ -6,6 +6,7 @@ import { bindActionCreators } from "redux";
 import { actionCreactors, State } from "../../state";
 import { clearInput } from "../../Helpers/functions";
 import { getCurrentSet } from "./../../Helpers/functions";
+import { termsPlaceholder } from "./../../data/termsPlaceholders";
 
 type Props = { term: ITerm };
 
@@ -43,7 +44,7 @@ const TermInfo = ({ term }: Props) => {
             term.id
           )
         }
-        placeholder="Coche"
+        placeholder={termsPlaceholder[term.placeholderId].term}
         inputClassName="term-title"
         inputId={`term-${term.id}-title`}
         labelText="Term"
@@ -58,7 +59,7 @@ const TermInfo = ({ term }: Props) => {
             term.id
           )
         }
-        placeholder="Car"
+        placeholder={termsPlaceholder[term.placeholderId].definition}
         inputClassName="term-definition"
         inputId={`term-${term.id}-definition`}
         labelText="Definition"

@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
+import { termsPlaceholder } from "../data/termsPlaceholders";
 import { actionCreactors, State } from "../state";
 import { ISetStatus } from "../state/Reducers/MnemoryReducer";
 import { getRandomNumber, isSetChanged } from "./../Helpers/functions";
@@ -16,6 +17,7 @@ const Navbar = (props: Props) => {
     return {
       term: "",
       definition: "",
+      placeholderId: Math.floor(Math.random() * termsPlaceholder.length),
       descriptionKeywords: [
         { keyword: "", id: getRandomNumber(), imageChecked: false },
       ],

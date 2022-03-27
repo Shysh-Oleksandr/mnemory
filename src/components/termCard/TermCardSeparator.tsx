@@ -5,6 +5,7 @@ import { getCurrentSet, getRandomNumber } from "../../Helpers/functions";
 import { actionCreactors, State } from "../../state";
 import { ISetStatus } from "../../state/Reducers/MnemoryReducer";
 import { CgClose } from "react-icons/cg";
+import { termsPlaceholder } from "./../../data/termsPlaceholders";
 
 type Props = { cardId: number };
 
@@ -27,6 +28,7 @@ const TermCardSeparator = ({ cardId }: Props) => {
   const emptyTerm = {
     term: "",
     definition: "",
+    placeholderId: Math.floor(Math.random() * termsPlaceholder.length),
     descriptionKeywords: [
       { keyword: "", id: getRandomNumber(), imageChecked: false },
     ],

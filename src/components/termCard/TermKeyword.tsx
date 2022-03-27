@@ -7,15 +7,19 @@ import { Keyword } from "./Term";
 import { CgClose } from "react-icons/cg";
 import { BsCardImage } from "react-icons/bs";
 import { getCurrentSet } from "./../../Helpers/functions";
+import { termsPlaceholder } from "./../../data/termsPlaceholders";
 
-type Props = { termId: number; descriptionKeyword: Keyword };
+type Props = { termId: number; descriptionKeyword: Keyword; index: number };
 
-const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
+const TermKeyword = ({ termId, descriptionKeyword, index }: Props) => {
   const mnemoryState = useSelector((state: State) => state.mnemory);
 
   const nameRef = useRef() as RefObject<HTMLInputElement>;
   const descriptionRef = useRef() as RefObject<HTMLTextAreaElement>;
   const dispatch = useDispatch();
+  const currentTerm = getCurrentSet(mnemoryState);
+  const editingTerms = currentTerm.editingSet.terms;
+  const editingTerm = editingTerms.find((term) => term.id === termId);
   const {
     deleteTermKeyword,
     deleteTermKeywordImage,
@@ -30,7 +34,7 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
   }, [mnemoryState.currentSetId]);
 
   useEffect(() => {
-    const savedTerms = getCurrentSet(mnemoryState).savedSet.terms;
+    const savedTerms = currentTerm.savedSet.terms;
     const savedTerm = savedTerms.find((term) => term.id === termId);
     if (!savedTerm) {
       nameRef.current?.focus();
@@ -49,6 +53,14 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
         setAreImagesLoading
       );
   }
+
+  const getKeywordPlaceholder = (): string => {
+    const placeholderKeywords =
+      termsPlaceholder[editingTerm!.placeholderId].keywords;
+    const keywordPlaceholder = placeholderKeywords[index];
+    let placeholder = keywordPlaceholder ? keywordPlaceholder : "keyword...";
+    return placeholder;
+  };
 
   return (
     <div className="term-description-keyword relative flex flex-col items-center m-1 mx-2 md:w-36 w-28">
@@ -101,7 +113,7 @@ const TermKeyword = ({ termId, descriptionKeyword }: Props) => {
           }
           type="text"
           defaultValue={descriptionKeyword.keyword}
-          placeholder="Couch"
+          placeholder={getKeywordPlaceholder()}
           className="term-keyword-input w-full px-4 h-11 text-lg black_input rounded-2xl border-orange-400 border-solid hover:border-b-[3px] hover:border-white"
         />
         <button

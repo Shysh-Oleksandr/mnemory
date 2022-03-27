@@ -15,7 +15,6 @@ export enum SortedMethods {
 const HomePage = () => {
   const mnemoryState = useSelector((state: State) => state.mnemory);
   const dispatch = useDispatch();
-  const selectRef = useRef() as React.MutableRefObject<HTMLSelectElement>;
 
   const { setCurrentSetId, setSortedSets } = bindActionCreators(
     actionCreactors,
@@ -23,7 +22,6 @@ const HomePage = () => {
   );
 
   useEffect(() => {
-    // selectRef.current.value = mnemoryState.sortedMethod;
     sortSets(mnemoryState.sortMethod);
   }, []);
 
@@ -81,7 +79,6 @@ const HomePage = () => {
       <div className="flex items-center justify-between md:mb-6 mb-3">
         <h3 className="md:text-3xl text-2xl">Your sets</h3>
         <select
-          ref={selectRef}
           defaultValue={mnemoryState.sortMethod}
           onChange={(e) => sortSets(e.target.value)}
           name="sort-select"

@@ -14,11 +14,12 @@ const TermDescription = ({ term }: Props) => {
 
   return (
     <div className="term-description flex md:ml-8 sm:ml-4 ml-0 sm:mt-1 mt-4 flex-wrap items-end basis-3/4 grow">
-      {term.descriptionKeywords.map((descriptionKeyword) => {
+      {term.descriptionKeywords.map((descriptionKeyword, index) => {
         return (
           <TermKeyword
             termId={term.id}
             descriptionKeyword={descriptionKeyword}
+            index={index}
             key={`${term.id}-${descriptionKeyword.id}`}
           />
         );

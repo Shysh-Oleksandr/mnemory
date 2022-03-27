@@ -11,6 +11,7 @@ import { SortedMethods } from "../../pages/HomePage";
 import { ActionType } from "../Action-types";
 import { Action } from "../Actions";
 import { getCurrentSet } from "./../../Helpers/functions";
+import { termsPlaceholder } from "./../../data/termsPlaceholders";
 
 export interface ISet {
   name: string;
@@ -67,6 +68,7 @@ const initialState: IMnemory = {
           {
             term: "Lata",
             definition: "a can",
+            placeholderId: Math.floor(Math.random() * termsPlaceholder.length),
             descriptionKeywords: [
               { keyword: "Latvia", id: 0, imageChecked: false },
               {
@@ -88,6 +90,7 @@ const initialState: IMnemory = {
           {
             term: "Leche",
             definition: "milk",
+            placeholderId: Math.floor(Math.random() * termsPlaceholder.length),
             descriptionKeywords: [
               {
                 keyword: "cure",
