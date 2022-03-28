@@ -18,6 +18,7 @@ export interface ITerm {
   descriptionKeywords: Keyword[];
   placeholderId: number;
   id: number;
+  categories?: string[];
 }
 
 type Props = {

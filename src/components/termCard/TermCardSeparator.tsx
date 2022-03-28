@@ -1,11 +1,10 @@
 import React, { useState } from "react";
+import { CgClose } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getCurrentSet, getRandomNumber } from "../../Helpers/functions";
+import { getCurrentSet, getEmptyTerm } from "../../Helpers/functions";
 import { actionCreactors, State } from "../../state";
 import { ISetStatus } from "../../state/Reducers/MnemoryReducer";
-import { CgClose } from "react-icons/cg";
-import { termsPlaceholder } from "./../../data/termsPlaceholders";
 
 type Props = { cardId: number };
 
@@ -25,15 +24,7 @@ const TermCardSeparator = ({ cardId }: Props) => {
 
   const { addTerm } = bindActionCreators(actionCreactors, dispatch);
 
-  const emptyTerm = {
-    term: "",
-    definition: "",
-    placeholderId: Math.floor(Math.random() * termsPlaceholder.length),
-    descriptionKeywords: [
-      { keyword: "", id: getRandomNumber(), imageChecked: false },
-    ],
-    id: getRandomNumber(),
-  };
+  const emptyTerm = getEmptyTerm();
 
   return (
     <div

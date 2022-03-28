@@ -14,8 +14,9 @@ export enum SortedMethods {
 
 const HomePage = () => {
   const mnemoryState = useSelector((state: State) => state.mnemory);
+  const categorySets = mnemoryState.sets.filter((set) => set.isCategorySet);
+  const userSets = mnemoryState.sets.filter((set) => !set.isCategorySet);
   const dispatch = useDispatch();
-
   const { setCurrentSetId, setSortedSets } = bindActionCreators(
     actionCreactors,
     dispatch
@@ -37,7 +38,7 @@ const HomePage = () => {
   };
 
   const sortSets = (sortMethod: string) => {
-    let sortedSets = mnemoryState.sets;
+    let sortedSets = userSets;
     switch (sortMethod) {
       case SortedMethods.LATEST:
         sortedSets = sortedSets.sort((a, b) => {
@@ -53,9 +54,7 @@ const HomePage = () => {
         break;
       case SortedMethods.OLDEST:
         sortedSets = sortedSets.sort((a, b) => {
-          return a.savedSet.lastVisitedDate! >= b.savedSet.lastVisitedDate!
-            ? 1
-            : -1;
+          return a.savedSet.createdDate! >= b.savedSet.createdDate! ? 1 : -1;
         });
         break;
       case SortedMethods.TERMS:
@@ -76,58 +75,120 @@ const HomePage = () => {
 
   return (
     <div className="md:mt-8 mt-4">
-      <div className="flex items-center justify-between md:mb-6 mb-3">
-        <h3 className="md:text-3xl text-2xl">Your sets</h3>
-        <select
-          defaultValue={mnemoryState.sortMethod}
-          onChange={(e) => sortSets(e.target.value)}
-          name="sort-select"
-          id="sort-select"
-          className="bg-slate-700 p-2 rounded-lg"
-        >
-          <option value={SortedMethods.LATEST}>Latest</option>
-          <option value={SortedMethods.NEWEST}>Newest</option>
-          <option value={SortedMethods.OLDEST}>Oldest</option>
-          <option value={SortedMethods.TERMS}>Terms length</option>
-        </select>
-      </div>
-      <div className="flex flex-wrap gap-3">
-        {mnemoryState.sets
-          // .filter((set) => set.savedSet.name)
-          .map((set) => {
-            const keywordImage = getSetImage(set);
-            return (
-              <Link
-                to={`/set/${set.savedSet.setId + 1}`}
-                className="lg:basis-[32%] sm:basis-[48%] basis-full rounded-lg cursor-pointer border-solid border-transparent hover:bg-slate-600 hover:border-white border-b-4 transition-all bg-slate-700 p-4"
-                key={set.savedSet.setId}
-                onClick={() => setCurrentSetId(set.savedSet.setId)}
-              >
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="text-2xl font-bold">{set.savedSet.name}</h4>
-                    <h5 className="text-lg text-slate-400">
-                      {set.savedSet.terms.length} terms
-                    </h5>
+      <div>
+        <div className="flex items-center justify-between md:mb-6 mb-3">
+          <h3 className="md:text-3xl text-2xl">Your sets</h3>
+          <select
+            defaultValue={mnemoryState.sortMethod}
+            onChange={(e) => sortSets(e.target.value)}
+            name="sort-select"
+            id="sort-select"
+            className="bg-slate-700 p-2 rounded-lg"
+          >
+            <option value={SortedMethods.LATEST}>Latest</option>
+            <option value={SortedMethods.NEWEST}>Newest</option>
+            <option value={SortedMethods.OLDEST}>Oldest</option>
+            <option value={SortedMethods.TERMS}>Terms length</option>
+          </select>
+        </div>
+        <div className="flex flex-wrap gap-3">
+          {userSets
+            // .filter((set) => set.savedSet.name)
+            .map((set) => {
+              const keywordImage = getSetImage(set);
+              return (
+                <Link
+                  to={`/set/${set.savedSet.setId + 1}`}
+                  className="lg:basis-[32%] sm:basis-[48%] basis-full rounded-lg cursor-pointer border-solid border-transparent hover:bg-slate-600 hover:border-white border-b-4 transition-all bg-slate-700 p-4"
+                  key={set.savedSet.setId}
+                  onClick={() => setCurrentSetId(set.savedSet.setId)}
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="text-2xl font-bold">
+                        {set.savedSet.name}
+                      </h4>
+                      <h5 className="text-lg text-slate-400">
+                        {set.savedSet.terms.length} terms
+                      </h5>
+                    </div>
+                    <div>
+                      {keywordImage && (
+                        <div
+                          className="w-[100px] h-[70px] rounded-xl bg-center bg-cover bg-no-repeat"
+                          style={{
+                            backgroundImage: `urL(${keywordImage})`,
+                          }}
+                        ></div>
+                      )}
+                    </div>
                   </div>
-                  <div>
-                    {keywordImage && (
-                      <div
-                        className="w-[100px] h-[70px] rounded-xl bg-center bg-cover bg-no-repeat"
-                        style={{
-                          backgroundImage: `urL(${keywordImage})`,
-                        }}
-                      ></div>
-                    )}
+                  <div className="mt-1">
+                    <p className="text-lg">{set.savedSet.description}</p>
                   </div>
-                </div>
-                <div className="mt-1">
-                  <p className="text-lg">{set.savedSet.description}</p>
-                </div>
-              </Link>
-            );
-          })}
+                </Link>
+              );
+            })}
+        </div>
       </div>
+      {categorySets.length > 0 && (
+        <div className="mt-8">
+          <div className="flex items-center justify-between md:mb-6 mb-3">
+            <h3 className="md:text-3xl text-2xl">Category sets</h3>
+            {/* <select
+              defaultValue={mnemoryState.sortMethod}
+              // onChange={(e) => sortSets(e.target.value)}
+              name="sort-select"
+              id="sort-select"
+              className="bg-slate-700 p-2 rounded-lg"
+            >
+              <option value={SortedMethods.LATEST}>Latest</option>
+              <option value={SortedMethods.NEWEST}>Newest</option>
+              <option value={SortedMethods.OLDEST}>Oldest</option>
+              <option value={SortedMethods.TERMS}>Terms length</option>
+            </select> */}
+          </div>
+          <div className="flex flex-wrap gap-3">
+            {categorySets
+              // .filter((set) => set.savedSet.name)
+              .map((set) => {
+                const keywordImage = getSetImage(set);
+                return (
+                  <Link
+                    to={`/set/${set.savedSet.setId + 1}`}
+                    className="lg:basis-[32%] sm:basis-[48%] basis-full rounded-lg cursor-pointer border-solid border-transparent hover:bg-slate-600 hover:border-white border-b-4 transition-all bg-slate-700 p-4"
+                    key={set.savedSet.setId}
+                    onClick={() => setCurrentSetId(set.savedSet.setId)}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="text-2xl font-bold">
+                          {set.savedSet.name}
+                        </h4>
+                        <h5 className="text-lg text-slate-400">
+                          {set.savedSet.terms.length} terms
+                        </h5>
+                      </div>
+                      <div>
+                        {keywordImage && (
+                          <div
+                            className="w-[100px] h-[70px] rounded-xl bg-center bg-cover bg-no-repeat"
+                            style={{
+                              backgroundImage: `urL(${keywordImage})`,
+                            }}
+                          ></div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="mt-1">
+                      <p className="text-lg">{set.savedSet.description}</p>
+                    </div>
+                  </Link>
+                );
+              })}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

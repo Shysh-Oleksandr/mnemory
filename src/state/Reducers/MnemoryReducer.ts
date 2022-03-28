@@ -1,4 +1,3 @@
-import { Dispatch } from "react";
 import { ITerm } from "../../components/termCard/Term";
 import {
   getRandomNumber,
@@ -10,8 +9,8 @@ import {
 import { SortedMethods } from "../../pages/HomePage";
 import { ActionType } from "../Action-types";
 import { Action } from "../Actions";
+import { initialSets } from "./../../data/initialSets";
 import { getCurrentSet } from "./../../Helpers/functions";
-import { termsPlaceholder } from "./../../data/termsPlaceholders";
 
 export interface ISet {
   name: string;
@@ -25,6 +24,7 @@ export interface ISet {
 export interface ISetStatus {
   savedSet: ISet;
   editingSet: ISet;
+  isCategorySet: boolean;
 }
 
 export interface IMnemory {
@@ -42,98 +42,7 @@ export interface IMnemory {
 }
 
 const initialState: IMnemory = {
-  sets: [
-    {
-      savedSet: {
-        name: "All terms",
-        description: "",
-        terms: [],
-        setId: 0,
-        createdDate: null,
-        lastVisitedDate: null,
-      },
-      editingSet: {
-        name: "All terms",
-        terms: [],
-        setId: 0,
-        createdDate: null,
-        lastVisitedDate: null,
-      },
-    },
-    {
-      savedSet: {
-        name: "First set",
-        description: "that is description",
-        terms: [
-          {
-            term: "Lata",
-            definition: "a can",
-            placeholderId: Math.floor(Math.random() * termsPlaceholder.length),
-            descriptionKeywords: [
-              { keyword: "Latvia", id: 0, imageChecked: false },
-              {
-                keyword: "pianist",
-                id: 1,
-                imageChecked: false,
-                descriptionText:
-                  "Movie scene when man eats from earth womans food can",
-              },
-              {
-                keyword: "Chaos",
-                id: 2,
-                imageChecked: false,
-              },
-              { keyword: "Water", id: 3, imageChecked: false },
-            ],
-            id: 0,
-          },
-          {
-            term: "Leche",
-            definition: "milk",
-            placeholderId: Math.floor(Math.random() * termsPlaceholder.length),
-            descriptionKeywords: [
-              {
-                keyword: "cure",
-                id: 0,
-                imageChecked: false,
-                image:
-                  "https://images.unsplash.com/photo-1562914344-e97da11dacd4?ixid=MnwzMDg5NzJ8MHwxfHNlYXJjaHwzfHxMYXR2aWF8ZW58MHx8fHwxNjQ3NDI0NzMx&ixlib=rb-1.2.1",
-              },
-              { keyword: "doctor", id: 1, imageChecked: false },
-            ],
-            id: 1,
-          },
-        ],
-        setId: 2,
-        createdDate: null,
-        lastVisitedDate: null,
-      },
-      editingSet: {
-        name: "First set",
-        terms: [],
-        setId: 2,
-        createdDate: null,
-        lastVisitedDate: null,
-      },
-    },
-    {
-      savedSet: {
-        name: "Second set",
-        terms: [],
-        setId: 1,
-        createdDate: null,
-        lastVisitedDate: null,
-      },
-
-      editingSet: {
-        name: "Second set",
-        terms: [],
-        setId: 1,
-        createdDate: null,
-        lastVisitedDate: null,
-      },
-    },
-  ],
+  sets: initialSets,
   currentSetId: 0,
   currentImageQuery: "",
   currentSearchedImages: [],
@@ -149,6 +58,7 @@ const mnemoryReducer = (
   const currentEditingSet: ISet = getCurrentSet(state).editingSet;
   let newSets = state.sets;
   let newTerms = currentEditingSet.terms;
+  let categorySets = state.sets.filter((set) => set.isCategorySet);
 
   switch (action.type) {
     // Terms actions.
@@ -339,10 +249,13 @@ const mnemoryReducer = (
 
     case ActionType.ADDING_SET:
       newSets = setNewCommonSet([...state.sets, action.payload]);
+      console.log(action.payload);
 
       return {
         ...state,
-        currentSetId: action.payload.editingSet.setId,
+        currentSetId: action.payload.isCategorySet
+          ? state.currentSetId
+          : action.payload.editingSet.setId,
         sets: newSets,
       };
 
@@ -392,9 +305,10 @@ const mnemoryReducer = (
       };
 
     case ActionType.SET_SORTED_SETS:
+      newSets = categorySets.concat(action.payload.sortedSets);
       return {
         ...state,
-        sets: action.payload.sortedSets,
+        sets: newSets,
         sortMethod: action.payload.sortMethod,
       };
 

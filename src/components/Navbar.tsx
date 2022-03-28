@@ -2,28 +2,15 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import { termsPlaceholder } from "../data/termsPlaceholders";
 import { actionCreactors, State } from "../state";
 import { ISetStatus } from "../state/Reducers/MnemoryReducer";
-import { getRandomNumber, isSetChanged } from "./../Helpers/functions";
-import { ITerm } from "./termCard/Term";
+import { getEmptySet, isSetChanged } from "./../Helpers/functions";
 
 type Props = {};
 
 const Navbar = (props: Props) => {
   const mnemoryState = useSelector((state: State) => state.mnemory);
 
-  const emptyTerms: ITerm[] = new Array(4).fill(0).map((term, index) => {
-    return {
-      term: "",
-      definition: "",
-      placeholderId: Math.floor(Math.random() * termsPlaceholder.length),
-      descriptionKeywords: [
-        { keyword: "", id: getRandomNumber(), imageChecked: false },
-      ],
-      id: getRandomNumber(),
-    };
-  });
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { addSet, setShowConfirmModal, deleteSet } = bindActionCreators(
@@ -31,22 +18,7 @@ const Navbar = (props: Props) => {
     dispatch
   );
 
-  const emptySet: ISetStatus = {
-    savedSet: {
-      name: "",
-      terms: emptyTerms,
-      setId: mnemoryState.sets.length,
-      createdDate: new Date(),
-      lastVisitedDate: new Date(),
-    },
-    editingSet: {
-      name: "",
-      terms: emptyTerms,
-      setId: mnemoryState.sets.length,
-      createdDate: new Date(),
-      lastVisitedDate: new Date(),
-    },
-  };
+  const emptySet: ISetStatus = getEmptySet(mnemoryState);
 
   const isCreateOrEditPage =
     window.location.pathname.startsWith("/create") ||

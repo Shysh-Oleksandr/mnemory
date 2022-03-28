@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { ITerm } from "./Term";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreactors, State } from "../../state";
 import { MdDelete } from "react-icons/md";
 import { CgMathEqual } from "react-icons/cg";
-import { fetchImages } from "./../../Helpers/functions";
+import { fetchImages, getEmptySet } from "./../../Helpers/functions";
+import { AiOutlineArrowRight } from "react-icons/ai";
 
 type Props = { index: number; term: ITerm };
 
 const TermHeader = ({ index, term }: Props) => {
   const mnemoryState = useSelector((state: State) => state.mnemory);
+  const categorySets = mnemoryState.sets.filter((set) => set.isCategorySet);
+
+  const categoryInputRef = useRef<HTMLInputElement>(null);
+  const [focused, setFocused] = useState(false);
+  const onFocus = () => setFocused(true);
+  const onBlur = () => setFocused(false);
 
   const dispatch = useDispatch();
 
@@ -19,6 +26,7 @@ const TermHeader = ({ index, term }: Props) => {
     setSearchedImages,
     setAreImagesLoading,
     setTermKeywordImage,
+    addSet,
   } = bindActionCreators(actionCreactors, dispatch);
 
   const setKeywordImage = (query: string, foundImage: string) => {
@@ -31,8 +39,6 @@ const TermHeader = ({ index, term }: Props) => {
   };
 
   const generateKeywordsImages = () => {
-    console.log("gen");
-
     term.descriptionKeywords.map((keyword) => {
       if (!keyword.image && keyword.keyword !== "") {
         fetchImages(
@@ -52,9 +58,60 @@ const TermHeader = ({ index, term }: Props) => {
     return canGenerate ? true : false;
   };
 
+  const addNewCategory = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    let newCategoryName = categoryInputRef.current!.value;
+    if (newCategoryName !== "") {
+      console.log("add cat");
+      addSet(getEmptySet(mnemoryState, true, newCategoryName));
+      categoryInputRef.current!.value = "";
+    }
+  };
+
   return (
     <div className="term-header flex items-center justify-between py-3 px-6 border-b-2 border-slate-800 border-solid">
-      <h4 className="term-id">{index + 1}</h4>
+      <div className="flex items-center">
+        <h4 className="term-id">{index + 1}</h4>
+        <form className="relative ml-8" onSubmit={(e) => addNewCategory(e)}>
+          <input
+            ref={categoryInputRef}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            type="text"
+            className="term-input w-64 !text-xl"
+            placeholder="Enter a new category..."
+            defaultValue={term.categories?.join(", ")}
+          />
+          <ul
+            className={`rounded-xl rounded-tl-none ${
+              focused ? "max-h-96 opacity-100" : "h-auto max-h-0 opacity-0"
+            } left-1/2 overflow-hidden -translate-x-1/2 w-full transition-all absolute bg-slate-800 bottom-0 translate-y-full z-20`}
+          >
+            {categorySets.map((set) => {
+              return (
+                <li
+                  className={`mb-[1px] block ${
+                    focused ? "py-2" : ""
+                  } px-4 text-lg tracking-wide cursor-pointer hover:bg-slate-600 transition-all`}
+                  key={set.savedSet.setId + set.savedSet.name}
+                >
+                  {set.savedSet.name}
+                </li>
+              );
+            })}
+          </ul>
+          {focused && (
+            <>
+              <button
+                className="absolute right-0 top-1/2 -translate-y-1/2 text-2xl hover:text-orange-500 text-orange-400 transition-colors"
+                type="submit"
+              >
+                <AiOutlineArrowRight />
+              </button>
+            </>
+          )}
+        </form>
+      </div>
       <div className="flex items-center">
         <button
           className="btn mr-4 sm:!px-8 !px-1 ml-4"

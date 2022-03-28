@@ -1,11 +1,11 @@
 import { RefObject } from "react";
-import { ITerm } from "../components/termCard/Term";
-import { ISet, ISetStatus } from "../state/Reducers/MnemoryReducer";
-import { IMnemory } from "./../state/Reducers/MnemoryReducer";
-import { MAX_BG_CARDS } from "./../pages/LearnFlashcardsPage";
-import { setSetInfo } from "../state/Action-creators";
-import { Action } from "../state/Actions";
 import { Dispatch } from "redux";
+import { ITerm } from "../components/termCard/Term";
+import { Action } from "../state/Actions";
+import { ISet, ISetStatus } from "../state/Reducers/MnemoryReducer";
+import { termsPlaceholder } from "./../data/termsPlaceholders";
+import { MAX_BG_CARDS } from "./../pages/LearnFlashcardsPage";
+import { IMnemory } from "./../state/Reducers/MnemoryReducer";
 
 export function getCurrentSet(mnemoryState: IMnemory): ISetStatus {
   return mnemoryState.sets.find(
@@ -115,7 +115,7 @@ export function shuffle(array: any[]) {
     randomIndex;
 
   // While there remain elements to shuffle...
-  while (currentIndex != 0) {
+  while (currentIndex !== 0) {
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
@@ -150,3 +150,44 @@ export const insert = (arr: any[], index: number, newItem: any) => [
   newItem,
   ...arr.slice(index),
 ];
+
+export function getEmptyTerm() {
+  return {
+    term: "",
+    definition: "",
+    placeholderId: Math.floor(Math.random() * termsPlaceholder.length),
+    descriptionKeywords: [
+      { keyword: "", id: getRandomNumber(), imageChecked: false },
+    ],
+    id: getRandomNumber(),
+  };
+}
+
+export function getEmptySet(
+  mnemoryState: IMnemory,
+  isCategorySet: boolean = false,
+  setName: string = ""
+) {
+  const emptyTerms: ITerm[] = new Array(4).fill(0).map((term) => {
+    return getEmptyTerm();
+  });
+  const emptySet: ISetStatus = {
+    savedSet: {
+      name: setName,
+      terms: isCategorySet ? [] : emptyTerms,
+      setId: mnemoryState.sets.length,
+      createdDate: new Date(),
+      lastVisitedDate: new Date(),
+    },
+    editingSet: {
+      name: setName,
+      terms: isCategorySet ? [] : emptyTerms,
+      setId: mnemoryState.sets.length,
+      createdDate: new Date(),
+      lastVisitedDate: new Date(),
+    },
+    isCategorySet: isCategorySet,
+  };
+
+  return emptySet;
+}

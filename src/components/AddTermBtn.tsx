@@ -1,11 +1,10 @@
 import React from "react";
+import { CgClose } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getCurrentSet, getRandomNumber } from "../Helpers/functions";
+import { getCurrentSet, getEmptyTerm } from "../Helpers/functions";
 import { actionCreactors, State } from "../state";
 import { ISetStatus } from "../state/Reducers/MnemoryReducer";
-import { CgClose } from "react-icons/cg";
-import { termsPlaceholder } from "./../data/termsPlaceholders";
 
 const AddTermBtn = () => {
   const mnemoryState = useSelector((state: State) => state.mnemory);
@@ -15,15 +14,7 @@ const AddTermBtn = () => {
   const currentSet: ISetStatus = getCurrentSet(mnemoryState);
   const newTermIndex = currentSet.editingSet.terms.length;
 
-  const emptyTerm = {
-    term: "",
-    definition: "",
-    placeholderId: Math.floor(Math.random() * termsPlaceholder.length),
-    descriptionKeywords: [
-      { keyword: "", id: getRandomNumber(), imageChecked: false },
-    ],
-    id: getRandomNumber(),
-  };
+  const emptyTerm = getEmptyTerm();
 
   return (
     <button
