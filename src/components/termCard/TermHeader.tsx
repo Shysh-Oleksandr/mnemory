@@ -16,7 +16,10 @@ const TermHeader = ({ index, term }: Props) => {
 
   const categoryInputRef = useRef<HTMLInputElement>(null);
   const [focused, setFocused] = useState(false);
-  const onFocus = () => setFocused(true);
+  const onFocus = () => {
+    setFocused(true);
+    console.log("foc");
+  };
   const onBlur = () => setFocused(false);
 
   const dispatch = useDispatch();
@@ -28,6 +31,7 @@ const TermHeader = ({ index, term }: Props) => {
     setTermKeywordImage,
     addSet,
     deleteSet,
+    toggleTermCategory,
   } = bindActionCreators(actionCreactors, dispatch);
 
   const setKeywordImage = (query: string, foundImage: string) => {
@@ -61,7 +65,6 @@ const TermHeader = ({ index, term }: Props) => {
 
   const addNewCategory = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("prev");
 
     let newCategoryName = categoryInputRef.current!.value;
     if (newCategoryName.trim() !== "") {
@@ -71,31 +74,45 @@ const TermHeader = ({ index, term }: Props) => {
     }
   };
 
+  const getTermCategoriesString = (): string => {
+    return (
+      term.categories?.map((category) => category.savedSet.name).join(", ") ||
+      ""
+    );
+  };
+  console.log("re");
+
   return (
     <div className="term-header flex items-center justify-between py-3 px-6 border-b-2 border-slate-800 border-solid">
       <div className="flex items-center">
         <h4 className="term-id">{index + 1}</h4>
-        <form className="relative ml-8" onSubmit={(e) => addNewCategory(e)}>
+        <form
+          className="relative ml-8 categories-form"
+          onSubmit={(e) => addNewCategory(e)}
+        >
           <input
             ref={categoryInputRef}
             onFocus={onFocus}
             onBlur={onBlur}
             type="text"
-            className="term-input w-64 !text-xl"
+            className="term-input category-input w-64 !text-xl"
             placeholder="Enter a new category..."
-            defaultValue={term.categories?.join(", ")}
+            defaultValue={getTermCategoriesString()}
           />
           <ul
-            className={`rounded-xl rounded-tl-none overflow-y-auto ${
-              focused ? "max-h-72 opacity-100" : "h-auto max-h-0 opacity-0"
-            } left-1/2 overflow-hidden -translate-x-1/2 w-full transition-all absolute bg-slate-800 bottom-0 translate-y-full z-20`}
+            className={`categories-list rounded-xl rounded-tl-none overflow-y-auto h-auto max-h-0 opacity-0 left-1/2 overflow-hidden -translate-x-1/2 w-full transition-all absolute bg-slate-800 bottom-0 translate-y-full z-20`}
           >
             {categorySets.map((set) => {
+              console.log(term.categories, set);
+
               return (
                 <li
-                  className={`mb-[1px] relative block ${
-                    focused ? "py-2" : ""
-                  } px-4 text-lg tracking-wide cursor-pointer hover:bg-slate-600 transition-all`}
+                  onClick={() => toggleTermCategory(term.id, set)}
+                  className={`mb-[1px] relative block px-4 text-lg tracking-wide cursor-pointer ${
+                    term.categories?.includes(set)
+                      ? "bg-slate-500"
+                      : "bg-slate-800"
+                  } hover:bg-slate-600 transition-all`}
                   key={set.savedSet.setId + set.savedSet.name}
                 >
                   {set.savedSet.name}

@@ -117,6 +117,11 @@ interface SetSortedSets {
   payload: { sortedSets: ISetStatus[]; sortMethod: string };
 }
 
+interface ToggleTermCategory {
+  type: ActionType.TOGGLE_TERM_CATEGORY;
+  payload: { termId: number; categorySet: ISetStatus };
+}
+
 export type Action =
   | AddingAction
   | DeletingAction
@@ -139,4 +144,5 @@ export type Action =
   | SetShowDefinition
   | SetIsStartSideFront
   | SetSortedSets
+  | ToggleTermCategory
   | DeletingKeywordAction;

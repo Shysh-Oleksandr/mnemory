@@ -22,6 +22,16 @@
   @apply absolute text-center z-10 bg-orange-400 hover:bg-orange-500 transition-all duration-[120ms] text-white rounded-full;
 }
 
+.category-input:focus + .categories-list,
+.categories-form:hover .categories-list {
+  @apply max-h-72 opacity-100;
+}
+
+.category-input:focus + .categories-list li,
+.categories-form:hover .categories-list li {
+  @apply py-2;
+}
+
 .term-description-keyword-delete {
   @apply scale-0;
 }

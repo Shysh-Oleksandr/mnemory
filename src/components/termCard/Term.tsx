@@ -1,4 +1,5 @@
 import React from "react";
+import { ISetStatus } from "../../state/Reducers/MnemoryReducer";
 import "../../styles/term.css";
 import TermDescription from "./TermDescription";
 import TermHeader from "./TermHeader";
@@ -18,7 +19,7 @@ export interface ITerm {
   descriptionKeywords: Keyword[];
   placeholderId: number;
   id: number;
-  categories?: string[];
+  categories?: ISetStatus[];
 }
 
 type Props = {

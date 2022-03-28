@@ -21,4 +21,5 @@ export enum ActionType {
   SET_IS_START_SIDE_FRONT = "Set is start card front",
   REORDER_TERMS = "Reorder terms",
   SET_SORTED_SETS = "Set sorted sets",
+  TOGGLE_TERM_CATEGORY = "Toggle term category",
 }

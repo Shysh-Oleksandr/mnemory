@@ -21,7 +21,6 @@ const EditPage = (props: Props) => {
     actionCreactors,
     dispatch
   );
-  console.log("re");
 
   return (
     <div>

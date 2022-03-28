@@ -83,6 +83,36 @@ const mnemoryReducer = (
       newSets = setNewTerms(state, action.payload);
       return { ...state, sets: newSets };
 
+    case ActionType.TOGGLE_TERM_CATEGORY:
+      console.log("togg");
+
+      newTerms = currentEditingSet.terms.map((term) => {
+        if (term.id === action.payload.termId) {
+          const isNewCategory: boolean = !term.categories?.includes(
+            action.payload.categorySet
+          )!;
+          console.log(isNewCategory);
+
+          const updatedCategories = isNewCategory
+            ? term.categories
+              ? [...term.categories, action.payload.categorySet]
+              : [action.payload.categorySet]
+            : term.categories?.filter(
+                (category) => category !== action.payload.categorySet
+              );
+          console.log(updatedCategories);
+
+          return {
+            ...term,
+            categories: updatedCategories,
+          };
+        }
+        return term;
+      });
+      newSets = setNewTerms(state, newTerms);
+
+      return { ...state, sets: newSets };
+
     case ActionType.SET_TERM_INFO:
       newTerms = currentEditingSet.terms.map((term) => {
         if (term.id === action.payload.termId) {
@@ -249,7 +279,6 @@ const mnemoryReducer = (
 
     case ActionType.ADDING_SET:
       newSets = setNewCommonSet([...state.sets, action.payload]);
-      console.log(action.payload);
 
       return {
         ...state,
@@ -267,7 +296,6 @@ const mnemoryReducer = (
         (set) => set.editingSet.setId !== action.payload
       );
       newSets = setNewCommonSet(filteredSets);
-      console.log("del");
 
       return {
         ...state,
