@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreactors, State } from "../../state";
 import { MdDelete } from "react-icons/md";
-import { CgMathEqual } from "react-icons/cg";
+import { CgClose, CgMathEqual } from "react-icons/cg";
 import { fetchImages, getEmptySet } from "./../../Helpers/functions";
 import { AiOutlineArrowRight } from "react-icons/ai";
 
@@ -27,6 +27,7 @@ const TermHeader = ({ index, term }: Props) => {
     setAreImagesLoading,
     setTermKeywordImage,
     addSet,
+    deleteSet,
   } = bindActionCreators(actionCreactors, dispatch);
 
   const setKeywordImage = (query: string, foundImage: string) => {
@@ -60,8 +61,10 @@ const TermHeader = ({ index, term }: Props) => {
 
   const addNewCategory = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log("prev");
+
     let newCategoryName = categoryInputRef.current!.value;
-    if (newCategoryName !== "") {
+    if (newCategoryName.trim() !== "") {
       console.log("add cat");
       addSet(getEmptySet(mnemoryState, true, newCategoryName));
       categoryInputRef.current!.value = "";
@@ -83,19 +86,26 @@ const TermHeader = ({ index, term }: Props) => {
             defaultValue={term.categories?.join(", ")}
           />
           <ul
-            className={`rounded-xl rounded-tl-none ${
-              focused ? "max-h-96 opacity-100" : "h-auto max-h-0 opacity-0"
+            className={`rounded-xl rounded-tl-none overflow-y-auto ${
+              focused ? "max-h-72 opacity-100" : "h-auto max-h-0 opacity-0"
             } left-1/2 overflow-hidden -translate-x-1/2 w-full transition-all absolute bg-slate-800 bottom-0 translate-y-full z-20`}
           >
             {categorySets.map((set) => {
               return (
                 <li
-                  className={`mb-[1px] block ${
+                  className={`mb-[1px] relative block ${
                     focused ? "py-2" : ""
                   } px-4 text-lg tracking-wide cursor-pointer hover:bg-slate-600 transition-all`}
                   key={set.savedSet.setId + set.savedSet.name}
                 >
                   {set.savedSet.name}
+                  <button
+                    type="button"
+                    onClick={() => deleteSet(set.savedSet.setId)}
+                    className="absolute right-2 top-1/2 rounded-md -translate-y-1/2 text-xl p-[5px] transition-colors bg-slate-700 hover:bg-slate-800"
+                  >
+                    <CgClose />
+                  </button>
                 </li>
               );
             })}

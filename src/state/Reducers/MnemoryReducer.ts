@@ -260,14 +260,18 @@ const mnemoryReducer = (
       };
 
     case ActionType.DELETING_SET:
+      const deletedSet = state.sets.find(
+        (set) => set.savedSet.setId === action.payload
+      );
       const filteredSets = state.sets.filter(
         (set) => set.editingSet.setId !== action.payload
       );
       newSets = setNewCommonSet(filteredSets);
+      console.log("del");
 
       return {
         ...state,
-        currentSetId: 0,
+        currentSetId: deletedSet?.isCategorySet ? state.currentSetId : 0,
         sets: newSets,
       };
 
