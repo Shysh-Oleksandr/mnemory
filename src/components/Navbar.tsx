@@ -17,12 +17,11 @@ const Navbar = (props: Props) => {
     actionCreactors,
     dispatch
   );
-
-  const emptySet: ISetStatus = getEmptySet(mnemoryState);
-
   const isCreateOrEditPage =
     window.location.pathname.startsWith("/create") ||
     window.location.pathname.endsWith("/edit");
+
+  const emptySet: ISetStatus = getEmptySet(mnemoryState);
 
   return (
     <div className="div-padding static w-full bg-slate-800 border-b-[1px] border-solid h-16 border-slate-700 flex items-center justify-between">

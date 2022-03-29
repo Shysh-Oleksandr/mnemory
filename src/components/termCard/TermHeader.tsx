@@ -1,12 +1,12 @@
-import React, { useRef, useState } from "react";
-import { ITerm } from "./Term";
+import React, { useEffect, useRef, useState } from "react";
+import { AiOutlineArrowRight } from "react-icons/ai";
+import { CgClose, CgMathEqual } from "react-icons/cg";
+import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreactors, State } from "../../state";
-import { MdDelete } from "react-icons/md";
-import { CgClose, CgMathEqual } from "react-icons/cg";
 import { fetchImages, getEmptySet } from "./../../Helpers/functions";
-import { AiOutlineArrowRight } from "react-icons/ai";
+import { ITerm } from "./Term";
 
 type Props = { index: number; term: ITerm };
 
@@ -16,12 +16,21 @@ const TermHeader = ({ index, term }: Props) => {
 
   const categoryInputRef = useRef<HTMLInputElement>(null);
   const [focused, setFocused] = useState(false);
+
+  const getTermCategoriesString = (): string => {
+    return (
+      term.categories?.map((category) => category.savedSet.name).join(", ") ||
+      ""
+    );
+  };
   const onFocus = () => {
     setFocused(true);
-    console.log("foc");
+    categoryInputRef.current!.value = "";
   };
-  const onBlur = () => setFocused(false);
-
+  const onBlur = () => {
+    setFocused(false);
+    categoryInputRef.current!.value = getTermCategoriesString();
+  };
   const dispatch = useDispatch();
 
   const {
@@ -33,6 +42,11 @@ const TermHeader = ({ index, term }: Props) => {
     deleteSet,
     toggleTermCategory,
   } = bindActionCreators(actionCreactors, dispatch);
+
+  useEffect(() => {
+    categoryInputRef.current!.value = getTermCategoriesString();
+    categoryInputRef.current!.blur();
+  }, [mnemoryState.sets]);
 
   const setKeywordImage = (query: string, foundImage: string) => {
     const currentKeyword = term.descriptionKeywords.find(
@@ -67,20 +81,15 @@ const TermHeader = ({ index, term }: Props) => {
     e.preventDefault();
 
     let newCategoryName = categoryInputRef.current!.value;
+    console.log("add");
+
     if (newCategoryName.trim() !== "") {
-      console.log("add cat");
-      addSet(getEmptySet(mnemoryState, true, newCategoryName));
+      const newCategorySet = getEmptySet(mnemoryState, true, newCategoryName);
+      addSet(newCategorySet);
+      toggleTermCategory(term.id, newCategorySet);
       categoryInputRef.current!.value = "";
     }
   };
-
-  const getTermCategoriesString = (): string => {
-    return (
-      term.categories?.map((category) => category.savedSet.name).join(", ") ||
-      ""
-    );
-  };
-  console.log("re");
 
   return (
     <div className="term-header flex items-center justify-between py-3 px-6 border-b-2 border-slate-800 border-solid">
@@ -103,13 +112,13 @@ const TermHeader = ({ index, term }: Props) => {
             className={`categories-list rounded-xl rounded-tl-none overflow-y-auto h-auto max-h-0 opacity-0 left-1/2 overflow-hidden -translate-x-1/2 w-full transition-all absolute bg-slate-800 bottom-0 translate-y-full z-20`}
           >
             {categorySets.map((set) => {
-              console.log(term.categories, set);
-
               return (
                 <li
                   onClick={() => toggleTermCategory(term.id, set)}
                   className={`mb-[1px] relative block px-4 text-lg tracking-wide cursor-pointer ${
-                    term.categories?.includes(set)
+                    term.categories
+                      ?.map((category) => category.savedSet.setId)
+                      .includes(set.savedSet.setId)
                       ? "bg-slate-500"
                       : "bg-slate-800"
                   } hover:bg-slate-600 transition-all`}

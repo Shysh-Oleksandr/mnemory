@@ -59,6 +59,9 @@ const mnemoryReducer = (
   let newSets = state.sets;
   let newTerms = currentEditingSet.terms;
   let categorySets = state.sets.filter((set) => set.isCategorySet);
+  const isCreateOrEditPage =
+    window.location.pathname.startsWith("/create") ||
+    window.location.pathname.endsWith("/edit");
 
   switch (action.type) {
     // Terms actions.
@@ -84,24 +87,20 @@ const mnemoryReducer = (
       return { ...state, sets: newSets };
 
     case ActionType.TOGGLE_TERM_CATEGORY:
-      console.log("togg");
-
       newTerms = currentEditingSet.terms.map((term) => {
         if (term.id === action.payload.termId) {
-          const isNewCategory: boolean = !term.categories?.includes(
-            action.payload.categorySet
-          )!;
-          console.log(isNewCategory);
-
+          const chosenCategory = action.payload.categorySet;
+          const isNewCategory: boolean = !term.categories
+            ?.map((category) => category.savedSet.setId)
+            .includes(chosenCategory.savedSet.setId);
           const updatedCategories = isNewCategory
             ? term.categories
-              ? [...term.categories, action.payload.categorySet]
-              : [action.payload.categorySet]
+              ? [...term.categories, chosenCategory]
+              : [chosenCategory]
             : term.categories?.filter(
-                (category) => category !== action.payload.categorySet
+                (category) =>
+                  category.savedSet.setId !== chosenCategory.savedSet.setId
               );
-          console.log(updatedCategories);
-
           return {
             ...term,
             categories: updatedCategories,
@@ -295,11 +294,17 @@ const mnemoryReducer = (
       const filteredSets = state.sets.filter(
         (set) => set.editingSet.setId !== action.payload
       );
+
+      if (deletedSet?.isCategorySet) {
+      }
       newSets = setNewCommonSet(filteredSets);
 
       return {
         ...state,
-        currentSetId: deletedSet?.isCategorySet ? state.currentSetId : 0,
+        currentSetId:
+          deletedSet?.isCategorySet && isCreateOrEditPage
+            ? state.currentSetId
+            : 0,
         sets: newSets,
       };
 
