@@ -45,6 +45,8 @@ const TermHeader = ({ index, term }: Props) => {
 
   useEffect(() => {
     categoryInputRef.current!.value = getTermCategoriesString();
+    console.log(term.categories);
+
     categoryInputRef.current!.blur();
   }, [mnemoryState.sets]);
 
@@ -81,9 +83,12 @@ const TermHeader = ({ index, term }: Props) => {
     e.preventDefault();
 
     let newCategoryName = categoryInputRef.current!.value;
-    console.log("add");
+    const isNewCategoryName: boolean = !categorySets
+      .map((category) => category.savedSet.name)
+      .includes(newCategoryName);
 
-    if (newCategoryName.trim() !== "") {
+    if (newCategoryName.trim() !== "" && isNewCategoryName) {
+      console.log("add");
       const newCategorySet = getEmptySet(mnemoryState, true, newCategoryName);
       addSet(newCategorySet);
       toggleTermCategory(term.id, newCategorySet);

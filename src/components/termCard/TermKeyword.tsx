@@ -19,6 +19,8 @@ const TermKeyword = ({ termId, descriptionKeyword, index }: Props) => {
   const dispatch = useDispatch();
   const currentTerm = getCurrentSet(mnemoryState);
   const editingTerms = currentTerm.editingSet.terms;
+  console.log(currentTerm);
+
   const editingTerm = editingTerms.find((term) => term.id === termId);
   const {
     deleteTermKeyword,
