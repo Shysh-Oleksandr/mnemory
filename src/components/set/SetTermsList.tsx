@@ -16,12 +16,12 @@ const SetTermsList = ({ set }: Props) => {
             key={`${set.setId}-${term.id}`}
           >
             {term.categories && (
-              <ul className="absolute xl:top-3 sm:top-[6px] flex-wrap top-[4px] xl:left-5 md:left-4 left-2 z-20 flex items-center">
+              <ul className="absolute xl:top-2 sm:top-[6px] flex-wrap top-[4px] xl:left-5 md:left-4 left-2 z-20 flex items-center">
                 {term.categories.map((category) => {
                   return (
                     <li
                       key={`${set.setId}-${term.id}-${category.savedSet.setId}-category`}
-                      className="bg-teal-500 rounded-xl xl:px-4 lg:px-3 px-2 xl:py-[3px] sm:mb-0 mt-1 sm:py[2px] py-[1px] xl:mr-3 mr-2"
+                      className="bg-teal-500 rounded-2xl lg:text-lg xl:px-4 lg:px-3 px-2 xl:py-[3px] sm:mb-0 mt-1 sm:py[2px] py-[1px] xl:mr-3 mr-2"
                     >
                       {category.savedSet.name}
                     </li>

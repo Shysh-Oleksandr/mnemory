@@ -32,7 +32,7 @@ const FlashcardsInfo = ({
     dispatch
   );
   return (
-    <div className="learn-cards-info basis-1/5 mr-16 flex flex-col justify-between">
+    <div className="learn-cards-info basis-1/5 md:mr-16 mr-2 flex flex-col justify-between">
       <div>
         <div className="md:block flex justify-between items-center">
           <Link

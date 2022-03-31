@@ -7,6 +7,7 @@ import { actionCreactors, State } from "../../state";
 import { clearInput } from "../../Helpers/functions";
 import { getCurrentSet } from "./../../Helpers/functions";
 import { termsPlaceholder } from "./../../data/termsPlaceholders";
+import TermCategoriesForm from "./TermCategoriesForm";
 
 type Props = { term: ITerm };
 
@@ -34,37 +35,40 @@ const TermInfo = ({ term }: Props) => {
   }, []);
 
   return (
-    <div className="term-info basis-1/4 shrink">
-      <Input
-        defaultValue={term.term}
-        onChange={() =>
-          setTermInfo(
-            nameRef.current?.value!,
-            descriptionRef.current?.value!,
-            term.id
-          )
-        }
-        placeholder={termsPlaceholder[term.placeholderId].term}
-        inputClassName="term-title"
-        inputId={`term-${term.id}-title`}
-        labelText="Term"
-        reference={nameRef}
-      />
-      <Input
-        defaultValue={term.definition || ""}
-        onChange={() =>
-          setTermInfo(
-            nameRef.current?.value!,
-            descriptionRef.current?.value!,
-            term.id
-          )
-        }
-        placeholder={termsPlaceholder[term.placeholderId].definition}
-        inputClassName="term-definition"
-        inputId={`term-${term.id}-definition`}
-        labelText="Definition"
-        reference={descriptionRef}
-      />
+    <div className="term-info basis-1/4 shrink flex flex-col justify-between">
+      <div>
+        <Input
+          defaultValue={term.term}
+          onChange={() =>
+            setTermInfo(
+              nameRef.current?.value!,
+              descriptionRef.current?.value!,
+              term.id
+            )
+          }
+          placeholder={termsPlaceholder[term.placeholderId].term}
+          inputClassName="term-title"
+          inputId={`term-${term.id}-title`}
+          labelText="Term"
+          reference={nameRef}
+        />
+        <Input
+          defaultValue={term.definition || ""}
+          onChange={() =>
+            setTermInfo(
+              nameRef.current?.value!,
+              descriptionRef.current?.value!,
+              term.id
+            )
+          }
+          placeholder={termsPlaceholder[term.placeholderId].definition}
+          inputClassName="term-definition"
+          inputId={`term-${term.id}-definition`}
+          labelText="Definition"
+          reference={descriptionRef}
+        />
+      </div>
+      {window.screen.width < 768 && <TermCategoriesForm term={term} />}
     </div>
   );
 };

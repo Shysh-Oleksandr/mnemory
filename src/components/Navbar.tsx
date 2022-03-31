@@ -52,7 +52,7 @@ const Navbar = (props: Props) => {
             navigate(`/create/${mnemoryState.sets.length + 1}`);
           }
         }}
-        className="btn"
+        className="btn sm:!px-4 !px-2"
       >
         Create set
       </button>

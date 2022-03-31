@@ -23,7 +23,8 @@
 }
 
 .category-input:focus + .categories-list,
-.categories-form:hover .categories-list {
+.categories-form:hover .categories-list,
+.categories-form:active .categories-list {
   @apply max-h-72 opacity-100;
 }
 
@@ -41,6 +42,7 @@
 }
 
 .term-description-keyword:hover .term-description-keyword-text,
+.term-description-keyword:active .term-description-keyword-text,
 .term-keyword-input:focus-visible + .term-description-keyword-text,
 .term-description-keyword-text:focus-visible {
   @apply h-24 p-[6px] block;
