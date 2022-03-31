@@ -10,7 +10,7 @@ const KeywordsList = ({ term, isBigSize }: Props) => {
   return (
     <div
       className={`flex flex-wrap items-end ${
-        isBigSize ? "justify-center" : ""
+        isBigSize ? "justify-center" : "sm:mt-0 mt-4"
       }`}
     >
       {term.descriptionKeywords.map((keyword) => {

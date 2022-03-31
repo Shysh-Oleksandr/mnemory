@@ -108,12 +108,19 @@ const TermHeader = ({ index, term }: Props) => {
             onFocus={onFocus}
             onBlur={onBlur}
             type="text"
-            className="term-input category-input w-64 !text-xl"
+            id={term.term + term.id + "category-input"}
+            className="term-input category-input w-64 !text-xl mb-3"
             placeholder="Enter a new category..."
             defaultValue={getTermCategoriesString()}
           />
+          <label
+            htmlFor={term.term + term.id + "category-input"}
+            className={`term-input-label !text-sm  absolute -bottom-2 z-10`}
+          >
+            Categories
+          </label>
           <ul
-            className={`categories-list rounded-xl rounded-tl-none overflow-y-auto h-auto max-h-0 opacity-0 left-1/2 overflow-hidden -translate-x-1/2 w-full transition-all absolute bg-slate-800 bottom-0 translate-y-full z-20`}
+            className={`categories-list rounded-xl rounded-tl-none overflow-y-auto h-auto max-h-0 opacity-0 left-1/2 overflow-hidden -translate-x-1/2 w-full transition-all absolute bg-slate-800 bottom-3 translate-y-full z-20`}
           >
             {categorySets.map((set) => {
               return (
