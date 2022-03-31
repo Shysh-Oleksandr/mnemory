@@ -49,7 +49,7 @@ const SetForm = ({ buttonText, titleContent }: Props) => {
 
   const saveSet = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    if (nameRef.current?.value.trim() === "") return;
     saveCurrentSet();
     navigate(`/set/${mnemoryState.currentSetId + 1}`);
   };

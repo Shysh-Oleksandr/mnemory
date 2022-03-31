@@ -40,11 +40,11 @@ export const fetchImages = async (
 
 export function validateTerms(terms: ITerm[]): ITerm[] {
   // Removing terms with empty name.
-  let validatedTerms = terms.filter((term) => term.term !== "");
+  let validatedTerms = terms.filter((term) => term.term.trim() !== "");
   // Removing empty keywords from term.
   validatedTerms = validatedTerms.map((term) => {
     let validatedKeywords = term.descriptionKeywords.filter(
-      (keyword) => keyword.keyword !== ""
+      (keyword) => keyword.keyword.trim() !== ""
     );
     return { ...term, descriptionKeywords: validatedKeywords };
   });
@@ -86,7 +86,9 @@ export function setNewCommonSet(sets: ISetStatus[]): ISetStatus[] {
   sets.map(
     (set) =>
       set.savedSet.setId !== 0 &&
-      set.savedSet.terms.map((term) => term.term !== "" && allTerms.push(term))
+      set.savedSet.terms.map(
+        (term) => term.term.trim() !== "" && allTerms.push(term)
+      )
   );
 
   const newSets = sets.map((set) => {
@@ -168,6 +170,7 @@ export function getEmptySet(
   isCategorySet: boolean = false,
   setName: string = ""
 ) {
+  const randomId = getRandomNumber();
   const emptyTerms: ITerm[] = new Array(4).fill(0).map((term) => {
     return getEmptyTerm();
   });
@@ -175,14 +178,14 @@ export function getEmptySet(
     savedSet: {
       name: setName,
       terms: isCategorySet ? [] : emptyTerms,
-      setId: mnemoryState.sets.length,
+      setId: randomId,
       createdDate: new Date(),
       lastVisitedDate: new Date(),
     },
     editingSet: {
       name: setName,
       terms: isCategorySet ? [] : emptyTerms,
-      setId: mnemoryState.sets.length,
+      setId: randomId,
       createdDate: new Date(),
       lastVisitedDate: new Date(),
     },

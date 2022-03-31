@@ -291,8 +291,6 @@ const mnemoryReducer = (
       };
 
     case ActionType.DELETING_SET:
-      console.log("del set");
-
       const deletedSet = state.sets.find(
         (set) => set.editingSet.setId === action.payload
       );
@@ -311,7 +309,7 @@ const mnemoryReducer = (
             return { ...term, categories: updatedCategories };
           });
           const newSet = { ...set.editingSet, terms: updatedTerms };
-          return { ...set, editingSet: newSet };
+          return { ...set, editingSet: newSet, savedSet: newSet };
         });
       }
       newSets = setNewCommonSet(filteredSets);

@@ -1,4 +1,7 @@
+import { getRandomNumber } from "../Helpers/functions";
 import { termsPlaceholder } from "./termsPlaceholders";
+const randomIds = new Array(10).fill(0).map((el) => getRandomNumber());
+
 export const initialSets = [
   {
     savedSet: {
@@ -61,32 +64,14 @@ export const initialSets = [
           id: 1,
         },
       ],
-      setId: 2,
+      setId: randomIds[0],
       createdDate: null,
       lastVisitedDate: null,
     },
     editingSet: {
       name: "First set",
       terms: [],
-      setId: 2,
-      createdDate: null,
-      lastVisitedDate: null,
-    },
-    isCategorySet: false,
-  },
-  {
-    savedSet: {
-      name: "Second set",
-      terms: [],
-      setId: 1,
-      createdDate: null,
-      lastVisitedDate: null,
-    },
-
-    editingSet: {
-      name: "Second set",
-      terms: [],
-      setId: 1,
+      setId: randomIds[0],
       createdDate: null,
       lastVisitedDate: null,
     },
@@ -96,7 +81,7 @@ export const initialSets = [
     savedSet: {
       name: "Learned",
       terms: [],
-      setId: 3,
+      setId: randomIds[1],
       createdDate: null,
       lastVisitedDate: null,
     },
@@ -104,7 +89,7 @@ export const initialSets = [
     editingSet: {
       name: "Learned",
       terms: [],
-      setId: 3,
+      setId: randomIds[1],
       createdDate: null,
       lastVisitedDate: null,
     },
@@ -114,7 +99,7 @@ export const initialSets = [
     savedSet: {
       name: "Starred",
       terms: [],
-      setId: 4,
+      setId: randomIds[2],
       createdDate: null,
       lastVisitedDate: null,
     },
@@ -122,7 +107,7 @@ export const initialSets = [
     editingSet: {
       name: "Starred",
       terms: [],
-      setId: 4,
+      setId: randomIds[2],
       createdDate: null,
       lastVisitedDate: null,
     },
@@ -132,7 +117,7 @@ export const initialSets = [
     savedSet: {
       name: "Difficult",
       terms: [],
-      setId: 5,
+      setId: randomIds[3],
       createdDate: null,
       lastVisitedDate: null,
     },
@@ -140,7 +125,7 @@ export const initialSets = [
     editingSet: {
       name: "Difficult",
       terms: [],
-      setId: 5,
+      setId: randomIds[3],
       createdDate: null,
       lastVisitedDate: null,
     },

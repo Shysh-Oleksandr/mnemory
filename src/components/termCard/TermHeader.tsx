@@ -45,7 +45,6 @@ const TermHeader = ({ index, term }: Props) => {
 
   useEffect(() => {
     categoryInputRef.current!.value = getTermCategoriesString();
-    console.log(term.categories);
 
     categoryInputRef.current!.blur();
   }, [mnemoryState.sets]);
@@ -61,7 +60,7 @@ const TermHeader = ({ index, term }: Props) => {
 
   const generateKeywordsImages = () => {
     term.descriptionKeywords.map((keyword) => {
-      if (!keyword.image && keyword.keyword !== "") {
+      if (!keyword.image && keyword.keyword.trim() !== "") {
         fetchImages(
           keyword.keyword,
           setSearchedImages,
@@ -74,7 +73,7 @@ const TermHeader = ({ index, term }: Props) => {
 
   const checkIfCanGenerate = (): boolean => {
     const canGenerate = term.descriptionKeywords.find(
-      (keyword) => !keyword.image && keyword.keyword !== ""
+      (keyword) => !keyword.image && keyword.keyword.trim() !== ""
     );
     return canGenerate ? true : false;
   };
