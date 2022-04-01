@@ -90,7 +90,10 @@ const mnemoryReducer = (
       console.log("togg");
       const chosenCategory = action.payload.categorySet;
       let isNewCategory: boolean = false;
-      const currentTerm = currentEditingSet.terms[action.payload.termId];
+      const currentTerm = currentEditingSet.terms.find(
+        (term) => term.id === action.payload.termId
+      )!;
+      console.log(currentTerm);
 
       if (!categorySets.includes(action.payload.categorySet)) return state;
 
@@ -120,6 +123,8 @@ const mnemoryReducer = (
       // Adding term in the category.
       newSets = newSets.map((set) => {
         if (set.savedSet.setId === chosenCategory.savedSet.setId) {
+          console.log(set.editingSet.terms);
+
           newTerms = isNewCategory
             ? [...set.editingSet.terms, currentTerm]
             : set.editingSet.terms.filter((term) => term.id !== currentTerm.id);
@@ -354,8 +359,6 @@ const mnemoryReducer = (
       newSets = newSets.map((set) => {
         if (set.isCategorySet) {
           const editedTerms: ITerm[] = [];
-          console.log(set.editingSet.terms);
-
           const categorySetTerms = set.editingSet.terms.map(
             (term) => term && term.id
           );
@@ -371,7 +374,10 @@ const mnemoryReducer = (
             }
             return term;
           });
-          const newEditingSet = { ...set.editingSet, terms: newTerms };
+          const newEditingSet = {
+            ...set.editingSet,
+            terms: validateTerms(newTerms),
+          };
           return { ...set, editingSet: newEditingSet, savedSet: newEditingSet };
         }
         return set;

@@ -12,7 +12,9 @@ const SetTermsList = ({ set }: Props) => {
       {set.terms.map((term, index) => {
         return (
           <div
-            className="set-term sm:px-4 px-2 sm:py-2 pb-1 lg:!pt-10 md:!pt-8 sm:!pt-7 !pt-14 relative bg-slate-700 flex my-2 rounded-lg items-center sm:flex-nowrap flex-wrap"
+            className={`set-term sm:px-4 px-2 sm:py-2 pb-1 ${
+              term.categories ? "lg:!pt-10 md:!pt-8 sm:!pt-7 !pt-14" : ""
+            } relative bg-slate-700 flex my-2 rounded-lg items-center sm:flex-nowrap flex-wrap`}
             key={`${set.setId}-${term.id}`}
           >
             {term.categories && (

@@ -45,14 +45,14 @@ const Navbar = (props: Props) => {
             setShowConfirmModal(
               true,
               () => addSet(emptySet),
-              `/create/${mnemoryState.sets.length + 1}`
+              `/create/${emptySet.savedSet.setId}`
             );
           } else {
             addSet(emptySet);
-            navigate(`/create/${mnemoryState.sets.length + 1}`);
+            navigate(`/create/${emptySet.savedSet.setId}`);
           }
         }}
-        className="btn sm:!px-4 !px-2"
+        className="btn sm:!px-8 !px-2"
       >
         Create set
       </button>
