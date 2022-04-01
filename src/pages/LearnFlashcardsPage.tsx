@@ -95,6 +95,11 @@ const LearnFlashcardsPage = () => {
   };
 
   useEffect(() => {
+    setShuffledTerms([...savedSet.terms]);
+    console.log("shuf", [...savedSet.terms]);
+  }, [currentSet]);
+
+  useEffect(() => {
     restart();
   }, []);
 

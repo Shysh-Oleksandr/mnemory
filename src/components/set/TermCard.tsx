@@ -24,7 +24,7 @@ const TermCard = ({
   const mnemoryState = useSelector((state: State) => state.mnemory);
   const categorySets = mnemoryState.sets.filter((set) => set.isCategorySet);
   const dispatch = useDispatch();
-  const { deleteSet, toggleTermCategory } = bindActionCreators(
+  const { deleteSet, toggleTermCategory, saveCurrentSet } = bindActionCreators(
     actionCreactors,
     dispatch
   );
@@ -33,21 +33,29 @@ const TermCard = ({
     return (
       currentTerm.categories && (
         <ul className="categories-form absolute sm:top-3 top-[4px] scale-110 flex-wrap left-1/2 -translate-x-1/2 z-20 flex justify-center w-[90.85%] items-center border-b-2 border-slate-500 border-solid pb-3">
-          {currentTerm.categories.map((category) => {
-            return (
-              <li
-                key={`${currentTerm.id}-${category.savedSet.setId}-category`}
-                className="bg-teal-500 rounded-2xl lg:text-lg xl:px-4 lg:px-3 px-2 xl:py-[3px] sm:mb-0 mt-1 sm:py[2px] py-[1px] xl:mr-3 mr-2"
-              >
-                {category.savedSet.name}
-              </li>
-            );
-          })}
+          {currentTerm.categories.length > 0 ? (
+            currentTerm.categories.map((category) => {
+              return (
+                <li
+                  key={`${currentTerm.id}-${category.savedSet.setId}-category`}
+                  className="bg-teal-500 rounded-2xl lg:text-lg xl:px-4 lg:px-3 px-2 xl:py-[3px] sm:mb-0 mt-1 sm:py[2px] py-[1px] xl:mr-3 mr-2"
+                >
+                  {category.savedSet.name}
+                </li>
+              );
+            })
+          ) : (
+            <h4 className="text-xl">No categories</h4>
+          )}
           <ul className="categories-list rounded-b-xl overflow-y-auto h-auto max-h-0 opacity-0 left-1/2 overflow-hidden -translate-x-1/2 w-full transition-all absolute bg-slate-800 bottom-0 translate-y-full z-20">
             {categorySets.map((set) => {
               return (
                 <li
-                  onClick={() => toggleTermCategory(currentTerm.id, set)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleTermCategory(currentTerm.id, set, true);
+                    saveCurrentSet();
+                  }}
                   className={`mb-[1px] relative block px-4 text-lg tracking-wide cursor-pointer ${
                     currentTerm.categories
                       ?.map((category) => category.savedSet.setId)
@@ -60,7 +68,10 @@ const TermCard = ({
                   {set.savedSet.name} ({set.editingSet.terms.length})
                   <button
                     type="button"
-                    onClick={() => deleteSet(set.savedSet.setId)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteSet(set.savedSet.setId);
+                    }}
                     className="absolute right-2 top-1/2 rounded-md -translate-y-1/2 text-xl p-[5px] transition-colors bg-slate-700 hover:bg-slate-800"
                   >
                     <CgClose />

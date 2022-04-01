@@ -69,11 +69,19 @@ export const isSetChanged = (
   return isChanged;
 };
 
-export function setNewTerms(state: IMnemory, newTerms: ITerm[]): ISetStatus[] {
+export function setNewTerms(
+  state: IMnemory,
+  newTerms: ITerm[],
+  changeSaved: boolean = false
+): ISetStatus[] {
   const newSets = state.sets.map((set) => {
     if (set.editingSet.setId === state.currentSetId) {
       const newEditingSet: ISet = { ...set.editingSet, terms: newTerms };
-      return { ...set, editingSet: newEditingSet };
+      return {
+        ...set,
+        editingSet: newEditingSet,
+        savedSet: changeSaved ? newEditingSet : set.savedSet,
+      };
     }
     return set;
   });

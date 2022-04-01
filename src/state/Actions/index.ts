@@ -119,7 +119,7 @@ interface SetSortedSets {
 
 interface ToggleTermCategory {
   type: ActionType.TOGGLE_TERM_CATEGORY;
-  payload: { termId: number; categorySet: ISetStatus };
+  payload: { termId: number; categorySet: ISetStatus; changeSaved: boolean };
 }
 
 export type Action =

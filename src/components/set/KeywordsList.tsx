@@ -53,7 +53,7 @@ const KeywordsList = ({ term, isBigSize }: Props) => {
                     isBigSize
                       ? "big-size pt-2 pb-[10px]"
                       : "sm:pt-1 pt-[1px] pb-[5px]"
-                  } h-auto max-h-0 overflow-y-auto absolute left-1/2 -translate-x-1/2 bottom-0 block bg-slate-900 rounded-b-2xl w-full translate-y-full z-20`}
+                  } h-auto max-h-0 overflow-y-auto absolute left-1/2 -translate-x-1/2 bottom-0 block bg-slate-900 rounded-b-2xl w-full translate-y-full z-10`}
                 >
                   <span
                     className={`keyword-description-text ${

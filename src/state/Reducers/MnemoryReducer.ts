@@ -93,7 +93,7 @@ const mnemoryReducer = (
       const currentTerm = currentEditingSet.terms.find(
         (term) => term.id === action.payload.termId
       )!;
-      console.log(currentTerm);
+      console.log(currentEditingSet, action.payload.termId);
 
       if (!categorySets.includes(action.payload.categorySet)) return state;
 
@@ -118,7 +118,7 @@ const mnemoryReducer = (
         }
         return term;
       });
-      newSets = setNewTerms(state, newTerms);
+      newSets = setNewTerms(state, newTerms, action.payload.changeSaved);
 
       // Adding term in the category.
       newSets = newSets.map((set) => {
@@ -129,7 +129,11 @@ const mnemoryReducer = (
             ? [...set.editingSet.terms, currentTerm]
             : set.editingSet.terms.filter((term) => term.id !== currentTerm.id);
           const newEditingSet = { ...set.editingSet, terms: newTerms };
-          return { ...set, editingSet: newEditingSet };
+          return {
+            ...set,
+            editingSet: newEditingSet,
+            savedSet: action.payload.changeSaved ? newEditingSet : set.savedSet,
+          };
         }
         return set;
       });

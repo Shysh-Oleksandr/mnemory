@@ -201,11 +201,19 @@ export const setIsStartSideFront = () => {
   };
 };
 
-export const toggleTermCategory = (termId: number, categorySet: ISetStatus) => {
+export const toggleTermCategory = (
+  termId: number,
+  categorySet: ISetStatus,
+  changeSaved: boolean = false
+) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
       type: ActionType.TOGGLE_TERM_CATEGORY,
-      payload: { termId: termId, categorySet: categorySet },
+      payload: {
+        termId: termId,
+        categorySet: categorySet,
+        changeSaved: changeSaved,
+      },
     });
   };
 };
