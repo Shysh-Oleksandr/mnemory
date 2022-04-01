@@ -88,12 +88,16 @@ const mnemoryReducer = (
 
     case ActionType.TOGGLE_TERM_CATEGORY:
       console.log("togg");
+      const chosenCategory = action.payload.categorySet;
+      let isNewCategory: boolean = false;
+      const currentTerm = currentEditingSet.terms[action.payload.termId];
+
       if (!categorySets.includes(action.payload.categorySet)) return state;
 
+      // Adding category in the term.
       newTerms = currentEditingSet.terms.map((term) => {
         if (term.id === action.payload.termId) {
-          const chosenCategory = action.payload.categorySet;
-          const isNewCategory: boolean = !term.categories
+          isNewCategory = !term.categories
             ?.map((category) => category.savedSet.setId)
             .includes(chosenCategory.savedSet.setId);
           const updatedCategories = isNewCategory
@@ -112,6 +116,18 @@ const mnemoryReducer = (
         return term;
       });
       newSets = setNewTerms(state, newTerms);
+
+      // Adding term in the category.
+      newSets = newSets.map((set) => {
+        if (set.savedSet.setId === chosenCategory.savedSet.setId) {
+          newTerms = isNewCategory
+            ? [...set.editingSet.terms, currentTerm]
+            : set.editingSet.terms.filter((term) => term.id !== currentTerm.id);
+          const newEditingSet = { ...set.editingSet, terms: newTerms };
+          return { ...set, editingSet: newEditingSet };
+        }
+        return set;
+      });
 
       return { ...state, sets: newSets };
 
@@ -325,12 +341,38 @@ const mnemoryReducer = (
 
     case ActionType.SAVE_CURRENT_SET:
       newSets = state.sets.map((set) => {
-        if (set.editingSet.setId === state.currentSetId) {
+        if (set.savedSet.setId === state.currentSetId) {
           const newEditingSet: ISet = {
             ...set.editingSet,
             terms: validateTerms(set.editingSet.terms),
           };
           return { ...set, savedSet: newEditingSet, editingSet: newEditingSet };
+        }
+        return set;
+      });
+
+      newSets = newSets.map((set) => {
+        if (set.isCategorySet) {
+          const editedTerms: ITerm[] = [];
+          console.log(set.editingSet.terms);
+
+          const categorySetTerms = set.editingSet.terms.map(
+            (term) => term && term.id
+          );
+          currentEditingSet.terms.map((term) => {
+            if (categorySetTerms.includes(term.id)) {
+              editedTerms.push(term);
+            }
+          });
+          const editedTermsIds: number[] = editedTerms.map((term) => term.id);
+          const newTerms: ITerm[] = set.editingSet.terms.map((term) => {
+            if (editedTermsIds.includes(term.id)) {
+              return editedTerms.find((currTerm) => currTerm.id === term.id)!;
+            }
+            return term;
+          });
+          const newEditingSet = { ...set.editingSet, terms: newTerms };
+          return { ...set, editingSet: newEditingSet, savedSet: newEditingSet };
         }
         return set;
       });

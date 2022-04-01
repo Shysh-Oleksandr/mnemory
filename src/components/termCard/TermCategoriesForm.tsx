@@ -98,7 +98,7 @@ const TermCategoriesForm = ({ term }: Props) => {
               } hover:bg-slate-600 transition-all`}
               key={set.savedSet.setId + set.savedSet.name}
             >
-              {set.savedSet.name}
+              {set.savedSet.name} ({set.editingSet.terms.length})
               <button
                 type="button"
                 onClick={() => deleteSet(set.savedSet.setId)}

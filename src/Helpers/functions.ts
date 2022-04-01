@@ -87,7 +87,8 @@ export function setNewCommonSet(sets: ISetStatus[]): ISetStatus[] {
     (set) =>
       set.savedSet.setId !== 0 &&
       set.savedSet.terms.map(
-        (term) => term.term.trim() !== "" && allTerms.push(term)
+        (term) =>
+          term.term.trim() !== "" && !set.isCategorySet && allTerms.push(term)
       )
   );
 
