@@ -1,6 +1,10 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreactors, State } from "../../state";
 import { ITerm } from "../termCard/Term";
 import KeywordsList from "./KeywordsList";
+import { CgClose } from "react-icons/cg";
 
 type Props = {
   isCurrentSideFront: boolean;
@@ -17,6 +21,59 @@ const TermCard = ({
   showDefinition,
   setShowDefinition,
 }: Props) => {
+  const mnemoryState = useSelector((state: State) => state.mnemory);
+  const categorySets = mnemoryState.sets.filter((set) => set.isCategorySet);
+  const dispatch = useDispatch();
+  const { deleteSet, toggleTermCategory } = bindActionCreators(
+    actionCreactors,
+    dispatch
+  );
+
+  const getTermCategories = () => {
+    return (
+      currentTerm.categories && (
+        <ul className="categories-form absolute sm:top-3 top-[4px] scale-110 flex-wrap left-1/2 -translate-x-1/2 z-20 flex justify-center w-[90.85%] items-center border-b-2 border-slate-500 border-solid pb-3">
+          {currentTerm.categories.map((category) => {
+            return (
+              <li
+                key={`${currentTerm.id}-${category.savedSet.setId}-category`}
+                className="bg-teal-500 rounded-2xl lg:text-lg xl:px-4 lg:px-3 px-2 xl:py-[3px] sm:mb-0 mt-1 sm:py[2px] py-[1px] xl:mr-3 mr-2"
+              >
+                {category.savedSet.name}
+              </li>
+            );
+          })}
+          <ul className="categories-list rounded-b-xl overflow-y-auto h-auto max-h-0 opacity-0 left-1/2 overflow-hidden -translate-x-1/2 w-full transition-all absolute bg-slate-800 bottom-0 translate-y-full z-20">
+            {categorySets.map((set) => {
+              return (
+                <li
+                  onClick={() => toggleTermCategory(currentTerm.id, set)}
+                  className={`mb-[1px] relative block px-4 text-lg tracking-wide cursor-pointer ${
+                    currentTerm.categories
+                      ?.map((category) => category.savedSet.setId)
+                      .includes(set.savedSet.setId)
+                      ? "bg-slate-500"
+                      : "bg-slate-800"
+                  } hover:bg-slate-600 transition-all`}
+                  key={set.savedSet.setId + set.savedSet.name}
+                >
+                  {set.savedSet.name} ({set.editingSet.terms.length})
+                  <button
+                    type="button"
+                    onClick={() => deleteSet(set.savedSet.setId)}
+                    className="absolute right-2 top-1/2 rounded-md -translate-y-1/2 text-xl p-[5px] transition-colors bg-slate-700 hover:bg-slate-800"
+                  >
+                    <CgClose />
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </ul>
+      )
+    );
+  };
+
   return (
     <div
       className={`current-card card ${
@@ -26,13 +83,15 @@ const TermCard = ({
         setIsCurrentSideFront(!isCurrentSideFront);
       }}
     >
-      <div className="card-front border-b-[5px] rounded-xl border-solid border-slate-500 flex items-center justify-center h-full p-8">
+      <div className="card-front border-b-[5px] relative rounded-xl border-solid border-slate-500 flex items-center justify-center h-full pt-12 p-8">
+        {getTermCategories()}
         <h3 className="md:text-5xl sm:text-4xl text-3xl text-center cursor-text">
           {currentTerm.term}
         </h3>
       </div>
 
-      <div className="card-back overflow-y-auto flex flex-col">
+      <div className="card-back relative overflow-y-auto flex flex-col pt-12">
+        {getTermCategories()}
         <div className="term-images justify-center flex p-4 grow items-start">
           <KeywordsList term={currentTerm} isBigSize={true} />
         </div>
