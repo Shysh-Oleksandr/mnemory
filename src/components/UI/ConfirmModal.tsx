@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import { Action } from "../../state/Actions";
-import { bindActionCreators, Dispatch } from "redux";
-import { actionCreactors, State } from "../../state";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { ISetStatus } from "../../state/Reducers/MnemoryReducer";
+import { bindActionCreators, Dispatch } from "redux";
 import { getCurrentSet } from "../../Helpers/functions";
+import { actionCreactors, State } from "../../state";
+import { Action } from "../../state/Actions";
+import { ISetStatus } from "../../state/Reducers/MnemoryReducer";
 
 type Props = {
   setShowConfirmModal: (

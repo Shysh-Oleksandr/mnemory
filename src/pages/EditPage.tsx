@@ -1,4 +1,5 @@
 import React from "react";
+import { BsArrowLeft } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
@@ -8,7 +9,6 @@ import SaveBtn from "../components/UI/SaveBtn";
 import { actionCreactors, State } from "../state";
 import AddTermBtn from "./../components/AddTermBtn";
 import { getCurrentSet, isSetChanged } from "./../Helpers/functions";
-import { BsArrowLeft } from "react-icons/bs";
 
 type Props = {};
 

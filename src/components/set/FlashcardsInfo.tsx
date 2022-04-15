@@ -1,12 +1,12 @@
 import React from "react";
+import { BsArrowLeft } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { bindActionCreators } from "redux";
 import { getCurrentSet } from "../../Helpers/functions";
 import { actionCreactors, State } from "../../state";
 import { ITerm } from "../termCard/Term";
-import { bindActionCreators } from "redux";
 import ToggleBtn from "../UI/ToggleBtn";
-import { BsArrowLeft } from "react-icons/bs";
 
 type Props = {
   shuffleTerms: () => void;

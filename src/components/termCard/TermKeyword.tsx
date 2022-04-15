@@ -1,13 +1,13 @@
 import { RefObject, useEffect, useRef } from "react";
+import { BsCardImage } from "react-icons/bs";
+import { CgClose } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { clearInput, fetchImages } from "../../Helpers/functions";
 import { actionCreactors, State } from "../../state";
-import { Keyword } from "./Term";
-import { CgClose } from "react-icons/cg";
-import { BsCardImage } from "react-icons/bs";
-import { getCurrentSet } from "./../../Helpers/functions";
 import { termsPlaceholder } from "./../../data/termsPlaceholders";
+import { getCurrentSet } from "./../../Helpers/functions";
+import { Keyword } from "./Term";
 
 type Props = { termId: number; descriptionKeyword: Keyword; index: number };
 

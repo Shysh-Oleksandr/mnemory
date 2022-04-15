@@ -1,6 +1,6 @@
 import React from "react";
-import { CgArrowsExchange } from "react-icons/cg";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
+import { CgArrowsExchange } from "react-icons/cg";
 
 type Props = {
   currentTermIndex: number;

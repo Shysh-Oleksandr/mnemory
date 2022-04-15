@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
-import { AiOutlineArrowRight } from "react-icons/ai";
-import { CgClose, CgMathEqual } from "react-icons/cg";
+import React from "react";
+import { CgMathEqual } from "react-icons/cg";
 import { MdDelete } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actionCreactors, State } from "../../state";
-import { fetchImages, getEmptySet } from "./../../Helpers/functions";
+import { actionCreactors } from "../../state";
+import { fetchImages } from "./../../Helpers/functions";
 import { ITerm } from "./Term";
 import TermCategoriesForm from "./TermCategoriesForm";
 

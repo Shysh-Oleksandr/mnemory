@@ -2,12 +2,10 @@ import React, { RefObject, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
+import { clearInput, getCurrentSet } from "../../Helpers/functions";
 import { actionCreactors, State } from "../../state";
 import { ISetStatus } from "../../state/Reducers/MnemoryReducer";
-import ConfirmModal from "../UI/ConfirmModal";
 import Input from "./../UI/Input";
-import { IMnemory } from "./../../state/Reducers/MnemoryReducer";
-import { clearInput, getCurrentSet } from "../../Helpers/functions";
 
 type Props = {
   buttonText: string;

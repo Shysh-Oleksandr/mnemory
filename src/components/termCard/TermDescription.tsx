@@ -1,10 +1,10 @@
 import React from "react";
+import { CgClose } from "react-icons/cg";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreactors } from "../../state";
 import { ITerm } from "./Term";
 import TermKeyword from "./TermKeyword";
-import { CgClose } from "react-icons/cg";
 
 type Props = { term: ITerm };
 

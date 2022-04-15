@@ -1,9 +1,5 @@
-import { Dispatch } from "react";
-import { ITerm } from "../../components/termCard/Term";
-import { setNewTerms, validateTerms } from "../../Helpers/functions";
 import { ActionType } from "../Action-types";
 import { Action } from "../Actions";
-import { getCurrentSet } from "./../../Helpers/functions";
 
 export interface ILearn {
   isStartSideFront: boolean;

@@ -4,7 +4,6 @@ import { bindActionCreators } from "redux";
 import { actionCreactors, State } from "../../state";
 import { ITerm } from "../termCard/Term";
 import KeywordsList from "./KeywordsList";
-import { CgClose } from "react-icons/cg";
 
 type Props = {
   isCurrentSideFront: boolean;
@@ -21,14 +20,6 @@ const TermCard = ({
   showDefinition,
   setShowDefinition,
 }: Props) => {
-  const mnemoryState = useSelector((state: State) => state.mnemory);
-  const categorySets = mnemoryState.sets.filter((set) => set.isCategorySet);
-  const dispatch = useDispatch();
-  const { deleteSet, toggleTermCategory, saveCurrentSet } = bindActionCreators(
-    actionCreactors,
-    dispatch
-  );
-
   const getTermCategories = () => {
     return (
       currentTerm.categories && (

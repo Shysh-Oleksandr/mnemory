@@ -1,12 +1,12 @@
-import React, { useRef } from "react";
+import React from "react";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreactors, State } from "../state";
+import { getCurrentSet } from "./../Helpers/functions";
 import Term, { ITerm } from "./termCard/Term";
 import TermCardSeparator from "./termCard/TermCardSeparator";
 import TermKeywordImageChoice from "./termCard/TermKeywordImageChoice";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreactors, State } from "../state";
-import { getCurrentSet } from "./../Helpers/functions";
-import { bindActionCreators } from "redux";
 
 type Props = {
   terms: ITerm[];

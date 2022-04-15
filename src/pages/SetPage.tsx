@@ -1,12 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
+import SetButtons from "../components/set/SetButtons";
 import { actionCreactors, State } from "../state";
 import SetTermsList from "./../components/set/SetTermsList";
 import { getCurrentSet } from "./../Helpers/functions";
-import { MdDelete, MdEdit } from "react-icons/md";
-import SetButtons from "../components/set/SetButtons";
 
 type Props = {};
 

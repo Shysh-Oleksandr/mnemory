@@ -1,5 +1,5 @@
-import { ActionType } from "../Action-types";
 import { ITerm } from "../../components/termCard/Term";
+import { ActionType } from "../Action-types";
 import { ISetStatus } from "../Reducers/MnemoryReducer";
 
 interface AddingAction {

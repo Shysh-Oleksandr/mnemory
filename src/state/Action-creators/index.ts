@@ -1,7 +1,7 @@
 import { Dispatch } from "redux";
+import { ITerm } from "../../components/termCard/Term";
 import { ActionType } from "../Action-types";
 import { Action } from "../Actions";
-import { ITerm } from "../../components/termCard/Term";
 import { ISetStatus } from "../Reducers/MnemoryReducer";
 
 export const addTerm = (term: ITerm, indexToAdd: number) => {
