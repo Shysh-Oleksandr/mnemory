@@ -47,39 +47,6 @@ const TermCard = ({
           ) : (
             <h4 className="text-xl">No categories</h4>
           )}
-          <ul className="categories-list rounded-b-xl overflow-y-auto h-auto max-h-0 opacity-0 left-1/2 overflow-hidden -translate-x-1/2 w-full transition-all absolute bg-slate-800 bottom-0 translate-y-full z-20">
-            {categorySets.map((set) => {
-              return (
-                <li
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleTermCategory(currentTerm.id, set, true);
-                    saveCurrentSet();
-                  }}
-                  className={`mb-[1px] relative block px-4 text-lg tracking-wide cursor-pointer ${
-                    currentTerm.categories
-                      ?.map((category) => category.savedSet.setId)
-                      .includes(set.savedSet.setId)
-                      ? "bg-slate-500"
-                      : "bg-slate-800"
-                  } hover:bg-slate-600 transition-all`}
-                  key={set.savedSet.setId + set.savedSet.name}
-                >
-                  {set.savedSet.name} ({set.editingSet.terms.length})
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      deleteSet(set.savedSet.setId);
-                    }}
-                    className="absolute right-2 top-1/2 rounded-md -translate-y-1/2 text-xl p-[5px] transition-colors bg-slate-700 hover:bg-slate-800"
-                  >
-                    <CgClose />
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
         </ul>
       )
     );

@@ -87,15 +87,14 @@ const mnemoryReducer = (
       return { ...state, sets: newSets };
 
     case ActionType.TOGGLE_TERM_CATEGORY:
-      console.log("togg");
       const chosenCategory = action.payload.categorySet;
+      if (!categorySets.includes(chosenCategory)) return state;
+      console.log("togg");
+
       let isNewCategory: boolean = false;
       const currentTerm = currentEditingSet.terms.find(
         (term) => term.id === action.payload.termId
       )!;
-      console.log(currentEditingSet, action.payload.termId);
-
-      if (!categorySets.includes(action.payload.categorySet)) return state;
 
       // Adding category in the term.
       newTerms = currentEditingSet.terms.map((term) => {
@@ -123,8 +122,6 @@ const mnemoryReducer = (
       // Adding term in the category.
       newSets = newSets.map((set) => {
         if (set.savedSet.setId === chosenCategory.savedSet.setId) {
-          console.log(set.editingSet.terms);
-
           newTerms = isNewCategory
             ? [...set.editingSet.terms, currentTerm]
             : set.editingSet.terms.filter((term) => term.id !== currentTerm.id);
@@ -134,6 +131,22 @@ const mnemoryReducer = (
             editingSet: newEditingSet,
             savedSet: action.payload.changeSaved ? newEditingSet : set.savedSet,
           };
+        } else if (
+          action.payload.changeSaved &&
+          set.savedSet.setId === currentTerm.parentSet?.savedSet.setId
+        ) {
+          const newSetTerms = set.savedSet.terms.map((term) => {
+            if (term.id === currentTerm.id) {
+              return currentTerm;
+            }
+            return term;
+          });
+          const newEditingSet = {
+            ...set.editingSet,
+            terms: newSetTerms,
+          };
+
+          return { ...set, editingSet: newEditingSet, savedSet: newEditingSet };
         }
         return set;
       });
@@ -353,7 +366,7 @@ const mnemoryReducer = (
         if (set.savedSet.setId === state.currentSetId) {
           const newEditingSet: ISet = {
             ...set.editingSet,
-            terms: validateTerms(set.editingSet.terms),
+            terms: validateTerms(set.editingSet.terms, set),
           };
           return { ...set, savedSet: newEditingSet, editingSet: newEditingSet };
         }

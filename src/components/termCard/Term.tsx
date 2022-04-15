@@ -20,6 +20,7 @@ export interface ITerm {
   placeholderId: number;
   id: number;
   categories?: ISetStatus[];
+  parentSet?: ISetStatus;
 }
 
 type Props = {

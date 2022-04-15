@@ -38,7 +38,10 @@ export const fetchImages = async (
   }
 };
 
-export function validateTerms(terms: ITerm[]): ITerm[] {
+export function validateTerms(
+  terms: ITerm[],
+  parentSet: ISetStatus | undefined = undefined
+): ITerm[] {
   // Removing terms with empty name.
   let validatedTerms = terms.filter((term) => term.term.trim() !== "");
   // Removing empty keywords from term.
@@ -46,7 +49,11 @@ export function validateTerms(terms: ITerm[]): ITerm[] {
     let validatedKeywords = term.descriptionKeywords.filter(
       (keyword) => keyword.keyword.trim() !== ""
     );
-    return { ...term, descriptionKeywords: validatedKeywords };
+    return {
+      ...term,
+      descriptionKeywords: validatedKeywords,
+      parentSet: parentSet,
+    };
   });
 
   return validatedTerms;
