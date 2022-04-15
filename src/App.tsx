@@ -38,7 +38,7 @@ function App() {
             element={<LearnFlashcardsPage />}
           />
           <Route path="/set/:setid" element={<SetPage />} />
-          <Route path="*" element={<ErrorPage />} />
+          <Route path="*" element={<HomePage />} />
         </Routes>
       </div>
     </Router>
