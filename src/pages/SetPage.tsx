@@ -27,7 +27,7 @@ const SetPage = (props: Props) => {
         <Link
           onClick={copySavedSet}
           to={`/set/${savedSet.setId + 1}/learn/flashcards`}
-          className="btn block sm:!py-4 !py-3 text-center font-bold !bg-green-600 hover:!bg-green-500 sm:my-8 my-4 !text-slate-800"
+          className="btn block sm:!py-4 !py-3 text-center font-bold !bg-[#299DAA] hover:!bg-[#20A6B4] sm:my-8 my-4 !text-slate-800"
         >
           Learn flashcards
         </Link>

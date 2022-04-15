@@ -83,7 +83,7 @@ const HomePage = () => {
             onChange={(e) => sortSets(e.target.value)}
             name="sort-select"
             id="sort-select"
-            className="bg-slate-700 p-2 rounded-lg"
+            className="bg-slate-700 p-2 rounded-xl"
           >
             <option value={SortedMethods.LATEST}>Latest</option>
             <option value={SortedMethods.NEWEST}>Newest</option>
@@ -93,7 +93,7 @@ const HomePage = () => {
         </div>
         <div className="flex flex-wrap gap-3">
           {userSets
-            // .filter((set) => set.savedSet.name)
+            .filter((set) => set.savedSet.name)
             .map((set) => {
               const keywordImage = getSetImage(set);
               return (
@@ -135,22 +135,10 @@ const HomePage = () => {
         <div className="mt-8">
           <div className="flex items-center justify-between md:mb-6 mb-3">
             <h3 className="md:text-3xl text-2xl">Category sets</h3>
-            {/* <select
-              defaultValue={mnemoryState.sortMethod}
-              // onChange={(e) => sortSets(e.target.value)}
-              name="sort-select"
-              id="sort-select"
-              className="bg-slate-700 p-2 rounded-lg"
-            >
-              <option value={SortedMethods.LATEST}>Latest</option>
-              <option value={SortedMethods.NEWEST}>Newest</option>
-              <option value={SortedMethods.OLDEST}>Oldest</option>
-              <option value={SortedMethods.TERMS}>Terms length</option>
-            </select> */}
           </div>
           <div className="flex flex-wrap gap-3">
             {categorySets
-              // .filter((set) => set.savedSet.name)
+              .filter((set) => set.savedSet.name)
               .map((set) => {
                 const keywordImage = getSetImage(set);
                 return (

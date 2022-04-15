@@ -113,7 +113,7 @@ const TermCategoriesForm = ({ term }: Props) => {
       {focused && (
         <>
           <button
-            className="absolute right-0 top-1/2 -translate-y-1/2 text-2xl hover:text-orange-500 text-orange-400 transition-colors"
+            className="absolute right-0 top-1/2 -translate-y-[65%] text-2xl hover:text-orange-500 text-orange-400 transition-colors"
             type="submit"
           >
             <AiOutlineArrowRight />

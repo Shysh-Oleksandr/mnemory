@@ -80,7 +80,7 @@ const ConfirmModal = ({ setShowConfirmModal, onClick, to }: Props) => {
             Don't save
           </button>
           <button
-            className="block btn mx-2 sm:!px-10 !px-6 !text-white !bg-slate-900 hover:!bg-black"
+            className="block btn mx-2 sm:!px-10 !px-6 !text-white !bg-black hover:!bg-zinc-900"
             onClick={(e) => {
               if (currentSet.editingSet.name === "") {
                 deleteSet(mnemoryState.currentSetId);
