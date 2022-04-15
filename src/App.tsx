@@ -6,7 +6,6 @@ import Navbar from "./components/Navbar";
 import ConfirmModal from "./components/UI/ConfirmModal";
 import CreatePage from "./pages/CreatePage";
 import EditPage from "./pages/EditPage";
-import ErrorPage from "./pages/ErrorPage";
 import HomePage from "./pages/HomePage";
 import LearnFlashcardsPage from "./pages/LearnFlashcardsPage";
 import SetPage from "./pages/SetPage";
