@@ -423,7 +423,6 @@ const mnemoryReducer = (
 
     case ActionType.SET_SORTED_SETS:
       newSets = categorySets.concat(action.payload.sortedSets);
-      console.log(action.payload.sortedSets);
 
       return {
         ...state,
