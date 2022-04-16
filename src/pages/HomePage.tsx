@@ -54,7 +54,9 @@ const HomePage = () => {
         break;
       case SortedMethods.OLDEST:
         sortedSets = sortedSets.sort((a, b) => {
-          return a.savedSet.createdDate! >= b.savedSet.createdDate! ? 1 : -1;
+          return a.savedSet.lastVisitedDate! >= b.savedSet.lastVisitedDate!
+            ? 1
+            : -1;
         });
         break;
       case SortedMethods.TERMS:

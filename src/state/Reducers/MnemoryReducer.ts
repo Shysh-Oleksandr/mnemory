@@ -60,8 +60,8 @@ const mnemoryReducer = (
   let newTerms = currentEditingSet.terms;
   let categorySets = state.sets.filter((set) => set.isCategorySet);
   const isCreateOrEditPage =
-    window.location.pathname.startsWith("/create") ||
-    window.location.pathname.endsWith("/edit");
+    window.location.hash.includes("/create") ||
+    window.location.hash.includes("/edit");
 
   switch (action.type) {
     // Terms actions.
@@ -423,6 +423,8 @@ const mnemoryReducer = (
 
     case ActionType.SET_SORTED_SETS:
       newSets = categorySets.concat(action.payload.sortedSets);
+      console.log(action.payload.sortedSets);
+
       return {
         ...state,
         sets: newSets,

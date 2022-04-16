@@ -52,14 +52,14 @@ const TermCard = ({
         setIsCurrentSideFront(!isCurrentSideFront);
       }}
     >
-      <div className="card-front border-b-[5px] relative rounded-xl border-solid border-slate-500 flex items-center justify-center h-full pt-12 p-8">
+      <div className="card-front border-b-[5px] rounded-xl border-solid border-slate-500 flex items-center justify-center h-full pt-12 p-8">
         {getTermCategories()}
         <h3 className="md:text-5xl sm:text-4xl text-3xl text-center cursor-text">
           {currentTerm.term}
         </h3>
       </div>
 
-      <div className="card-back relative overflow-y-auto flex flex-col pt-12">
+      <div className="card-back overflow-y-auto flex flex-col pt-12">
         {getTermCategories()}
         <div className="term-images justify-center flex p-4 grow items-start">
           <KeywordsList term={currentTerm} isBigSize={true} />
