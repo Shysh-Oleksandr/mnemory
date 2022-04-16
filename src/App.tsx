@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import Navbar from "./components/Navbar";
 import ConfirmModal from "./components/UI/ConfirmModal";
