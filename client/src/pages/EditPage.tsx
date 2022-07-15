@@ -23,7 +23,7 @@ const EditPage = (props: Props) => {
   );
 
   return (
-    <div>
+    <div className="div-padding pb-6">
       <SetForm
         buttonText="Save"
         titleContent={

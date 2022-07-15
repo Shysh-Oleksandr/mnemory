@@ -22,4 +22,6 @@ export enum ActionType {
   REORDER_TERMS = "Reorder terms",
   SET_SORTED_SETS = "Set sorted sets",
   TOGGLE_TERM_CATEGORY = "Toggle term category",
+  LOGIN = "Login",
+  LOGOUT = "Logout",
 }

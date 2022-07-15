@@ -2,8 +2,8 @@ import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
+import { ISetStatus } from "../interfaces/set";
 import { actionCreactors, State } from "../state";
-import { ISetStatus } from "../state/Reducers/MnemoryReducer";
 
 export enum SortedMethods {
   LATEST = "latest",
@@ -76,7 +76,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="md:mt-8 mt-4">
+    <div className="md:mt-8 mt-4 div-padding pb-6">
       <div>
         <div className="flex items-center justify-between md:mb-6 mb-3">
           <h3 className="md:text-3xl text-2xl">Your sets</h3>

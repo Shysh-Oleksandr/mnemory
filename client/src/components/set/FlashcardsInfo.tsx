@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { getCurrentSet } from "../../Helpers/functions";
+import { ITerm } from "../../interfaces/term";
 import { actionCreactors, State } from "../../state";
-import { ITerm } from "../termCard/Term";
 import ToggleBtn from "../UI/ToggleBtn";
 
 type Props = {

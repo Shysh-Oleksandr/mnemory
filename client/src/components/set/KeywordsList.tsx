@@ -1,5 +1,5 @@
 import React from "react";
-import { ITerm } from "../termCard/Term";
+import { ITerm } from "../../interfaces/term";
 
 type Props = {
   term: ITerm;

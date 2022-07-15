@@ -1,18 +1,17 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { HashRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { bindActionCreators } from "redux";
+import AuthRoute from "./components/auth/AuthRoute";
 import Navbar from "./components/Navbar";
 import ConfirmModal from "./components/UI/ConfirmModal";
-import CreatePage from "./pages/CreatePage";
-import EditPage from "./pages/EditPage";
-import HomePage from "./pages/HomePage";
-import LearnFlashcardsPage from "./pages/LearnFlashcardsPage";
-import SetPage from "./pages/SetPage";
+import routes from "./config/routes";
+
 import { actionCreactors, State } from "./state";
 
 function App() {
   const mnemoryState = useSelector((state: State) => state.mnemory);
+  const { user } = useSelector((state: State) => state.user);
   const dispatch = useDispatch();
 
   const { setShowConfirmModal } = bindActionCreators(actionCreactors, dispatch);
@@ -26,20 +25,33 @@ function App() {
           to={mnemoryState.showConfirmModal.to}
         />
       )}
-      <Navbar />
-      <div className="App div-padding pb-6">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/create/:setid" element={<CreatePage />} />
-          <Route path="/set/:setid/edit/" element={<EditPage />} />
-          <Route
-            path="/set/:setid/learn/flashcards"
-            element={<LearnFlashcardsPage />}
-          />
-          <Route path="/set/:setid" element={<SetPage />} />
-          <Route path="*" element={<HomePage />} />
-        </Routes>
-      </div>
+      {/* !== */}
+      {user._id === "" && <Navbar />}
+      {/*  className="App div-padding pb-6" */}
+      <Routes>
+        {routes.map((route, index) => {
+          if (route.auth) {
+            return (
+              <Route
+                key={index}
+                path={route.path}
+                element={
+                  // <AuthRoute>
+                  <route.component {...route.props} />
+                  // </AuthRoute>
+                }
+              />
+            );
+          }
+          return (
+            <Route
+              key={index}
+              path={route.path}
+              element={<route.component {...route.props} />}
+            />
+          );
+        })}
+      </Routes>
     </Router>
   );
 }

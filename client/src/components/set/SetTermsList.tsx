@@ -1,5 +1,5 @@
 import React from "react";
-import { ISet } from "./../../state/Reducers/MnemoryReducer";
+import { ISet } from "../../interfaces/set";
 import KeywordsList from "./KeywordsList";
 
 type Props = {

@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { clearInput, getCurrentSet } from "../../Helpers/functions";
+import { ISetStatus } from "../../interfaces/set";
 import { actionCreactors, State } from "../../state";
-import { ISetStatus } from "../../state/Reducers/MnemoryReducer";
 import Input from "./../UI/Input";
 
 type Props = {

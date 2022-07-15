@@ -1,8 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreactors, State } from "../../state";
-import { ITerm } from "../termCard/Term";
+import { ITerm } from "../../interfaces/term";
 import KeywordsList from "./KeywordsList";
 
 type Props = {

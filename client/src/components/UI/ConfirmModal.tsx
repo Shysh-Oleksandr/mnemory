@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators, Dispatch } from "redux";
 import { getCurrentSet } from "../../Helpers/functions";
+import { ISetStatus } from "../../interfaces/set";
 import { actionCreactors, State } from "../../state";
 import { Action } from "../../state/Actions";
-import { ISetStatus } from "../../state/Reducers/MnemoryReducer";
 
 type Props = {
   setShowConfirmModal: (

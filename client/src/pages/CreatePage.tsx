@@ -13,7 +13,7 @@ const CreatePage = (props: Props) => {
   const mnemoryState = useSelector((state: State) => state.mnemory);
 
   return (
-    <div>
+    <div className="div-padding pb-6">
       <SetForm
         buttonText="Create"
         titleContent={

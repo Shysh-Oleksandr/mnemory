@@ -1,6 +1,7 @@
-import { ITerm } from "../../components/termCard/Term";
+import { ISetStatus } from "../../interfaces/set";
+import { ITerm } from "../../interfaces/term";
 import { ActionType } from "../Action-types";
-import { ISetStatus } from "../Reducers/MnemoryReducer";
+import { IUserState } from "../Reducers/UserReducer";
 
 interface AddingAction {
   type: ActionType.ADDING_TERM;
@@ -122,6 +123,15 @@ interface ToggleTermCategory {
   payload: { termId: number; categorySet: ISetStatus; changeSaved: boolean };
 }
 
+interface Login {
+  type: ActionType.LOGIN;
+  payload: IUserState;
+}
+
+interface Logout {
+  type: ActionType.LOGOUT;
+}
+
 export type Action =
   | AddingAction
   | DeletingAction
@@ -145,4 +155,6 @@ export type Action =
   | SetIsStartSideFront
   | SetSortedSets
   | ToggleTermCategory
+  | Login
+  | Logout
   | DeletingKeywordAction;

@@ -4,10 +4,10 @@ import { CgClose } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { clearInput, fetchImages } from "../../Helpers/functions";
+import { Keyword } from "../../interfaces/term";
 import { actionCreactors, State } from "../../state";
 import { termsPlaceholder } from "./../../data/termsPlaceholders";
 import { getCurrentSet } from "./../../Helpers/functions";
-import { Keyword } from "./Term";
 
 type Props = { termId: number; descriptionKeyword: Keyword; index: number };
 

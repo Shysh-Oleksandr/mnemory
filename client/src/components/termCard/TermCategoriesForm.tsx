@@ -4,8 +4,8 @@ import { CgClose } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getEmptySet } from "../../Helpers/functions";
+import { ITerm } from "../../interfaces/term";
 import { actionCreactors, State } from "../../state";
-import { ITerm } from "./Term";
 
 type Props = { term: ITerm };
 

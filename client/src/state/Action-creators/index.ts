@@ -1,8 +1,9 @@
 import { Dispatch } from "redux";
-import { ITerm } from "../../components/termCard/Term";
+import { ISetStatus } from "../../interfaces/set";
+import { ITerm } from "../../interfaces/term";
 import { ActionType } from "../Action-types";
 import { Action } from "../Actions";
-import { ISetStatus } from "../Reducers/MnemoryReducer";
+import { IUserState } from "../Reducers/UserReducer";
 
 export const addTerm = (term: ITerm, indexToAdd: number) => {
   return (dispatch: Dispatch<Action>) => {
@@ -214,6 +215,23 @@ export const toggleTermCategory = (
         categorySet: categorySet,
         changeSaved: changeSaved,
       },
+    });
+  };
+};
+
+export const login = (userState: IUserState) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.LOGIN,
+      payload: userState,
+    });
+  };
+};
+
+export const logout = () => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.LOGOUT,
     });
   };
 };

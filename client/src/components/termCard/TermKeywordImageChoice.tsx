@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
 import { bindActionCreators } from "redux";
 import { fetchImages } from "../../Helpers/functions";
+import { ITerm } from "../../interfaces/term";
 import { actionCreactors, State } from "../../state";
-import { ITerm } from "./Term";
 
 type Props = { term: ITerm };
 

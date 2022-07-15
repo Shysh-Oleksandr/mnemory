@@ -1,27 +1,9 @@
 import React from "react";
-import { ISetStatus } from "../../state/Reducers/MnemoryReducer";
+import { ITerm } from "../../interfaces/term";
 import "../../styles/term.css";
 import TermDescription from "./TermDescription";
 import TermHeader from "./TermHeader";
 import TermInfo from "./TermInfo";
-
-export type Keyword = {
-  keyword: string;
-  descriptionText?: string;
-  image?: string;
-  imageChecked: boolean;
-  id: number;
-};
-
-export interface ITerm {
-  term: string;
-  definition: string;
-  descriptionKeywords: Keyword[];
-  placeholderId: number;
-  id: number;
-  categories?: ISetStatus[];
-  parentSet?: ISetStatus;
-}
 
 type Props = {
   term: ITerm;

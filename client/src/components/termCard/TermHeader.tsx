@@ -3,9 +3,9 @@ import { CgMathEqual } from "react-icons/cg";
 import { MdDelete } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
+import { ITerm } from "../../interfaces/term";
 import { actionCreactors } from "../../state";
 import { fetchImages } from "./../../Helpers/functions";
-import { ITerm } from "./Term";
 import TermCategoriesForm from "./TermCategoriesForm";
 
 type Props = { index: number; term: ITerm };

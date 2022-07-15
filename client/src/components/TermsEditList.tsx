@@ -2,9 +2,10 @@ import React from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
+import { ITerm } from "../interfaces/term";
 import { actionCreactors, State } from "../state";
 import { getCurrentSet } from "./../Helpers/functions";
-import Term, { ITerm } from "./termCard/Term";
+import Term from "./termCard/Term";
 import TermCardSeparator from "./termCard/TermCardSeparator";
 import TermKeywordImageChoice from "./termCard/TermKeywordImageChoice";
 

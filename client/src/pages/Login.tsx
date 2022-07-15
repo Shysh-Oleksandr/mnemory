@@ -1,8 +1,8 @@
 import firebase from "firebase/compat/app";
 import React, { useState } from "react";
 import { BsGithub, BsGoogle } from "react-icons/bs";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../app/hooks";
 import CenterPiece from "../components/auth/CenterPiece";
 import LoginBtn from "../components/auth/LoginBtn";
 import InfoMessage from "../components/UI/InfoMessage";
@@ -13,13 +13,14 @@ import {
   Authenticate,
   SignInWithSocialMedia as SocialMediaPopup,
 } from "../modules/auth";
+import { login } from "../state/Action-creators";
 
 const LoginPage = () => {
   const [authenticating, setAuthenticating] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   const isLogin = window.location.pathname.includes("login");
 
@@ -74,7 +75,7 @@ const LoginPage = () => {
   return (
     <CenterPiece>
       <div className="flex flex-col items-center justify-center">
-        <div className="bg-white md:px-12 sm:px-8 px-4 py-8 lg:w-[40vw] md:w-[55vw] sm:w-[65vw] w-[90vw] rounded-lg shadow-xl">
+        <div className="bg-slate-700 md:px-12 sm:px-8 px-4 py-8 lg:w-[40vw] md:w-[55vw] sm:w-[65vw] w-[90vw] rounded-lg shadow-xl">
           <div className="sm:text-5xl text-4xl font-semibold text-center mt-4 mb-8">
             {isLogin ? "Login" : "Sign Up"}
           </div>
@@ -82,7 +83,6 @@ const LoginPage = () => {
             <LoginBtn
               className="disabled:bg-orange-900 bg-orange-600  hover:bg-orange-700"
               authenticating={authenticating}
-              isLogin={isLogin}
               icon={<BsGoogle />}
               onclick={() => SignInWithSocialMedia(Providers.google)}
               providerName="Google"
@@ -90,7 +90,6 @@ const LoginPage = () => {
             <LoginBtn
               className="disabled:bg-gray-900 bg-gray-600  hover:bg-gray-700"
               authenticating={authenticating}
-              isLogin={isLogin}
               icon={<BsGithub />}
               onclick={() => SignInWithSocialMedia(Providers.github)}
               providerName="Github"

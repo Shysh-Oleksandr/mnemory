@@ -5,8 +5,8 @@ import FlashcardsInfo from "../components/set/FlashcardsInfo";
 import FlashcardsNavigation from "../components/set/FlashcardsNavigation";
 import KeywordsList from "../components/set/KeywordsList";
 import TermCard from "../components/set/TermCard";
-import { ITerm } from "../components/termCard/Term";
 import { calcTermsLeft, getCurrentSet, shuffle } from "../Helpers/functions";
+import { ITerm } from "../interfaces/term";
 import { State } from "../state";
 import "../styles/flashcards.css";
 import FlashcardsFinished from "./../components/set/FlashcardsFinished";
@@ -104,7 +104,7 @@ const LearnFlashcardsPage = () => {
 
   if (termsLength === 0) {
     return (
-      <div className="flex justify-center flex-col">
+      <div className="flex justify-center flex-col div-padding pb-6">
         <h2 className="sm:text-3xl text-2xl my-4 text-center">
           There's no terms in this set.
         </h2>
@@ -119,7 +119,7 @@ const LearnFlashcardsPage = () => {
   }
 
   return (
-    <div className="learn-cards relative flex md:flex-row flex-col h-full mt-4 justify-between md:pb-0 sm:pb-28 pb-48">
+    <div className="learn-cards relative flex md:flex-row flex-col h-full mt-4 justify-between md:pb-0 sm:pb-28 pb-48 div-padding">
       <FlashcardsInfo
         shuffleTerms={shuffleTerms}
         currentTermIndex={currentTermIndex}

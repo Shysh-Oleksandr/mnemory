@@ -3,8 +3,8 @@ import { MdDelete, MdEdit } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
+import { ISetStatus } from "../../interfaces/set";
 import { actionCreactors } from "../../state";
-import { ISetStatus } from "../../state/Reducers/MnemoryReducer";
 
 type Props = {
   currentSet: ISetStatus;

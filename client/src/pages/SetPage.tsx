@@ -17,7 +17,7 @@ const SetPage = (props: Props) => {
   const savedSet = currentSet.savedSet;
 
   return (
-    <div className="set-page">
+    <div className="set-page div-padding pb-6">
       <div className="set-info sm:py-4 py-2">
         <h2 className="sm:text-4xl text-3xl font-bold py-1">{savedSet.name}</h2>
         <h3 className="sm:text-2xl text-xl">{savedSet.description}</h3>

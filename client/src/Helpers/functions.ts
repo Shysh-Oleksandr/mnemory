@@ -1,8 +1,8 @@
 import { RefObject } from "react";
 import { Dispatch } from "redux";
-import { ITerm } from "../components/termCard/Term";
+import { ISet, ISetStatus } from "../interfaces/set";
+import { ITerm } from "../interfaces/term";
 import { Action } from "../state/Actions";
-import { ISet, ISetStatus } from "../state/Reducers/MnemoryReducer";
 import { termsPlaceholder } from "./../data/termsPlaceholders";
 import { MAX_BG_CARDS } from "./../pages/LearnFlashcardsPage";
 import { IMnemory } from "./../state/Reducers/MnemoryReducer";

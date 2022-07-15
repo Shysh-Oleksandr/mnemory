@@ -2,11 +2,11 @@ import React, { RefObject, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { clearInput } from "../../Helpers/functions";
+import { ITerm } from "../../interfaces/term";
 import { actionCreactors, State } from "../../state";
 import Input from "../UI/Input";
 import { termsPlaceholder } from "./../../data/termsPlaceholders";
 import { getCurrentSet } from "./../../Helpers/functions";
-import { ITerm } from "./Term";
 import TermCategoriesForm from "./TermCategoriesForm";
 
 type Props = { term: ITerm };

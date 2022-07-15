@@ -3,8 +3,8 @@ import { CgClose } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getCurrentSet, getEmptyTerm } from "../../Helpers/functions";
+import { ISetStatus } from "../../interfaces/set";
 import { actionCreactors, State } from "../../state";
-import { ISetStatus } from "../../state/Reducers/MnemoryReducer";
 
 type Props = { cardId: number };
 

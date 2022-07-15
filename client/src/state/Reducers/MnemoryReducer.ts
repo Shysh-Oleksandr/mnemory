@@ -1,4 +1,3 @@
-import { ITerm } from "../../components/termCard/Term";
 import {
   getRandomNumber,
   insert,
@@ -6,26 +5,13 @@ import {
   setNewTerms,
   validateTerms,
 } from "../../Helpers/functions";
+import { ISet, ISetStatus } from "../../interfaces/set";
+import { ITerm } from "../../interfaces/term";
 import { SortedMethods } from "../../pages/HomePage";
 import { ActionType } from "../Action-types";
 import { Action } from "../Actions";
 import { initialSets } from "./../../data/initialSets";
 import { getCurrentSet } from "./../../Helpers/functions";
-
-export interface ISet {
-  name: string;
-  description?: string;
-  terms: ITerm[];
-  setId: number;
-  createdDate: Date | null;
-  lastVisitedDate: Date | null;
-}
-
-export interface ISetStatus {
-  savedSet: ISet;
-  editingSet: ISet;
-  isCategorySet: boolean;
-}
 
 export interface IMnemory {
   sets: ISetStatus[];
