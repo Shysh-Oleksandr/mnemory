@@ -6,6 +6,7 @@ import { bindActionCreators } from "redux";
 import { getEmptySet } from "../../Helpers/functions";
 import { ITerm } from "../../interfaces/term";
 import { actionCreactors, State } from "../../state";
+import TermInputLabel from "./TermInputLabel";
 
 type Props = { term: ITerm };
 
@@ -76,12 +77,11 @@ const TermCategoriesForm = ({ term }: Props) => {
         placeholder="Enter a new category..."
         defaultValue={getTermCategoriesString()}
       />
-      <label
-        htmlFor={term.term + term.id + "category-input"}
-        className={`term-input-label !text-sm  absolute -bottom-2 z-10`}
-      >
-        Categories
-      </label>
+      <TermInputLabel
+        inputId={term.term + term.id + "category-input"}
+        labelClassName="!text-sm  absolute -bottom-2 left-0 z-10"
+        labelText="Categories"
+      />
       <ul
         className={`categories-list rounded-xl rounded-tl-none overflow-y-auto h-auto max-h-0 opacity-0 left-1/2 overflow-hidden -translate-x-1/2 w-full transition-all absolute bg-slate-800 bottom-3 translate-y-full z-20`}
       >

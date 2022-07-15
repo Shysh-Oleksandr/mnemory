@@ -99,6 +99,15 @@ export const setAreImagesLoading = (areImagesLoading: boolean) => {
   };
 };
 
+export const setLoading = (loading: boolean) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.SET_LOADING,
+      payload: loading,
+    });
+  };
+};
+
 export const setShowConfirmModal = (
   showConfrimModal: boolean,
   onClick: React.MouseEventHandler<HTMLAnchorElement> | undefined = undefined,
@@ -232,6 +241,24 @@ export const logout = () => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
       type: ActionType.LOGOUT,
+    });
+  };
+};
+
+export const setError = (error: string) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.SET_ERROR,
+      payload: error,
+    });
+  };
+};
+
+export const setSuccess = (success: string) => {
+  return (dispatch: Dispatch<Action>) => {
+    dispatch({
+      type: ActionType.SET_SUCCESS,
+      payload: success,
     });
   };
 };

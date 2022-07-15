@@ -1,4 +1,5 @@
 import React, { RefObject } from "react";
+import TermInputLabel from "../termCard/TermInputLabel";
 
 type Props = {
   defaultValue?: string;
@@ -36,9 +37,11 @@ const Input = ({
         ref={reference}
         required={required}
       />
-      <label htmlFor={inputId} className={`${labelClassName} term-input-label`}>
-        {labelText}
-      </label>
+      <TermInputLabel
+        inputId={inputId}
+        labelClassName={`${labelClassName} fl`}
+        labelText={labelText}
+      />
     </div>
   );
 };

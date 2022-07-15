@@ -96,6 +96,11 @@ interface SetAreImagesLoadingAction {
   payload: boolean;
 }
 
+interface SetLoadingAction {
+  type: ActionType.SET_LOADING;
+  payload: boolean;
+}
+
 interface SetShowConfirmModalAction {
   type: ActionType.SET_SHOW_CONFIRM_MODAL;
   payload: {
@@ -132,6 +137,16 @@ interface Logout {
   type: ActionType.LOGOUT;
 }
 
+interface SetError {
+  type: ActionType.SET_ERROR;
+  payload: string;
+}
+
+interface SetSuccess {
+  type: ActionType.SET_SUCCESS;
+  payload: string;
+}
+
 export type Action =
   | AddingAction
   | DeletingAction
@@ -157,4 +172,7 @@ export type Action =
   | ToggleTermCategory
   | Login
   | Logout
+  | SetError
+  | SetSuccess
+  | SetLoadingAction
   | DeletingKeywordAction;

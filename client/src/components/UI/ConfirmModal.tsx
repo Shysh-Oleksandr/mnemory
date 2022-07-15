@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators, Dispatch } from "redux";
 import { getCurrentSet } from "../../Helpers/functions";
+import { useOnClickOutside } from "../../hooks";
 import { ISetStatus } from "../../interfaces/set";
 import { actionCreactors, State } from "../../state";
 import { Action } from "../../state/Actions";
@@ -31,26 +32,7 @@ const ConfirmModal = ({ setShowConfirmModal, onClick, to }: Props) => {
 
   const currentSet: ISetStatus = getCurrentSet(mnemoryState);
 
-  useEffect(() => {
-    document.documentElement.classList.add("stop-scrolling");
-
-    const checkIfClickedOutside = (e: any) => {
-      if (
-        mnemoryState.showConfirmModal &&
-        ref.current &&
-        !ref.current.contains(e.target)
-      ) {
-        setShowConfirmModal(false, undefined, "/");
-      }
-    };
-
-    document.addEventListener("mousedown", checkIfClickedOutside);
-
-    return () => {
-      document.documentElement.classList.remove("stop-scrolling");
-      document.removeEventListener("mousedown", checkIfClickedOutside);
-    };
-  }, [mnemoryState.showConfirmModal]);
+  useOnClickOutside(ref, () => setShowConfirmModal(false, undefined, "/"));
 
   return (
     <div className="fixed z-50 h-full w-full top-0 flex justify-center items-center">

@@ -1,18 +1,22 @@
-import React from 'react';
+import React from "react";
+import { MutatingDots } from "react-loader-spinner";
 
 interface ILoadingProps {
-    scaleSize?: number;
-    className?: string;
+  width?: number;
+  height?: number;
 }
 
-const Loading = ({ scaleSize, className }: ILoadingProps) => {
-    return (
-        <div className={`flex justify-center items-center w-full h-full ${className}`}>
-            <div style={{ transform: `scale(${scaleSize || 1})` }} className="stage z-50">
-                <div className="dot-revolution"></div>
-            </div>
-        </div>
-    );
+const Loading = ({ width, height }: ILoadingProps) => {
+  return (
+    <MutatingDots
+      wrapperClass="justify-center items-center"
+      ariaLabel="loading-indicator"
+      color="#fb923c"
+      secondaryColor="#2dd4bf"
+      width={width || 150}
+      height={height || 110}
+    />
+  );
 };
 
 export default Loading;

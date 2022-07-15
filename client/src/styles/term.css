@@ -1,5 +1,5 @@
 .term-input {
-  @apply md:text-2xl text-xl rounded-br-lg bg-transparent block border-b-[3px] md:p-2 p-[6px] !pl-0 border-white border-solid outline-none focus:border-orange-400;
+  @apply md:text-2xl text-xl transition-all duration-300 rounded-br-lg bg-transparent block border-b-[3px] md:p-2 p-[6px] !pl-0 border-white border-solid outline-none focus:border-orange-400;
 }
 
 .term-input-label {

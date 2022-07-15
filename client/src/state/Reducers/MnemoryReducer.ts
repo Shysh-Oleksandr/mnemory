@@ -19,6 +19,9 @@ export interface IMnemory {
   currentSearchedImages: string[];
   currentSetId: number;
   areImagesLoading: boolean;
+  isLoading: boolean;
+  error: string;
+  success: string;
   showConfirmModal: {
     toShow: boolean;
     onClick?: React.MouseEventHandler<HTMLAnchorElement> | undefined;
@@ -30,9 +33,12 @@ export interface IMnemory {
 const initialState: IMnemory = {
   sets: initialSets,
   currentSetId: 0,
+  error: "",
+  success: "",
   currentImageQuery: "",
   currentSearchedImages: [],
   areImagesLoading: true,
+  isLoading: true,
   showConfirmModal: { toShow: false, to: "/" },
   sortMethod: SortedMethods.LATEST,
 };
@@ -441,6 +447,23 @@ const mnemoryReducer = (
           onClick: action.payload.onClick,
           to: action.payload.to,
         },
+      };
+
+    case ActionType.SET_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
+
+    case ActionType.SET_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case ActionType.SET_SUCCESS:
+      return {
+        ...state,
+        success: action.payload,
       };
 
     default:
