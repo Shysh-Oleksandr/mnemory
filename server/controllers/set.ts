@@ -1,32 +1,30 @@
 import e, { NextFunction, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import logging from '../config/logging';
-import Note from '../models/note';
+import Set from '../models/set';
 
 const create = (req: Request, res: Response, next: NextFunction) => {
-    logging.info('Attempting to register note...');
+    logging.info('Attempting to register set...');
 
-    let { title, author, startDate, endDate, content, color, image, type, category, rating } = req.body;
+    let { name, author, description, createdDate, lastVisitedDate, isCategorySet, terms, setId } = req.body;
 
-    const note = new Note({
+    const set = new Set({
         _id: new mongoose.Types.ObjectId(),
-        title,
+        name,
         author,
-        startDate,
-        endDate,
-        content,
-        color,
-        image,
-        type,
-        category,
-        rating
+        description,
+        createdDate,
+        lastVisitedDate,
+        isCategorySet,
+        terms,
+        setId
     });
 
-    return note
+    return set
         .save()
-        .then((newNote) => {
-            logging.info(`New note created...`);
-            return res.status(201).json({ note: newNote });
+        .then((newSet) => {
+            logging.info(`New set created...`);
+            return res.status(201).json({ set: newSet });
         })
         .catch((error) => {
             logging.error(error);
@@ -35,17 +33,17 @@ const create = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const read = (req: Request, res: Response, next: NextFunction) => {
-    const _id = req.params.noteID;
+    const _id = req.params.setID;
 
     logging.info(`Incoming read for ${_id} ...`);
 
-    return Note.findById(_id)
+    return Set.findById(_id)
         .populate('author')
-        .then((note) => {
-            if (note) {
-                return res.status(200).json({ note });
+        .then((set) => {
+            if (set) {
+                return res.status(200).json({ set });
             } else {
-                return res.status(404).json({ message: 'note not found' });
+                return res.status(404).json({ message: 'set not found' });
             }
         })
         .catch((error) => {
@@ -59,13 +57,13 @@ const readAll = (req: Request, res: Response, next: NextFunction) => {
 
     logging.info(`Incoming read all...`);
 
-    return Note.find({ author: author_id })
+    return Set.find({ author: author_id })
         .populate('author')
         .exec()
-        .then((notes) => {
+        .then((sets) => {
             return res.status(200).json({
-                count: notes.length,
-                notes
+                count: sets.length,
+                sets
             });
         })
         .catch((error) => {
@@ -81,12 +79,12 @@ const query = (req: Request, res: Response, next: NextFunction) => {
     logging.info(`Incoming query...`);
 
     const titleRegex = title ? new RegExp(title.toString(), 'i') : new RegExp('');
-    return Note.find({ title: { $regex: titleRegex }, author: author_id })
+    return Set.find({ title: { $regex: titleRegex }, author: author_id })
         .exec()
-        .then((notes) => {
+        .then((sets) => {
             return res.status(200).json({
-                count: notes.length,
-                notes
+                count: sets.length,
+                sets
             });
         })
         .catch((error) => {
@@ -96,27 +94,27 @@ const query = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const update = (req: Request, res: Response, next: NextFunction) => {
-    const _id = req.params.noteID;
+    const _id = req.params.setID;
 
     logging.info(`Incoming update for ${_id} ...`);
 
-    return Note.findById(_id)
+    return Set.findById(_id)
         .exec()
-        .then((note) => {
-            if (note) {
-                note.set(req.body);
+        .then((set) => {
+            if (set) {
+                set.set(req.body);
 
-                note.save()
-                    .then((newNote) => {
-                        logging.info(`Note updated...`);
-                        return res.status(201).json({ note: newNote });
+                set.save()
+                    .then((newSet) => {
+                        logging.info(`Set updated...`);
+                        return res.status(201).json({ set: newSet });
                     })
                     .catch((error) => {
                         logging.error(error);
                         return res.status(500).json({ error });
                     });
             } else {
-                return res.status(404).json({ message: 'note not found' });
+                return res.status(404).json({ message: 'set not found' });
             }
         })
         .catch((error) => {
@@ -125,14 +123,14 @@ const update = (req: Request, res: Response, next: NextFunction) => {
         });
 };
 
-const deleteNote = (req: Request, res: Response, next: NextFunction) => {
-    const _id = req.params.noteID;
+const deleteSet = (req: Request, res: Response, next: NextFunction) => {
+    const _id = req.params.setID;
 
     logging.info(`Incoming delete for ${_id} ...`);
 
-    return Note.findByIdAndDelete(_id)
-        .then((note) => {
-            return res.status(200).json({ message: 'Note was deleted.' });
+    return Set.findByIdAndDelete(_id)
+        .then((set) => {
+            return res.status(200).json({ message: `Set ${_id} was deleted.` });
         })
         .catch((error) => {
             logging.error(error);
@@ -146,5 +144,5 @@ export default {
     readAll,
     query,
     update,
-    deleteNote
+    deleteSet
 };

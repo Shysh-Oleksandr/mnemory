@@ -78,72 +78,72 @@ const mnemoryReducer = (
       newSets = setNewTerms(state, action.payload);
       return { ...state, sets: newSets };
 
-    case ActionType.TOGGLE_TERM_CATEGORY:
-      const chosenCategory = action.payload.categorySet;
-      if (!categorySets.includes(chosenCategory)) return state;
-      console.log("togg");
+    // case ActionType.TOGGLE_TERM_CATEGORY:
+    //   const chosenCategory = action.payload.categorySet;
+    //   if (!categorySets.includes(chosenCategory)) return state;
+    //   console.log("togg");
 
-      let isNewCategory: boolean = false;
-      const currentTerm = currentEditingSet.terms.find(
-        (term) => term.id === action.payload.termId
-      )!;
+    //   let isNewCategory: boolean = false;
+    //   const currentTerm = currentEditingSet.terms.find(
+    //     (term) => term.id === action.payload.termId
+    //   )!;
 
-      // Adding category in the term.
-      newTerms = currentEditingSet.terms.map((term) => {
-        if (term.id === action.payload.termId) {
-          isNewCategory = !term.categories
-            ?.map((category) => category.savedSet.setId)
-            .includes(chosenCategory.savedSet.setId);
-          const updatedCategories = isNewCategory
-            ? term.categories
-              ? [...term.categories, chosenCategory]
-              : [chosenCategory]
-            : term.categories?.filter(
-                (category) =>
-                  category.savedSet.setId !== chosenCategory.savedSet.setId
-              );
-          return {
-            ...term,
-            categories: updatedCategories,
-          };
-        }
-        return term;
-      });
-      newSets = setNewTerms(state, newTerms, action.payload.changeSaved);
+    //   // Adding category in the term.
+    //   newTerms = currentEditingSet.terms.map((term) => {
+    //     if (term.id === action.payload.termId) {
+    //       isNewCategory = !term.categories
+    //         ?.map((category) => category.savedSet.setId)
+    //         .includes(chosenCategory.savedSet.setId);
+    //       const updatedCategories = isNewCategory
+    //         ? term.categories
+    //           ? [...term.categories, chosenCategory]
+    //           : [chosenCategory]
+    //         : term.categories?.filter(
+    //             (category) =>
+    //               category.savedSet.setId !== chosenCategory.savedSet.setId
+    //           );
+    //       return {
+    //         ...term,
+    //         categories: updatedCategories,
+    //       };
+    //     }
+    //     return term;
+    //   });
+    //   newSets = setNewTerms(state, newTerms, action.payload.changeSaved);
 
-      // Adding term in the category.
-      newSets = newSets.map((set) => {
-        if (set.savedSet.setId === chosenCategory.savedSet.setId) {
-          newTerms = isNewCategory
-            ? [...set.editingSet.terms, currentTerm]
-            : set.editingSet.terms.filter((term) => term.id !== currentTerm.id);
-          const newEditingSet = { ...set.editingSet, terms: newTerms };
-          return {
-            ...set,
-            editingSet: newEditingSet,
-            savedSet: action.payload.changeSaved ? newEditingSet : set.savedSet,
-          };
-        } else if (
-          action.payload.changeSaved &&
-          set.savedSet.setId === currentTerm.parentSet?.savedSet.setId
-        ) {
-          const newSetTerms = set.savedSet.terms.map((term) => {
-            if (term.id === currentTerm.id) {
-              return currentTerm;
-            }
-            return term;
-          });
-          const newEditingSet = {
-            ...set.editingSet,
-            terms: newSetTerms,
-          };
+    //   // Adding term in the category.
+    //   newSets = newSets.map((set) => {
+    //     if (set.savedSet.setId === chosenCategory.savedSet.setId) {
+    //       newTerms = isNewCategory
+    //         ? [...set.editingSet.terms, currentTerm]
+    //         : set.editingSet.terms.filter((term) => term.id !== currentTerm.id);
+    //       const newEditingSet = { ...set.editingSet, terms: newTerms };
+    //       return {
+    //         ...set,
+    //         editingSet: newEditingSet,
+    //         savedSet: action.payload.changeSaved ? newEditingSet : set.savedSet,
+    //       };
+    //     } else if (
+    //       action.payload.changeSaved &&
+    //       set.savedSet.setId === currentTerm.parentSet?.savedSet.setId
+    //     ) {
+    //       const newSetTerms = set.savedSet.terms.map((term) => {
+    //         if (term.id === currentTerm.id) {
+    //           return currentTerm;
+    //         }
+    //         return term;
+    //       });
+    //       const newEditingSet = {
+    //         ...set.editingSet,
+    //         terms: newSetTerms,
+    //       };
 
-          return { ...set, editingSet: newEditingSet, savedSet: newEditingSet };
-        }
-        return set;
-      });
+    //       return { ...set, editingSet: newEditingSet, savedSet: newEditingSet };
+    //     }
+    //     return set;
+    //   });
 
-      return { ...state, sets: newSets };
+    //   return { ...state, sets: newSets };
 
     case ActionType.SET_TERM_INFO:
       newTerms = currentEditingSet.terms.map((term) => {
@@ -301,7 +301,7 @@ const mnemoryReducer = (
         if (set.editingSet.setId === action.payload) {
           const newSavedSet: ISet = {
             ...set.savedSet,
-            lastVisitedDate: new Date(),
+            lastVisitedDate: new Date().getTime(),
           };
           return { ...set, savedSet: newSavedSet };
         }
@@ -328,20 +328,20 @@ const mnemoryReducer = (
         (set) => set.editingSet.setId !== action.payload
       );
 
-      if (deletedSet?.isCategorySet) {
-        filteredSets = filteredSets.map((set) => {
-          const updatedTerms = set.editingSet.terms.map((term) => {
-            const updatedCategories = term.categories?.filter(
-              (category) =>
-                category.editingSet.setId !== deletedSet.editingSet.setId
-            )!;
+      // if (deletedSet?.isCategorySet) {
+      //   filteredSets = filteredSets.map((set) => {
+      //     const updatedTerms = set.editingSet.terms.map((term) => {
+      //       const updatedCategories = term.categories?.filter(
+      //         (category) =>
+      //           category.editingSet.setId !== deletedSet.editingSet.setId
+      //       )!;
 
-            return { ...term, categories: updatedCategories };
-          });
-          const newSet = { ...set.editingSet, terms: updatedTerms };
-          return { ...set, editingSet: newSet, savedSet: newSet };
-        });
-      }
+      //       return { ...term, categories: updatedCategories };
+      //     });
+      //     const newSet = { ...set.editingSet, terms: updatedTerms };
+      //     return { ...set, editingSet: newSet, savedSet: newSet };
+      //   });
+      // }
       newSets = setNewCommonSet(filteredSets);
 
       return {

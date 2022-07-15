@@ -13,11 +13,11 @@ const SetTermsList = ({ set }: Props) => {
         return (
           <div
             className={`set-term sm:px-4 px-2 sm:py-2 pb-1 ${
-              term.categories ? "lg:!pt-10 md:!pt-8 sm:!pt-7 !pt-14" : ""
+              false ? "lg:!pt-10 md:!pt-8 sm:!pt-7 !pt-14" : "" // false => term.categories
             } relative bg-slate-700 flex my-2 rounded-lg items-center sm:flex-nowrap flex-wrap`}
             key={`${set.setId}-${term.id}`}
           >
-            {term.categories && (
+            {/* {term.categories && (
               <ul className="absolute xl:top-2 sm:top-[6px] flex-wrap top-[4px] xl:left-5 md:left-4 left-2 z-20 flex items-center">
                 {term.categories.map((category) => {
                   return (
@@ -30,7 +30,7 @@ const SetTermsList = ({ set }: Props) => {
                   );
                 })}
               </ul>
-            )}
+            )} */}
             <h5 className="border-right text-xl lg:pl-3 pl-1 lg:pr-7 sm:pr-4 pr-2 lg:mr-8 sm:mr-3 mr-2">
               {index + 1}.
             </h5>

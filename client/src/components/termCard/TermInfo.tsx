@@ -7,7 +7,7 @@ import { actionCreactors, State } from "../../state";
 import Input from "../UI/Input";
 import { termsPlaceholder } from "./../../data/termsPlaceholders";
 import { getCurrentSet } from "./../../Helpers/functions";
-import TermCategoriesForm from "./TermCategoriesForm";
+// import TermCategoriesForm from "./TermCategoriesForm";
 
 type Props = { term: ITerm };
 
@@ -46,7 +46,12 @@ const TermInfo = ({ term }: Props) => {
               term.id
             )
           }
-          placeholder={termsPlaceholder[term.placeholderId].term}
+          placeholder={
+            termsPlaceholder[
+              term.placeholderId ||
+                Math.floor(Math.random() * termsPlaceholder.length)
+            ].term
+          }
           inputClassName="term-title"
           inputId={`term-${term.id}-title`}
           labelText="Term"
@@ -61,14 +66,19 @@ const TermInfo = ({ term }: Props) => {
               term.id
             )
           }
-          placeholder={termsPlaceholder[term.placeholderId].definition}
+          placeholder={
+            termsPlaceholder[
+              term.placeholderId ||
+                Math.floor(Math.random() * termsPlaceholder.length)
+            ].definition
+          }
           inputClassName="term-definition"
           inputId={`term-${term.id}-definition`}
           labelText="Definition"
           reference={descriptionRef}
         />
       </div>
-      {window.screen.width < 768 && <TermCategoriesForm term={term} />}
+      {/* {window.screen.width < 768 && <TermCategoriesForm term={term} />} */}
     </div>
   );
 };

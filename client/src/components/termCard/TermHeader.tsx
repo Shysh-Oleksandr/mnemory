@@ -6,7 +6,7 @@ import { bindActionCreators } from "redux";
 import { ITerm } from "../../interfaces/term";
 import { actionCreactors } from "../../state";
 import { fetchImages } from "./../../Helpers/functions";
-import TermCategoriesForm from "./TermCategoriesForm";
+// import TermCategoriesForm from "./TermCategoriesForm";
 
 type Props = { index: number; term: ITerm };
 
@@ -53,7 +53,7 @@ const TermHeader = ({ index, term }: Props) => {
     <div className="term-header flex items-center justify-between py-3 px-6 border-b-2 border-slate-800 border-solid">
       <div className="flex items-center">
         <h4 className="term-id">{index + 1}</h4>
-        {window.screen.width >= 768 && <TermCategoriesForm term={term} />}
+        {/* {window.screen.width >= 768 && <TermCategoriesForm term={term} />} */}
       </div>
       <div className="flex items-center">
         <button

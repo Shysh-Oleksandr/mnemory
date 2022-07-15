@@ -22,25 +22,25 @@ const authRoutes: IRoute[] = [
 ];
 const setRoutes: IRoute[] = [
   {
-    path: "/set/:setid/edit/",
+    path: "/set/:setID/edit/",
     name: "Edit",
     auth: true,
     component: EditPage,
   },
   {
-    path: "/create/:setid",
+    path: "/create/:setID",
     name: "Create",
     auth: true,
     component: CreatePage,
   },
   {
-    path: "/set/:setid/learn/flashcards",
+    path: "/set/:setID/learn/flashcards",
     name: "Learn",
     auth: true,
     component: LearnFlashcardsPage,
   },
   {
-    path: "/set/:setid",
+    path: "/set/:setID",
     name: "Set",
     auth: true,
     component: SetPage,

@@ -57,7 +57,10 @@ const TermKeyword = ({ termId, descriptionKeyword, index }: Props) => {
 
   const getKeywordPlaceholder = (): string => {
     const placeholderKeywords =
-      termsPlaceholder[editingTerm!.placeholderId].keywords;
+      termsPlaceholder[
+        editingTerm!.placeholderId ||
+          Math.floor(Math.random() * termsPlaceholder.length)
+      ].keywords;
     const keywordPlaceholder = placeholderKeywords[index];
     let placeholder = keywordPlaceholder ? keywordPlaceholder : "keyword...";
     return placeholder;

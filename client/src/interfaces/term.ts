@@ -9,11 +9,11 @@ export type Keyword = {
 };
 
 export interface ITerm {
+  id: number;
   term: string;
   definition: string;
   descriptionKeywords: Keyword[];
-  placeholderId: number;
-  id: number;
-  categories?: ISetStatus[];
-  parentSet?: ISetStatus;
+  placeholderId?: number;
+  // categories?: ISetStatus[];
+  // parentSet?: ISetStatus;
 }
