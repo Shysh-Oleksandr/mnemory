@@ -95,7 +95,7 @@ const LoginPage = () => {
               providerName="Github"
             />
             <InfoMessage message={error} isError={true} />
-            {authenticating && <Loading />}
+            {authenticating && <Loading width={110} />}
           </div>
         </div>
       </div>

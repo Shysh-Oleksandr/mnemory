@@ -13,7 +13,7 @@ const Loading = ({ width, height }: ILoadingProps) => {
       ariaLabel="loading-indicator"
       color="#fb923c"
       secondaryColor="#2dd4bf"
-      width={width || 150}
+      width={width || 110}
       height={height || 110}
     />
   );

@@ -56,7 +56,7 @@ router.use((req, res, next) => {
 
 /** Routes */
 router.use('/users', userRoutes);
-router.use('/notes', noteRoutes);
+// router.use('/notes', noteRoutes);
 
 /** Error handling */
 router.use((req, res, next) => {
