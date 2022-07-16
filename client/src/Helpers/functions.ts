@@ -42,8 +42,8 @@ export const fetchImages = async (
 };
 
 export function validateTerms(
-  terms: ITerm[],
-  parentSet: ISetStatus | undefined = undefined
+  terms: ITerm[]
+  // parentSet: ISetStatus | undefined = undefined
 ): ITerm[] {
   // Removing terms with empty name.
   let validatedTerms = terms.filter((term) => term.term.trim() !== "");
@@ -55,7 +55,7 @@ export function validateTerms(
     return {
       ...term,
       descriptionKeywords: validatedKeywords,
-      parentSet: parentSet,
+      // parentSet: parentSet,
     };
   });
 
@@ -200,6 +200,7 @@ export function getEmptySet(
       setId: randomId,
       createdDate: new Date().getTime(),
       lastVisitedDate: new Date().getTime(),
+      _id: randomId.toString(),
     },
     editingSet: {
       name: setName,
@@ -207,6 +208,7 @@ export function getEmptySet(
       setId: randomId,
       createdDate: new Date().getTime(),
       lastVisitedDate: new Date().getTime(),
+      _id: randomId.toString(),
     },
     isCategorySet: isCategorySet,
   };

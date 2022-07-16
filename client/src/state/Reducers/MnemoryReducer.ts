@@ -1,3 +1,5 @@
+import axios from "axios";
+import { Dispatch } from "react";
 import {
   getRandomNumber,
   insert,
@@ -10,13 +12,9 @@ import { ITerm } from "../../interfaces/term";
 import { SortedMethods } from "../../pages/HomePage";
 import { ActionType } from "../Action-types";
 import { Action } from "../Actions";
+import config from "./../../config/config";
 import { initialSets } from "./../../data/initialSets";
 import { getCurrentSet } from "./../../Helpers/functions";
-import config from "./../../config/config";
-import IUser from "../../interfaces/user";
-import { ThunkDispatch } from "redux-thunk";
-import axios from "axios";
-import { Dispatch } from "react";
 
 export interface IMnemory {
   sets: ISetStatus[];
@@ -25,6 +23,7 @@ export interface IMnemory {
   currentSetId: number;
   areImagesLoading: boolean;
   isLoading: boolean;
+  isLocalLoading: boolean;
   error: string;
   success: string;
   showConfirmModal: {
@@ -44,29 +43,10 @@ const initialState: IMnemory = {
   currentSearchedImages: [],
   areImagesLoading: true,
   isLoading: true,
+  isLocalLoading: true,
   showConfirmModal: { toShow: false, to: "/" },
   sortMethod: SortedMethods.LATEST,
 };
-
-export function getAllSets(userId: string) {
-  return async function getAllNotesThunk(dispatch: Dispatch<Action>) {
-    const response = await axios({
-      method: "GET",
-      url: `${config.server.url}/sets/${userId}`,
-    });
-
-    if (response.status === 200 || response.status === 304) {
-      let sets = response.data.sets as ISet[];
-      console.log(sets);
-
-      dispatch({ type: ActionType.GET_ALL_SETS, payload: sets });
-    } else {
-      console.log("no sets");
-
-      dispatch({ type: ActionType.GET_ALL_SETS, payload: [] });
-    }
-  };
-}
 
 const mnemoryReducer = (
   state: IMnemory = initialState,
@@ -383,39 +363,39 @@ const mnemoryReducer = (
         if (set.savedSet.setId === state.currentSetId) {
           const newEditingSet: ISet = {
             ...set.editingSet,
-            terms: validateTerms(set.editingSet.terms, set),
+            terms: validateTerms(set.editingSet.terms), // Parent set -> set
           };
           return { ...set, savedSet: newEditingSet, editingSet: newEditingSet };
         }
         return set;
       });
 
-      newSets = newSets.map((set) => {
-        if (set.isCategorySet) {
-          const editedTerms: ITerm[] = [];
-          const categorySetTerms = set.editingSet.terms.map(
-            (term) => term && term.id
-          );
-          currentEditingSet.terms.map((term) => {
-            if (categorySetTerms.includes(term.id)) {
-              editedTerms.push(term);
-            }
-          });
-          const editedTermsIds: number[] = editedTerms.map((term) => term.id);
-          const newTerms: ITerm[] = set.editingSet.terms.map((term) => {
-            if (editedTermsIds.includes(term.id)) {
-              return editedTerms.find((currTerm) => currTerm.id === term.id)!;
-            }
-            return term;
-          });
-          const newEditingSet = {
-            ...set.editingSet,
-            terms: validateTerms(newTerms),
-          };
-          return { ...set, editingSet: newEditingSet, savedSet: newEditingSet };
-        }
-        return set;
-      });
+      // newSets = newSets.map((set) => {
+      //   if (set.isCategorySet) {
+      //     const editedTerms: ITerm[] = [];
+      //     const categorySetTerms = set.editingSet.terms.map(
+      //       (term) => term && term.id
+      //     );
+      //     currentEditingSet.terms.map((term) => {
+      //       if (categorySetTerms.includes(term.id)) {
+      //         editedTerms.push(term);
+      //       }
+      //     });
+      //     const editedTermsIds: number[] = editedTerms.map((term) => term.id);
+      //     const newTerms: ITerm[] = set.editingSet.terms.map((term) => {
+      //       if (editedTermsIds.includes(term.id)) {
+      //         return editedTerms.find((currTerm) => currTerm.id === term.id)!;
+      //       }
+      //       return term;
+      //     });
+      //     const newEditingSet = {
+      //       ...set.editingSet,
+      //       terms: validateTerms(newTerms),
+      //     };
+      //     return { ...set, editingSet: newEditingSet, savedSet: newEditingSet };
+      //   }
+      //   return set;
+      // });
       newSets = setNewCommonSet(newSets);
 
       return {
@@ -475,10 +455,17 @@ const mnemoryReducer = (
       };
 
     case ActionType.SET_LOADING:
-      return {
-        ...state,
-        isLoading: action.payload,
-      };
+      if (action.payload.isLocal) {
+        return {
+          ...state,
+          isLocalLoading: action.payload.loading,
+        };
+      } else {
+        return {
+          ...state,
+          isLoading: action.payload.loading,
+        };
+      }
 
     case ActionType.SET_ERROR:
       return {

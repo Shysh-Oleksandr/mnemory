@@ -10,6 +10,7 @@ export interface ISet {
   createdDate: number | null;
   lastVisitedDate: number | null;
   isCategorySet?: boolean;
+  _id: string;
 }
 
 export interface ISetStatus {

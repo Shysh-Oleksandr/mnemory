@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import TermsEditList from "../components/TermsEditList";
 import SaveBtn from "../components/UI/SaveBtn";
+import { ITerm } from "../interfaces/term";
 import { State } from "../state";
 import AddTermBtn from "./../components/AddTermBtn";
 import SetForm from "./../components/set/SetForm";
@@ -22,7 +23,7 @@ const CreatePage = (props: Props) => {
       />
       <TermsEditList terms={getCurrentSet(mnemoryState).editingSet.terms} />
       <AddTermBtn />
-      <SaveBtn buttonText="Create" />
+      <SaveBtn buttonText="Create" isCreatePage={true} />
     </div>
   );
 };

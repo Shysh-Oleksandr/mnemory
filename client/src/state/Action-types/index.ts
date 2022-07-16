@@ -28,4 +28,8 @@ export enum ActionType {
   LOGIN = "Login",
   LOGOUT = "Logout",
   GET_ALL_SETS = "Get all sets",
+  CREATE_SET = "Create set",
+  EDIT_SET = "Edit set",
+  GET_SET = "Get set",
+  DELETE_SET = "Delete set",
 }

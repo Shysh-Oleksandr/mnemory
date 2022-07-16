@@ -98,7 +98,7 @@ interface SetAreImagesLoadingAction {
 
 interface SetLoadingAction {
   type: ActionType.SET_LOADING;
-  payload: boolean;
+  payload: { loading: boolean; isLocal: boolean };
 }
 
 interface SetShowConfirmModalAction {
@@ -152,6 +152,21 @@ interface GetAllSetsAction {
   payload: ISet[];
 }
 
+interface GetSetAction {
+  type: ActionType.GET_SET;
+  payload: number;
+}
+
+interface CreateSetAction {
+  type: ActionType.CREATE_SET;
+  payload: ISet;
+}
+
+interface EditSetAction {
+  type: ActionType.EDIT_SET;
+  payload: ISet;
+}
+
 export type Action =
   | AddingAction
   | DeletingAction
@@ -181,4 +196,7 @@ export type Action =
   | SetSuccess
   | SetLoadingAction
   | GetAllSetsAction
+  | GetSetAction
+  | CreateSetAction
+  | EditSetAction
   | DeletingKeywordAction;

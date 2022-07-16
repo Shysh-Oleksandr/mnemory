@@ -40,7 +40,7 @@ const SetPage = (props: Props) => {
         </div>
         <SetTermsList set={savedSet} />
       </div>
-      {![1, 2, 3, 4].includes(savedSet.setId) && (
+      {![0, 1, 2, 3, 4].includes(savedSet.setId) && (
         <SetButtons currentSet={currentSet} />
       )}
     </div>

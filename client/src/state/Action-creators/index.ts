@@ -99,11 +99,11 @@ export const setAreImagesLoading = (areImagesLoading: boolean) => {
   };
 };
 
-export const setLoading = (loading: boolean) => {
+export const setLoading = (loading: boolean, isLocal: boolean = false) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
       type: ActionType.SET_LOADING,
-      payload: loading,
+      payload: { loading: loading, isLocal: isLocal },
     });
   };
 };

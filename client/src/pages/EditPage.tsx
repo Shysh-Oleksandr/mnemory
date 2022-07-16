@@ -51,7 +51,7 @@ const EditPage = (props: Props) => {
       />
       <TermsEditList terms={getCurrentSet(mnemoryState).editingSet.terms} />
       <AddTermBtn />
-      <SaveBtn buttonText="Save" />
+      <SaveBtn buttonText="Save" isCreatePage={false} />
     </div>
   );
 };

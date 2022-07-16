@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { ISetStatus } from "../interfaces/set";
 import { actionCreactors, State } from "../state";
-import { getAllSets } from "../state/Reducers/MnemoryReducer";
+import { getAllSets } from "../state/Async-actions";
 
 export enum SortedMethods {
   LATEST = "latest",

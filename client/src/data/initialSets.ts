@@ -5,16 +5,18 @@ export const initialSets: ISetStatus[] = [
     savedSet: {
       name: "All terms",
       terms: [],
-      setId: 1,
+      setId: 0,
       createdDate: null,
       lastVisitedDate: null,
+      _id: "0",
     },
     editingSet: {
       name: "All terms",
       terms: [],
-      setId: 1,
+      setId: 0,
       createdDate: null,
       lastVisitedDate: null,
+      _id: "0",
     },
     isCategorySet: false,
   },
@@ -25,6 +27,7 @@ export const initialSets: ISetStatus[] = [
       setId: 2,
       createdDate: null,
       lastVisitedDate: null,
+      _id: "2",
     },
 
     editingSet: {
@@ -33,6 +36,7 @@ export const initialSets: ISetStatus[] = [
       setId: 2,
       createdDate: null,
       lastVisitedDate: null,
+      _id: "2",
     },
     isCategorySet: true,
   },
@@ -43,6 +47,7 @@ export const initialSets: ISetStatus[] = [
       setId: 3,
       createdDate: null,
       lastVisitedDate: null,
+      _id: "3",
     },
 
     editingSet: {
@@ -51,6 +56,7 @@ export const initialSets: ISetStatus[] = [
       setId: 3,
       createdDate: null,
       lastVisitedDate: null,
+      _id: "3",
     },
     isCategorySet: true,
   },
@@ -61,6 +67,7 @@ export const initialSets: ISetStatus[] = [
       setId: 4,
       createdDate: null,
       lastVisitedDate: null,
+      _id: "4",
     },
 
     editingSet: {
@@ -69,6 +76,7 @@ export const initialSets: ISetStatus[] = [
       setId: 4,
       createdDate: null,
       lastVisitedDate: null,
+      _id: "4",
     },
     isCategorySet: true,
   },
