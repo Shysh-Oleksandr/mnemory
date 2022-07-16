@@ -27,4 +27,5 @@ export enum ActionType {
   TOGGLE_TERM_CATEGORY = "Toggle term category",
   LOGIN = "Login",
   LOGOUT = "Logout",
+  GET_ALL_SETS = "Get all sets",
 }

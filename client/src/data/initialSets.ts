@@ -1,19 +1,18 @@
-import { getRandomNumber } from "../Helpers/functions";
-const randomIds = new Array(10).fill(0).map((el) => getRandomNumber());
+import { ISetStatus } from "../interfaces/set";
 
-export const initialSets = [
+export const initialSets: ISetStatus[] = [
   {
     savedSet: {
       name: "All terms",
       terms: [],
-      setId: 0,
+      setId: 1,
       createdDate: null,
       lastVisitedDate: null,
     },
     editingSet: {
       name: "All terms",
       terms: [],
-      setId: 0,
+      setId: 1,
       createdDate: null,
       lastVisitedDate: null,
     },
@@ -23,7 +22,7 @@ export const initialSets = [
     savedSet: {
       name: "Learned",
       terms: [],
-      setId: randomIds[1],
+      setId: 2,
       createdDate: null,
       lastVisitedDate: null,
     },
@@ -31,7 +30,7 @@ export const initialSets = [
     editingSet: {
       name: "Learned",
       terms: [],
-      setId: randomIds[1],
+      setId: 2,
       createdDate: null,
       lastVisitedDate: null,
     },
@@ -41,7 +40,7 @@ export const initialSets = [
     savedSet: {
       name: "Starred",
       terms: [],
-      setId: randomIds[2],
+      setId: 3,
       createdDate: null,
       lastVisitedDate: null,
     },
@@ -49,7 +48,7 @@ export const initialSets = [
     editingSet: {
       name: "Starred",
       terms: [],
-      setId: randomIds[2],
+      setId: 3,
       createdDate: null,
       lastVisitedDate: null,
     },
@@ -59,7 +58,7 @@ export const initialSets = [
     savedSet: {
       name: "Difficult",
       terms: [],
-      setId: randomIds[3],
+      setId: 4,
       createdDate: null,
       lastVisitedDate: null,
     },
@@ -67,7 +66,7 @@ export const initialSets = [
     editingSet: {
       name: "Difficult",
       terms: [],
-      setId: randomIds[3],
+      setId: 4,
       createdDate: null,
       lastVisitedDate: null,
     },

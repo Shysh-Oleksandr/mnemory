@@ -6,11 +6,14 @@ import { Action } from "../state/Actions";
 import { termsPlaceholder } from "./../data/termsPlaceholders";
 import { MAX_BG_CARDS } from "./../pages/LearnFlashcardsPage";
 import { IMnemory } from "./../state/Reducers/MnemoryReducer";
+import { initialSets } from "./../data/initialSets";
 
 export function getCurrentSet(mnemoryState: IMnemory): ISetStatus {
-  return mnemoryState.sets.find(
-    (set) => set.editingSet.setId === mnemoryState.currentSetId
-  )!;
+  return (
+    mnemoryState.sets.find(
+      (set) => set.editingSet.setId === mnemoryState.currentSetId
+    ) || initialSets[0]
+  );
 }
 
 export const fetchImages = async (

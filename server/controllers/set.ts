@@ -8,6 +8,8 @@ const create = (req: Request, res: Response, next: NextFunction) => {
 
     let { name, author, description, createdDate, lastVisitedDate, isCategorySet, terms, setId } = req.body;
 
+    console.log(name, author);
+
     const set = new Set({
         _id: new mongoose.Types.ObjectId(),
         name,

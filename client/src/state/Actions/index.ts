@@ -1,4 +1,4 @@
-import { ISetStatus } from "../../interfaces/set";
+import { ISet, ISetStatus } from "../../interfaces/set";
 import { ITerm } from "../../interfaces/term";
 import { ActionType } from "../Action-types";
 import { IUserState } from "../Reducers/UserReducer";
@@ -147,6 +147,11 @@ interface SetSuccess {
   payload: string;
 }
 
+interface GetAllSetsAction {
+  type: ActionType.GET_ALL_SETS;
+  payload: ISet[];
+}
+
 export type Action =
   | AddingAction
   | DeletingAction
@@ -175,4 +180,5 @@ export type Action =
   | SetError
   | SetSuccess
   | SetLoadingAction
+  | GetAllSetsAction
   | DeletingKeywordAction;

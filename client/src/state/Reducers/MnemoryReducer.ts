@@ -12,6 +12,11 @@ import { ActionType } from "../Action-types";
 import { Action } from "../Actions";
 import { initialSets } from "./../../data/initialSets";
 import { getCurrentSet } from "./../../Helpers/functions";
+import config from "./../../config/config";
+import IUser from "../../interfaces/user";
+import { ThunkDispatch } from "redux-thunk";
+import axios from "axios";
+import { Dispatch } from "react";
 
 export interface IMnemory {
   sets: ISetStatus[];
@@ -31,7 +36,7 @@ export interface IMnemory {
 }
 
 const initialState: IMnemory = {
-  sets: initialSets,
+  sets: [],
   currentSetId: 0,
   error: "",
   success: "",
@@ -42,6 +47,26 @@ const initialState: IMnemory = {
   showConfirmModal: { toShow: false, to: "/" },
   sortMethod: SortedMethods.LATEST,
 };
+
+export function getAllSets(userId: string) {
+  return async function getAllNotesThunk(dispatch: Dispatch<Action>) {
+    const response = await axios({
+      method: "GET",
+      url: `${config.server.url}/sets/${userId}`,
+    });
+
+    if (response.status === 200 || response.status === 304) {
+      let sets = response.data.sets as ISet[];
+      console.log(sets);
+
+      dispatch({ type: ActionType.GET_ALL_SETS, payload: sets });
+    } else {
+      console.log("no sets");
+
+      dispatch({ type: ActionType.GET_ALL_SETS, payload: [] });
+    }
+  };
+}
 
 const mnemoryReducer = (
   state: IMnemory = initialState,
@@ -464,6 +489,21 @@ const mnemoryReducer = (
       return {
         ...state,
         success: action.payload,
+      };
+    // Backend actions.
+    case ActionType.GET_ALL_SETS:
+      const allSets: ISetStatus[] = action.payload.map((set: ISet) => {
+        return {
+          savedSet: set,
+          editingSet: set,
+          isCategorySet: set.isCategorySet || false,
+        };
+      });
+      console.log(allSets, action.payload);
+
+      return {
+        ...state,
+        sets: [...allSets, ...initialSets],
       };
 
     default:

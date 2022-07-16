@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import SetButtons from "../components/set/SetButtons";
+import { initialSets } from "../data/initialSets";
 import { actionCreactors, State } from "../state";
 import SetTermsList from "./../components/set/SetTermsList";
 import { getCurrentSet } from "./../Helpers/functions";
@@ -39,7 +40,9 @@ const SetPage = (props: Props) => {
         </div>
         <SetTermsList set={savedSet} />
       </div>
-      {savedSet.setId !== 0 && <SetButtons currentSet={currentSet} />}
+      {![1, 2, 3, 4].includes(savedSet.setId) && (
+        <SetButtons currentSet={currentSet} />
+      )}
     </div>
   );
 };

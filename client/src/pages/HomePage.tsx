@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { ISetStatus } from "../interfaces/set";
 import { actionCreactors, State } from "../state";
+import { getAllSets } from "../state/Reducers/MnemoryReducer";
 
 export enum SortedMethods {
   LATEST = "latest",
@@ -14,6 +15,7 @@ export enum SortedMethods {
 
 const HomePage = () => {
   const mnemoryState = useSelector((state: State) => state.mnemory);
+  const { user } = useSelector((state: State) => state.user);
   const categorySets = mnemoryState.sets.filter((set) => set.isCategorySet);
   const userSets = mnemoryState.sets.filter((set) => !set.isCategorySet);
   const dispatch = useDispatch();
@@ -23,6 +25,7 @@ const HomePage = () => {
   );
 
   useEffect(() => {
+    mnemoryState.sets.length === 0 && dispatch(getAllSets(user._id));
     sortSets(mnemoryState.sortMethod);
   }, []);
 
