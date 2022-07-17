@@ -5,19 +5,22 @@ import { bindActionCreators } from "redux";
 import config from "../../config/config";
 import { actionCreactors, State } from "../../state";
 import { setError, setLoading, setSuccess } from "../../state/Action-creators";
+import { getAllSets } from "../../state/Async-actions";
 import { getCurrentSet, validateTerms } from "./../../Helpers/functions";
 
 type Props = {
   buttonText: string;
   isCreatePage: boolean;
+  btnClassname?: string;
 };
 
-const SaveBtn = ({ buttonText, isCreatePage }: Props) => {
+const SaveBtn = ({ buttonText, isCreatePage, btnClassname }: Props) => {
   const mnemoryState = useSelector((state: State) => state.mnemory);
   const { user } = useSelector((state: State) => state.user);
   const dispatch = useDispatch();
   const { saveCurrentSet } = bindActionCreators(actionCreactors, dispatch);
   const currentSet = getCurrentSet(mnemoryState).editingSet;
+  const currentSavedSet = getCurrentSet(mnemoryState).savedSet;
 
   const saveSet = async (method: string, url: string, isCreating: boolean) => {
     if (currentSet.name.trim() === "") {
@@ -26,7 +29,6 @@ const SaveBtn = ({ buttonText, isCreatePage }: Props) => {
       return null;
     }
     dispatch(setLoading(true, true));
-    saveCurrentSet();
 
     try {
       const response = await axios({
@@ -45,6 +47,9 @@ const SaveBtn = ({ buttonText, isCreatePage }: Props) => {
       });
 
       if (response.status === 201) {
+        saveCurrentSet();
+
+        dispatch(getAllSets(user._id));
         dispatch(setSuccess(`Set ${isCreating ? "added" : "updated"}.`));
       } else {
         dispatch(setError("Unable to save set."));
@@ -60,10 +65,10 @@ const SaveBtn = ({ buttonText, isCreatePage }: Props) => {
 
   const createSet = async () =>
     await saveSet("POST", `${config.server.url}/sets/create`, true);
-  const editSet = async (showMessage: boolean = true) =>
+  const editSet = async () =>
     await saveSet(
       "PATCH",
-      `${config.server.url}/sets/update/${currentSet._id}`,
+      `${config.server.url}/sets/update/${currentSavedSet._id}`,
       false
     );
 
@@ -72,7 +77,7 @@ const SaveBtn = ({ buttonText, isCreatePage }: Props) => {
       type="submit"
       form={`set-form-${mnemoryState.currentSetId + 1}`}
       onClick={() => (isCreatePage ? createSet() : editSet())}
-      className="btn ml-auto block mt-2 md:!px-24 !px-20 md:!py-4 !py-3"
+      className={`btn ml-auto block ${btnClassname}`}
     >
       {buttonText}
     </button>

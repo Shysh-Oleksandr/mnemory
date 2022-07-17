@@ -57,8 +57,8 @@ const mnemoryReducer = (
   let newTerms = currentEditingSet.terms;
   let categorySets = state.sets.filter((set) => set.isCategorySet);
   const isCreateOrEditPage =
-    window.location.hash.includes("/create") ||
-    window.location.hash.includes("/edit");
+    window.location.pathname.includes("/create") ||
+    window.location.pathname.includes("/edit");
 
   switch (action.type) {
     // Terms actions.

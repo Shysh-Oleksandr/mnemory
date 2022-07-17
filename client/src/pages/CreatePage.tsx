@@ -23,7 +23,11 @@ const CreatePage = (props: Props) => {
       />
       <TermsEditList terms={getCurrentSet(mnemoryState).editingSet.terms} />
       <AddTermBtn />
-      <SaveBtn buttonText="Create" isCreatePage={true} />
+      <SaveBtn
+        buttonText="Create"
+        isCreatePage={true}
+        btnClassname="mt-2 md:!px-24 !px-20 md:!py-4 !py-3"
+      />
     </div>
   );
 };

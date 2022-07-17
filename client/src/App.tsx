@@ -38,8 +38,6 @@ function App() {
     const fire_token = localStorage.getItem("fire_token");
 
     if (fire_token === null) {
-      console.log("null token");
-
       dispatch(logout());
       setTimeout(() => {
         setIsLoading(false);
@@ -48,14 +46,11 @@ function App() {
       return Validate(fire_token, (error, user) => {
         if (error) {
           logging.error(error);
-          console.log("logout");
           dispatch(logout());
           setTimeout(() => {
             setIsLoading(false);
           }, 100);
         } else if (user) {
-          console.log("login", user);
-
           dispatch(login({ user, fire_token }));
           setTimeout(() => {
             setIsLoading(false);

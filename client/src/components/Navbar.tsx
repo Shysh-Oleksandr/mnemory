@@ -21,8 +21,8 @@ const Navbar = (props: Props) => {
     dispatch
   );
   const isCreateOrEditPage =
-    window.location.hash.includes("/create") ||
-    window.location.hash.includes("/edit");
+    window.location.pathname.includes("/create") ||
+    window.location.pathname.includes("/edit");
 
   const emptySet: ISetStatus = getEmptySet(mnemoryState);
 

@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import { clearInput, getCurrentSet } from "../../Helpers/functions";
 import { ISetStatus } from "../../interfaces/set";
 import { actionCreactors, State } from "../../state";
+import SaveBtn from "../UI/SaveBtn";
 import Input from "./../UI/Input";
 
 type Props = {
@@ -62,13 +63,10 @@ const SetForm = ({ buttonText, titleContent }: Props) => {
         className={`flex w-full justify-between items-center md:py-6 py-3 bg-slate-800 ${stickyClass}`}
       >
         {titleContent}
-        <button
-          type="submit"
-          form={`set-form-${mnemoryState.currentSetId + 1}`}
-          className="btn"
-        >
-          {buttonText}
-        </button>
+        <SaveBtn
+          buttonText={buttonText}
+          isCreatePage={window.location.pathname.includes("/create")}
+        />
       </div>
       <Input
         onChange={() =>
