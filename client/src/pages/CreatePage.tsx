@@ -12,6 +12,7 @@ type Props = {};
 
 const CreatePage = (props: Props) => {
   const mnemoryState = useSelector((state: State) => state.mnemory);
+  const currentSet = getCurrentSet(mnemoryState);
 
   return (
     <div className="div-padding pb-6">
@@ -21,9 +22,13 @@ const CreatePage = (props: Props) => {
           <h2 className="md:text-3xl text-2xl">Create a new set</h2>
         }
       />
-      <TermsEditList terms={getCurrentSet(mnemoryState).editingSet.terms} />
-      <AddTermBtn />
+      <TermsEditList
+        currentSet={currentSet}
+        terms={currentSet.editingSet.terms}
+      />
+      <AddTermBtn currentSet={currentSet} />
       <SaveBtn
+        currentSet={currentSet}
         buttonText="Create"
         isCreatePage={true}
         btnClassname="mt-2 md:!px-24 !px-20 md:!py-4 !py-3"

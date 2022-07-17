@@ -1,22 +1,25 @@
 import { ISetStatus } from "../interfaces/set";
 
+export const initialSetsId = [0, 1, 2, 3, 4];
+export const DEFAULT_SET_ID = 111110;
+
 export const initialSets: ISetStatus[] = [
   {
     savedSet: {
       name: "All terms",
       terms: [],
-      setId: 0,
+      setId: initialSetsId[0],
       createdDate: null,
       lastVisitedDate: null,
-      _id: "0",
+      _id: initialSetsId[0].toString(),
     },
     editingSet: {
       name: "All terms",
       terms: [],
-      setId: 0,
+      setId: initialSetsId[0],
       createdDate: null,
       lastVisitedDate: null,
-      _id: "0",
+      _id: initialSetsId[0].toString(),
     },
     isCategorySet: false,
   },
@@ -24,19 +27,19 @@ export const initialSets: ISetStatus[] = [
     savedSet: {
       name: "Learned",
       terms: [],
-      setId: 2,
+      setId: initialSetsId[2],
       createdDate: null,
       lastVisitedDate: null,
-      _id: "2",
+      _id: initialSetsId[2].toString(),
     },
 
     editingSet: {
       name: "Learned",
       terms: [],
-      setId: 2,
+      setId: initialSetsId[2],
       createdDate: null,
       lastVisitedDate: null,
-      _id: "2",
+      _id: initialSetsId[2].toString(),
     },
     isCategorySet: true,
   },
@@ -44,19 +47,19 @@ export const initialSets: ISetStatus[] = [
     savedSet: {
       name: "Starred",
       terms: [],
-      setId: 3,
+      setId: initialSetsId[3],
       createdDate: null,
       lastVisitedDate: null,
-      _id: "3",
+      _id: initialSetsId[3].toString(),
     },
 
     editingSet: {
       name: "Starred",
       terms: [],
-      setId: 3,
+      setId: initialSetsId[3],
       createdDate: null,
       lastVisitedDate: null,
-      _id: "3",
+      _id: initialSetsId[3].toString(),
     },
     isCategorySet: true,
   },
@@ -64,19 +67,19 @@ export const initialSets: ISetStatus[] = [
     savedSet: {
       name: "Difficult",
       terms: [],
-      setId: 4,
+      setId: initialSetsId[4],
       createdDate: null,
       lastVisitedDate: null,
-      _id: "4",
+      _id: initialSetsId[4].toString(),
     },
 
     editingSet: {
       name: "Difficult",
       terms: [],
-      setId: 4,
+      setId: initialSetsId[4],
       createdDate: null,
       lastVisitedDate: null,
-      _id: "4",
+      _id: initialSetsId[4].toString(),
     },
     isCategorySet: true,
   },

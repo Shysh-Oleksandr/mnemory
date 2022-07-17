@@ -50,7 +50,7 @@ interface SetSearchedImagesAction {
 
 interface SetCurrentSetIdAction {
   type: ActionType.SET_CURRENT_SET_ID;
-  payload: number;
+  payload: { id: number; visited: boolean };
 }
 
 interface AddSetAction {

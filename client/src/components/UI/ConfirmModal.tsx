@@ -1,10 +1,8 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators, Dispatch } from "redux";
-import { getCurrentSet } from "../../Helpers/functions";
-import { useOnClickOutside } from "../../hooks";
-import { ISetStatus } from "../../interfaces/set";
+import { useCurrentSetState, useOnClickOutside } from "../../hooks";
 import { actionCreactors, State } from "../../state";
 import { Action } from "../../state/Actions";
 
@@ -30,7 +28,7 @@ const ConfirmModal = ({ setShowConfirmModal, onClick, to }: Props) => {
     dispatch
   );
 
-  const currentSet: ISetStatus = getCurrentSet(mnemoryState);
+  const currentSet = useCurrentSetState();
 
   useOnClickOutside(ref, () => setShowConfirmModal(false, undefined, "/"));
 
@@ -51,7 +49,7 @@ const ConfirmModal = ({ setShowConfirmModal, onClick, to }: Props) => {
             className="block btn mx-2 sm:!px-10 !px-6"
             onClick={(e) => {
               if (currentSet.savedSet.name === "") {
-                deleteSet(mnemoryState.currentSetId);
+                deleteSet(currentSet.savedSet.setId);
               }
 
               setShowConfirmModal(false, onClick, to);
@@ -65,7 +63,7 @@ const ConfirmModal = ({ setShowConfirmModal, onClick, to }: Props) => {
             className="block btn mx-2 sm:!px-10 !px-6 !text-white !bg-black hover:!bg-zinc-900"
             onClick={(e) => {
               if (currentSet.editingSet.name === "") {
-                deleteSet(mnemoryState.currentSetId);
+                deleteSet(currentSet.savedSet.setId);
               } else {
                 saveCurrentSet();
               }

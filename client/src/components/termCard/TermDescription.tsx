@@ -2,13 +2,14 @@ import React from "react";
 import { CgClose } from "react-icons/cg";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
+import { ISetStatus } from "../../interfaces/set";
 import { ITerm } from "../../interfaces/term";
 import { actionCreactors } from "../../state";
 import TermKeyword from "./TermKeyword";
 
-type Props = { term: ITerm };
+type Props = { term: ITerm; currentSet: ISetStatus };
 
-const TermDescription = ({ term }: Props) => {
+const TermDescription = ({ term, currentSet }: Props) => {
   const dispatch = useDispatch();
   const { addTermKeyword } = bindActionCreators(actionCreactors, dispatch);
 
@@ -18,6 +19,7 @@ const TermDescription = ({ term }: Props) => {
         return (
           <TermKeyword
             termId={term.id}
+            currentSet={currentSet}
             descriptionKeyword={descriptionKeyword}
             index={index}
             key={`${term.id}-${descriptionKeyword.id}`}

@@ -4,6 +4,7 @@ import { MdLogout } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
+import { useCurrentSetState } from "../hooks";
 import { ISetStatus } from "../interfaces/set";
 import { actionCreactors, State } from "../state";
 import { logout } from "../state/Action-creators";
@@ -23,8 +24,9 @@ const Navbar = (props: Props) => {
   const isCreateOrEditPage =
     window.location.pathname.includes("/create") ||
     window.location.pathname.includes("/edit");
+  const currentSet = useCurrentSetState();
 
-  const emptySet: ISetStatus = getEmptySet(mnemoryState);
+  const emptySet: ISetStatus = getEmptySet();
 
   const Logout = () => {
     dispatch(logout());
@@ -35,7 +37,7 @@ const Navbar = (props: Props) => {
       <nav className="flex items-end">
         <button
           onClick={() => {
-            if (isCreateOrEditPage && isSetChanged(mnemoryState, deleteSet)) {
+            if (isCreateOrEditPage && isSetChanged(deleteSet, currentSet)) {
               setShowConfirmModal(true, undefined, "/");
             } else {
               navigate("/");
@@ -49,7 +51,7 @@ const Navbar = (props: Props) => {
       <div className="fl">
         <button
           onClick={() => {
-            if (isCreateOrEditPage && isSetChanged(mnemoryState, deleteSet)) {
+            if (isCreateOrEditPage && isSetChanged(deleteSet, currentSet)) {
               setShowConfirmModal(
                 true,
                 () => addSet(emptySet),

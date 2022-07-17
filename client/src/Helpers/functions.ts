@@ -3,16 +3,16 @@ import { Dispatch } from "redux";
 import { ISet, ISetStatus } from "../interfaces/set";
 import { ITerm } from "../interfaces/term";
 import { Action } from "../state/Actions";
+import { DEFAULT_SET_ID } from "./../data/initialSets";
 import { termsPlaceholder } from "./../data/termsPlaceholders";
 import { MAX_BG_CARDS } from "./../pages/LearnFlashcardsPage";
 import { IMnemory } from "./../state/Reducers/MnemoryReducer";
-import { initialSets } from "./../data/initialSets";
 
 export function getCurrentSet(mnemoryState: IMnemory): ISetStatus {
   return (
     mnemoryState.sets.find(
       (set) => set.editingSet.setId === mnemoryState.currentSetId
-    ) || initialSets[0]
+    ) || getEmptySet(DEFAULT_SET_ID)
   );
 }
 
@@ -63,10 +63,9 @@ export function validateTerms(
 }
 
 export const isSetChanged = (
-  mnemoryState: IMnemory,
-  deleteSet: any
+  deleteSet: any,
+  currentSet: ISetStatus
 ): boolean => {
-  const currentSet = getCurrentSet(mnemoryState);
   const isEmpty = currentSet.editingSet.name === "";
   const isChanged =
     JSON.stringify(currentSet.editingSet) !==
@@ -185,7 +184,7 @@ export function getEmptyTerm() {
 }
 
 export function getEmptySet(
-  mnemoryState: IMnemory,
+  setId: number | undefined = undefined,
   isCategorySet: boolean = false,
   setName: string = ""
 ) {
@@ -197,18 +196,18 @@ export function getEmptySet(
     savedSet: {
       name: setName,
       terms: isCategorySet ? [] : emptyTerms,
-      setId: randomId,
+      setId: setId ? setId : randomId,
       createdDate: new Date().getTime(),
       lastVisitedDate: new Date().getTime(),
-      _id: randomId.toString(),
+      _id: setId ? setId.toString() : randomId.toString(),
     },
     editingSet: {
       name: setName,
       terms: isCategorySet ? [] : emptyTerms,
-      setId: randomId,
+      setId: setId ? setId : randomId,
       createdDate: new Date().getTime(),
       lastVisitedDate: new Date().getTime(),
-      _id: randomId.toString(),
+      _id: setId ? setId.toString() : randomId.toString(),
     },
     isCategorySet: isCategorySet,
   };

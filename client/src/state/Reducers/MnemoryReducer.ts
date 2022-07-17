@@ -302,17 +302,19 @@ const mnemoryReducer = (
 
     // Set actions.
     case ActionType.SET_CURRENT_SET_ID:
-      newSets = state.sets.map((set) => {
-        if (set.editingSet.setId === action.payload) {
-          const newSavedSet: ISet = {
-            ...set.savedSet,
-            lastVisitedDate: new Date().getTime(),
-          };
-          return { ...set, savedSet: newSavedSet };
-        }
-        return set;
-      });
-      return { ...state, currentSetId: action.payload, sets: newSets };
+      newSets = action.payload.visited
+        ? state.sets.map((set) => {
+            if (set.editingSet.setId === action.payload.id) {
+              const newSavedSet: ISet = {
+                ...set.savedSet,
+                lastVisitedDate: new Date().getTime(),
+              };
+              return { ...set, savedSet: newSavedSet };
+            }
+            return set;
+          })
+        : newSets;
+      return { ...state, currentSetId: action.payload.id, sets: newSets };
 
     case ActionType.ADDING_SET:
       newSets = setNewCommonSet([...state.sets, action.payload]);
@@ -486,8 +488,6 @@ const mnemoryReducer = (
           isCategorySet: set.isCategorySet || false,
         };
       });
-      console.log(allSets, action.payload);
-
       return {
         ...state,
         sets: [...allSets, ...initialSets],

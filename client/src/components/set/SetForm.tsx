@@ -1,10 +1,10 @@
 import React, { RefObject, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import { clearInput, getCurrentSet } from "../../Helpers/functions";
-import { ISetStatus } from "../../interfaces/set";
-import { actionCreactors, State } from "../../state";
+import { clearInput } from "../../Helpers/functions";
+import { useCurrentSetState } from "../../hooks";
+import { actionCreactors } from "../../state";
 import SaveBtn from "../UI/SaveBtn";
 import Input from "./../UI/Input";
 
@@ -16,7 +16,6 @@ type Props = {
 const SetForm = ({ buttonText, titleContent }: Props) => {
   const nameRef = useRef() as RefObject<HTMLInputElement>;
   const descriptionRef = useRef() as RefObject<HTMLInputElement>;
-  const mnemoryState = useSelector((state: State) => state.mnemory);
   const [stickyClass, setStickyClass] = useState<string>("static");
   const dispatch = useDispatch();
   const { setSetInfo, saveCurrentSet } = bindActionCreators(
@@ -24,18 +23,23 @@ const SetForm = ({ buttonText, titleContent }: Props) => {
     dispatch
   );
 
-  const currentSet: ISetStatus = getCurrentSet(mnemoryState);
-
+  const currentSet = useCurrentSetState();
   const navigate = useNavigate();
 
   useEffect(() => {
     clearInput(nameRef, descriptionRef);
+    if (nameRef.current) {
+      nameRef.current.value = currentSet.savedSet.name;
+    }
+    if (descriptionRef.current) {
+      descriptionRef.current.value = currentSet.savedSet.description || "";
+    }
 
     window.addEventListener("scroll", stickNavbar);
     return () => {
       window.removeEventListener("scroll", stickNavbar);
     };
-  }, [mnemoryState.currentSetId]);
+  }, [currentSet.savedSet.setId]);
 
   const stickNavbar = () => {
     if (window !== undefined) {
@@ -50,12 +54,12 @@ const SetForm = ({ buttonText, titleContent }: Props) => {
     e.preventDefault();
     if (nameRef.current?.value.trim() === "") return;
     saveCurrentSet();
-    navigate(`/set/${mnemoryState.currentSetId + 1}`);
+    navigate(`/set/${currentSet.savedSet.setId + 1}`);
   };
 
   return (
     <form
-      id={`set-form-${mnemoryState.currentSetId + 1}`}
+      id={`set-form-${currentSet.savedSet.setId + 1}`}
       className="md:mb-10 mb-6"
       onSubmit={(e) => saveSet(e)}
     >
@@ -64,6 +68,7 @@ const SetForm = ({ buttonText, titleContent }: Props) => {
       >
         {titleContent}
         <SaveBtn
+          currentSet={currentSet}
           buttonText={buttonText}
           isCreatePage={window.location.pathname.includes("/create")}
         />

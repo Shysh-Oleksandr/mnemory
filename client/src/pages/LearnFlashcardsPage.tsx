@@ -5,7 +5,8 @@ import FlashcardsInfo from "../components/set/FlashcardsInfo";
 import FlashcardsNavigation from "../components/set/FlashcardsNavigation";
 import KeywordsList from "../components/set/KeywordsList";
 import TermCard from "../components/set/TermCard";
-import { calcTermsLeft, getCurrentSet, shuffle } from "../Helpers/functions";
+import { calcTermsLeft, shuffle } from "../Helpers/functions";
+import { useCurrentSetState } from "../hooks";
 import { ITerm } from "../interfaces/term";
 import { State } from "../state";
 import "../styles/flashcards.css";
@@ -27,9 +28,9 @@ const LearnFlashcardsPage = () => {
   const [showDefinition, setShowDefinition] = useState<boolean>(
     learnState.showDefinition
   );
-  const mnemoryState = useSelector((state: State) => state.mnemory);
-  const currentSet = getCurrentSet(mnemoryState);
+  const currentSet = useCurrentSetState();
   const savedSet = currentSet.savedSet;
+
   const [shuffledTerms, setShuffledTerms] = useState<ITerm[]>([
     ...savedSet.terms,
   ]);
@@ -125,6 +126,7 @@ const LearnFlashcardsPage = () => {
         currentTermIndex={currentTermIndex}
         shuffledTerms={shuffledTerms}
         isFinished={isFinished}
+        currentSet={currentSet}
       />
       {isFinished ? (
         <FlashcardsFinished termsLength={termsLength} restart={restart} />

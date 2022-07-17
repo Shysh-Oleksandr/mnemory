@@ -1,17 +1,19 @@
 import React from "react";
 import { CgClose } from "react-icons/cg";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getCurrentSet, getEmptyTerm } from "../Helpers/functions";
+import { getEmptyTerm } from "../Helpers/functions";
 import { ISetStatus } from "../interfaces/set";
-import { actionCreactors, State } from "../state";
+import { actionCreactors } from "../state";
 
-const AddTermBtn = () => {
-  const mnemoryState = useSelector((state: State) => state.mnemory);
+interface Props {
+  currentSet: ISetStatus;
+}
+
+const AddTermBtn = ({ currentSet }: Props) => {
   const dispatch = useDispatch();
 
   const { addTerm } = bindActionCreators(actionCreactors, dispatch);
-  const currentSet: ISetStatus = getCurrentSet(mnemoryState);
   const newTermIndex = currentSet.editingSet.terms.length;
 
   const emptyTerm = getEmptyTerm();

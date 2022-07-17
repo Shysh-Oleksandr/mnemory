@@ -1,24 +1,31 @@
 import { RefObject, useEffect, useRef } from "react";
 import { BsCardImage } from "react-icons/bs";
 import { CgClose } from "react-icons/cg";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { clearInput, fetchImages } from "../../Helpers/functions";
+import { ISetStatus } from "../../interfaces/set";
 import { Keyword } from "../../interfaces/term";
-import { actionCreactors, State } from "../../state";
+import { actionCreactors } from "../../state";
 import { termsPlaceholder } from "./../../data/termsPlaceholders";
-import { getCurrentSet } from "./../../Helpers/functions";
 
-type Props = { termId: number; descriptionKeyword: Keyword; index: number };
+type Props = {
+  termId: number;
+  descriptionKeyword: Keyword;
+  index: number;
+  currentSet: ISetStatus;
+};
 
-const TermKeyword = ({ termId, descriptionKeyword, index }: Props) => {
-  const mnemoryState = useSelector((state: State) => state.mnemory);
-
+const TermKeyword = ({
+  termId,
+  descriptionKeyword,
+  index,
+  currentSet,
+}: Props) => {
   const nameRef = useRef() as RefObject<HTMLInputElement>;
   const descriptionRef = useRef() as RefObject<HTMLTextAreaElement>;
   const dispatch = useDispatch();
-  const currentTerm = getCurrentSet(mnemoryState);
-  const editingTerms = currentTerm.editingSet.terms;
+  const editingTerms = currentSet.editingSet.terms;
 
   const editingTerm = editingTerms.find((term) => term.id === termId);
   const {
@@ -32,10 +39,10 @@ const TermKeyword = ({ termId, descriptionKeyword, index }: Props) => {
 
   useEffect(() => {
     clearInput(nameRef, descriptionRef);
-  }, [mnemoryState.currentSetId]);
+  }, [currentSet.savedSet.setId]);
 
   useEffect(() => {
-    const savedTerms = currentTerm.savedSet.terms;
+    const savedTerms = currentSet.savedSet.terms;
     const savedTerm = savedTerms.find((term) => term.id === termId);
     if (!savedTerm) {
       nameRef.current?.focus();

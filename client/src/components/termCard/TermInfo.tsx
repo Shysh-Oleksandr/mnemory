@@ -2,6 +2,7 @@ import React, { RefObject, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { clearInput } from "../../Helpers/functions";
+import { ISetStatus } from "../../interfaces/set";
 import { ITerm } from "../../interfaces/term";
 import { actionCreactors, State } from "../../state";
 import Input from "../UI/Input";
@@ -9,9 +10,9 @@ import { termsPlaceholder } from "./../../data/termsPlaceholders";
 import { getCurrentSet } from "./../../Helpers/functions";
 // import TermCategoriesForm from "./TermCategoriesForm";
 
-type Props = { term: ITerm };
+type Props = { term: ITerm; currentSet: ISetStatus };
 
-const TermInfo = ({ term }: Props) => {
+const TermInfo = ({ term, currentSet }: Props) => {
   const dispatch = useDispatch();
   const mnemoryState = useSelector((state: State) => state.mnemory);
 
@@ -22,11 +23,11 @@ const TermInfo = ({ term }: Props) => {
 
   useEffect(() => {
     clearInput(nameRef, descriptionRef);
-  }, [mnemoryState.currentSetId]);
+  }, [currentSet.savedSet.setId]);
 
   useEffect(() => {
     // Don't focus initial inputs.
-    if (getCurrentSet(mnemoryState).savedSet.terms.includes(term)) {
+    if (currentSet.savedSet.terms.includes(term)) {
       return;
     }
     setTimeout(() => {

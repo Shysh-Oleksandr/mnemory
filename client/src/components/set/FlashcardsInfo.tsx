@@ -3,7 +3,7 @@ import { BsArrowLeft } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import { getCurrentSet } from "../../Helpers/functions";
+import { ISetStatus } from "../../interfaces/set";
 import { ITerm } from "../../interfaces/term";
 import { actionCreactors, State } from "../../state";
 import ToggleBtn from "../UI/ToggleBtn";
@@ -13,6 +13,7 @@ type Props = {
   shuffledTerms: ITerm[];
   currentTermIndex: number;
   isFinished: boolean;
+  currentSet: ISetStatus;
 };
 
 const FlashcardsInfo = ({
@@ -20,12 +21,10 @@ const FlashcardsInfo = ({
   shuffledTerms,
   currentTermIndex,
   isFinished,
+  currentSet,
 }: Props) => {
   const termsLength = shuffledTerms.length;
-  const mnemoryState = useSelector((state: State) => state.mnemory);
   const learnState = useSelector((state: State) => state.learn);
-  const currentSet = getCurrentSet(mnemoryState);
-  const savedSet = currentSet.savedSet;
   const dispatch = useDispatch();
   const { setIsStartSideFront, setShowDefinition } = bindActionCreators(
     actionCreactors,
@@ -36,7 +35,7 @@ const FlashcardsInfo = ({
       <div>
         <div className="md:block flex justify-between items-center">
           <Link
-            to={`/set/${savedSet.setId + 1}`}
+            to={`/set/${currentSet.savedSet.setId + 1}`}
             className="md:text-2xl back-btn text-xl sm:mr-0 mr-2 md:mb-8 block"
           >
             <span className="mr-3 text-teal-400 inline-block relative top-1 transition-colors">

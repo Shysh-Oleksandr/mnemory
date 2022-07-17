@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { CgClose } from "react-icons/cg";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getCurrentSet, getEmptyTerm } from "../../Helpers/functions";
+import { getEmptyTerm } from "../../Helpers/functions";
 import { ISetStatus } from "../../interfaces/set";
-import { actionCreactors, State } from "../../state";
+import { actionCreactors } from "../../state";
 
-type Props = { cardId: number };
+type Props = { cardId: number; currentSet: ISetStatus };
 
-const TermCardSeparator = ({ cardId }: Props) => {
+const TermCardSeparator = ({ cardId, currentSet }: Props) => {
   const addIconStyle =
     window.screen.width > 992
       ? {
@@ -18,9 +18,7 @@ const TermCardSeparator = ({ cardId }: Props) => {
           transform: "scale(1)",
         };
   const [style, setStyle] = useState(addIconStyle);
-  const mnemoryState = useSelector((state: State) => state.mnemory);
   const dispatch = useDispatch();
-  const currentSet: ISetStatus = getCurrentSet(mnemoryState);
 
   const { addTerm } = bindActionCreators(actionCreactors, dispatch);
 

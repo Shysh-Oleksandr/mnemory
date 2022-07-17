@@ -121,11 +121,11 @@ export const setShowConfirmModal = (
   };
 };
 
-export const setCurrentSetId = (setId: number) => {
+export const setCurrentSetId = (setId: number, visited: boolean = true) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
       type: ActionType.SET_CURRENT_SET_ID,
-      payload: setId,
+      payload: { id: setId, visited: visited },
     });
   };
 };

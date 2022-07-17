@@ -1,22 +1,24 @@
 import React from "react";
 import { BsArrowLeft } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import SetForm from "../components/set/SetForm";
 import TermsEditList from "../components/TermsEditList";
 import SaveBtn from "../components/UI/SaveBtn";
-import { actionCreactors, State } from "../state";
+import { useCurrentSetState } from "../hooks";
+import { actionCreactors } from "../state";
 import AddTermBtn from "./../components/AddTermBtn";
-import { getCurrentSet, isSetChanged } from "./../Helpers/functions";
+import { isSetChanged } from "./../Helpers/functions";
 
 type Props = {};
 
 const EditPage = (props: Props) => {
   const navigate = useNavigate();
 
-  const mnemoryState = useSelector((state: State) => state.mnemory);
   const dispatch = useDispatch();
+  const currentSet = useCurrentSetState();
+
   const { setShowConfirmModal, deleteSet } = bindActionCreators(
     actionCreactors,
     dispatch
@@ -30,14 +32,14 @@ const EditPage = (props: Props) => {
           <button
             type="button"
             onClick={() => {
-              if (isSetChanged(mnemoryState, deleteSet)) {
+              if (isSetChanged(deleteSet, currentSet)) {
                 setShowConfirmModal(
                   true,
                   undefined,
-                  `/set/${mnemoryState.currentSetId + 1}`
+                  `/set/${currentSet.savedSet.setId + 1}`
                 );
               } else {
-                navigate(`/set/${mnemoryState.currentSetId + 1}`);
+                navigate(`/set/${currentSet.savedSet.setId + 1}`);
               }
             }}
             className="back-btn md:text-2xl text-xl"
@@ -49,9 +51,13 @@ const EditPage = (props: Props) => {
           </button>
         }
       />
-      <TermsEditList terms={getCurrentSet(mnemoryState).editingSet.terms} />
-      <AddTermBtn />
+      <TermsEditList
+        terms={currentSet.editingSet.terms}
+        currentSet={currentSet}
+      />
+      <AddTermBtn currentSet={currentSet} />
       <SaveBtn
+        currentSet={currentSet}
         buttonText="Save"
         isCreatePage={false}
         btnClassname="mt-2 md:!px-24 !px-20 md:!py-4 !py-3"
