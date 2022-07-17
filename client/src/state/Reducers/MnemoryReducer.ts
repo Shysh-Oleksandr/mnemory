@@ -1,5 +1,3 @@
-import axios from "axios";
-import { Dispatch } from "react";
 import {
   getRandomNumber,
   insert,
@@ -8,11 +6,9 @@ import {
   validateTerms,
 } from "../../Helpers/functions";
 import { ISet, ISetStatus } from "../../interfaces/set";
-import { ITerm } from "../../interfaces/term";
 import { SortedMethods } from "../../pages/HomePage";
 import { ActionType } from "../Action-types";
 import { Action } from "../Actions";
-import config from "./../../config/config";
 import { initialSets } from "./../../data/initialSets";
 import { getCurrentSet } from "./../../Helpers/functions";
 
@@ -488,9 +484,11 @@ const mnemoryReducer = (
           isCategorySet: set.isCategorySet || false,
         };
       });
+      newSets = setNewCommonSet([...allSets, ...initialSets]);
+
       return {
         ...state,
-        sets: [...allSets, ...initialSets],
+        sets: newSets,
       };
 
     default:

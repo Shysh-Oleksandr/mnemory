@@ -71,12 +71,9 @@ const Navbar = (props: Props) => {
         </button>
         <button
           onClick={() => Logout()}
-          className="btn !bg-orange-600 hover:!bg-orange-700 !text-white fl"
+          className="btn !bg-orange-600 hover:!bg-orange-700 !text-white !py-2"
         >
-          Logout
-          <span>
-            <MdLogout className="text-2xl ml-2 text-inherit cursor-pointer transition-all duration-500" />
-          </span>
+          <MdLogout className="text-2xl ml-2 block text-inherit cursor-pointer transition-all duration-500" />
         </button>
       </div>
     </div>
