@@ -23,7 +23,7 @@ export enum ActionType {
   SET_SUCCESS = "Set success",
   SET_IS_START_SIDE_FRONT = "Set is start card front",
   REORDER_TERMS = "Reorder terms",
-  SET_SORTED_SETS = "Set sorted sets",
+  SET_SORTED_METHOD = "Set sorted method",
   TOGGLE_TERM_CATEGORY = "Toggle term category",
   LOGIN = "Login",
   LOGOUT = "Logout",

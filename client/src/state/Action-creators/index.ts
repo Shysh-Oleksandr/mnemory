@@ -186,11 +186,11 @@ export const copySavedSet = () => {
   };
 };
 
-export const setSortedSets = (sortedSets: ISetStatus[], sortMethod: string) => {
+export const setSortedMethod = (sortMethod: string) => {
   return (dispatch: Dispatch<Action>) => {
     dispatch({
-      type: ActionType.SET_SORTED_SETS,
-      payload: { sortedSets: sortedSets, sortMethod: sortMethod },
+      type: ActionType.SET_SORTED_METHOD,
+      payload: sortMethod,
     });
   };
 };

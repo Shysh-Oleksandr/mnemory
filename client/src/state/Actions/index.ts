@@ -118,9 +118,9 @@ interface SetShowDefinition {
   type: ActionType.SET_SHOW_DEFINITION;
 }
 
-interface SetSortedSets {
-  type: ActionType.SET_SORTED_SETS;
-  payload: { sortedSets: ISetStatus[]; sortMethod: string };
+interface SetSortedMethod {
+  type: ActionType.SET_SORTED_METHOD;
+  payload: string;
 }
 
 interface ToggleTermCategory {
@@ -188,7 +188,7 @@ export type Action =
   | SetShowConfirmModalAction
   | SetShowDefinition
   | SetIsStartSideFront
-  | SetSortedSets
+  | SetSortedMethod
   | ToggleTermCategory
   | Login
   | Logout
