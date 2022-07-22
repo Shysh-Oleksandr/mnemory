@@ -22,14 +22,41 @@ const SaveBtn = ({
   btnClassname,
   currentSet,
 }: Props) => {
-  const mnemoryState = useSelector((state: State) => state.mnemory);
   const { user } = useSelector((state: State) => state.user);
+  const { sets } = useSelector((state: State) => state.mnemory);
   const dispatch = useDispatch();
   const { saveCurrentSet } = bindActionCreators(actionCreactors, dispatch);
   const currentEditingSet = currentSet.editingSet;
   const currentSavedSet = currentSet.savedSet;
 
+  const updateCategorySets = async () => {
+    sets.forEach(async (set) => {
+      if (set.isCategorySet) {
+        console.log(set.savedSet.terms, set.editingSet.terms);
+
+        try {
+          const response = await axios({
+            method: "PATCH",
+            url: `${config.server.url}/sets/update/${set.savedSet._id}`,
+            data: {
+              terms: set.editingSet.terms,
+            },
+          });
+          if (response.status === 201) {
+            console.log("updated categ set");
+          } else {
+            console.log("unable update categ set");
+          }
+        } catch (error: any) {
+          dispatch(setError(error.message));
+        }
+      }
+    });
+  };
+
   const saveSet = async (method: string, url: string, isCreating: boolean) => {
+    console.log(currentEditingSet.name);
+
     if (currentEditingSet.name.trim() === "") {
       dispatch(setError("Please enter set's name."));
       dispatch(setSuccess(""));
@@ -55,6 +82,7 @@ const SaveBtn = ({
 
       if (response.status === 201) {
         saveCurrentSet();
+        updateCategorySets();
 
         dispatch(getAllSets(user._id));
         dispatch(setSuccess(`Set ${isCreating ? "added" : "updated"}.`));

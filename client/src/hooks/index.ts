@@ -68,6 +68,7 @@ export function useCurrentSetState() {
   const { user } = useSelector((state: State) => state.user);
   const mnemoryState = useSelector((state: State) => state.mnemory);
   const [currentSet, setCurrentSet] = useState(getCurrentSet(mnemoryState));
+
   const params = useParams();
   const setID = params.setID;
   const isSetMissing =
@@ -91,6 +92,8 @@ export function useCurrentSetState() {
         setCurrentSet(missedSet);
         dispatch(setCurrentSetId(missedSet.savedSet.setId, false));
       }
+    } else {
+      setCurrentSet(getCurrentSet(mnemoryState));
     }
   }, [mnemoryState.sets]);
 

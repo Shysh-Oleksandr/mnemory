@@ -3,14 +3,15 @@ import { CgMathEqual } from "react-icons/cg";
 import { MdDelete } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
+import { ISetStatus } from "../../interfaces/set";
 import { ITerm } from "../../interfaces/term";
 import { actionCreactors } from "../../state";
 import { fetchImages } from "./../../Helpers/functions";
-// import TermCategoriesForm from "./TermCategoriesForm";
+import TermCategoriesForm from "./TermCategoriesForm";
 
-type Props = { index: number; term: ITerm };
+type Props = { index: number; term: ITerm; currentSet: ISetStatus };
 
-const TermHeader = ({ index, term }: Props) => {
+const TermHeader = ({ index, term, currentSet }: Props) => {
   const dispatch = useDispatch();
 
   const {
@@ -53,7 +54,9 @@ const TermHeader = ({ index, term }: Props) => {
     <div className="term-header flex items-center justify-between py-3 px-6 border-b-2 border-slate-800 border-solid">
       <div className="flex items-center">
         <h4 className="term-id">{index + 1}</h4>
-        {/* {window.screen.width >= 768 && <TermCategoriesForm term={term} />} */}
+        {document.documentElement.clientWidth >= 768 && (
+          <TermCategoriesForm currentSet={currentSet} term={term} />
+        )}
       </div>
       <div className="flex items-center">
         <button

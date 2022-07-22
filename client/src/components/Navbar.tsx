@@ -1,20 +1,18 @@
 import React from "react";
 import { BsPlusLg } from "react-icons/bs";
 import { MdLogout } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { useCurrentSetState } from "../hooks";
 import { ISetStatus } from "../interfaces/set";
-import { actionCreactors, State } from "../state";
+import { actionCreactors } from "../state";
 import { logout } from "../state/Action-creators";
 import { getEmptySet, isSetChanged } from "./../Helpers/functions";
 
 type Props = {};
 
 const Navbar = (props: Props) => {
-  const mnemoryState = useSelector((state: State) => state.mnemory);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { addSet, setShowConfirmModal, deleteSet } = bindActionCreators(
@@ -45,7 +43,12 @@ const Navbar = (props: Props) => {
           }}
           className="md:text-4xl text-3xl block text-white py-4 font-bold mr-6"
         >
-          Mnemory
+          <span className="sm:block hidden">Mnemory</span>
+          <img
+            className="sm:hidden block w-9 h-9 transition-opacity hover:opacity-90"
+            src="/brain.png"
+            alt="Mnemory Logo"
+          />
         </button>
       </nav>
       <div className="fl">
@@ -62,18 +65,18 @@ const Navbar = (props: Props) => {
               navigate(`/create/${emptySet.savedSet.setId}`);
             }
           }}
-          className="btn sm:!px-8 !px-2 mr-4 fl"
+          className="btn sm:!px-8 !px-2 sm:mr-4 mr-2 fl"
         >
           Create set
           <span>
-            <BsPlusLg className="text-2xl plus ml-2 text-inherit cursor-pointer transition-all duration-500" />
+            <BsPlusLg className="sm:text-2xl text-xl plus ml-2 text-inherit cursor-pointer transition-all duration-500" />
           </span>
         </button>
         <button
           onClick={() => Logout()}
-          className="btn !bg-orange-600 hover:!bg-orange-700 !text-white !py-2"
+          className="btn !bg-orange-600 hover:!bg-orange-700 !text-white sm:!py-2 !h-[36px] sm:!h-[40px]"
         >
-          <MdLogout className="text-2xl ml-2 block text-inherit cursor-pointer transition-all duration-500" />
+          <MdLogout className="text-2xl sm:ml-2 ml-1 block text-inherit cursor-pointer transition-all duration-500" />
         </button>
       </div>
     </div>

@@ -1,10 +1,11 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import SetButtons from "../components/set/SetButtons";
+import Loading from "../components/UI/Loading";
 import { useCurrentSetState } from "../hooks";
-import { actionCreactors } from "../state";
+import { actionCreactors, State } from "../state";
 import SetTermsList from "./../components/set/SetTermsList";
 import { initialSetsId } from "./../data/initialSets";
 
@@ -14,6 +15,7 @@ const SetPage = (props: Props) => {
   const dispatch = useDispatch();
   const { copySavedSet } = bindActionCreators(actionCreactors, dispatch);
   const currentSet = useCurrentSetState();
+  const { isLoading } = useSelector((state: State) => state.mnemory);
   const isInitialSet = initialSetsId.includes(currentSet.savedSet.setId);
 
   return (
@@ -41,7 +43,13 @@ const SetPage = (props: Props) => {
             Terms in set ({currentSet.savedSet.terms.length})
           </h4>
         </div>
-        <SetTermsList set={currentSet.savedSet} />
+        {isLoading ? (
+          <div className="flex justify-center items-center w-full h-full mt-20">
+            <Loading />
+          </div>
+        ) : (
+          <SetTermsList set={currentSet.savedSet} />
+        )}
       </div>
       {!isInitialSet && <SetButtons currentSet={currentSet} />}
     </div>

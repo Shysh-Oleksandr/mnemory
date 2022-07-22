@@ -14,6 +14,6 @@ export interface ITerm {
   definition: string;
   descriptionKeywords: Keyword[];
   placeholderId?: number;
-  // categories?: ISetStatus[];
-  // parentSet?: ISetStatus;
+  categories?: ISetStatus[];
+  parentSet?: ISetStatus;
 }

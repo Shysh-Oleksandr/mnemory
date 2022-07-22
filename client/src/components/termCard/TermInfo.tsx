@@ -1,20 +1,18 @@
 import React, { RefObject, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { clearInput } from "../../Helpers/functions";
 import { ISetStatus } from "../../interfaces/set";
 import { ITerm } from "../../interfaces/term";
-import { actionCreactors, State } from "../../state";
+import { actionCreactors } from "../../state";
 import Input from "../UI/Input";
 import { termsPlaceholder } from "./../../data/termsPlaceholders";
-import { getCurrentSet } from "./../../Helpers/functions";
-// import TermCategoriesForm from "./TermCategoriesForm";
+import TermCategoriesForm from "./TermCategoriesForm";
 
 type Props = { term: ITerm; currentSet: ISetStatus };
 
 const TermInfo = ({ term, currentSet }: Props) => {
   const dispatch = useDispatch();
-  const mnemoryState = useSelector((state: State) => state.mnemory);
 
   const nameRef = useRef() as RefObject<HTMLInputElement>;
   const descriptionRef = useRef() as RefObject<HTMLInputElement>;
@@ -79,7 +77,9 @@ const TermInfo = ({ term, currentSet }: Props) => {
           reference={descriptionRef}
         />
       </div>
-      {/* {window.screen.width < 768 && <TermCategoriesForm term={term} />} */}
+      {document.documentElement.clientWidth < 768 && (
+        <TermCategoriesForm term={term} currentSet={currentSet} />
+      )}
     </div>
   );
 };

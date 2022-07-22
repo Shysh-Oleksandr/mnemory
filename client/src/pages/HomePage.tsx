@@ -1,12 +1,11 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { bindActionCreators } from "redux";
 import Loading from "../components/UI/Loading";
 import config from "../config/config";
 import { ISet, ISetStatus } from "../interfaces/set";
-import { actionCreactors, State } from "../state";
+import { State } from "../state";
 import { getAllSets } from "../state/Async-actions";
 import { initialSetsId } from "./../data/initialSets";
 
@@ -24,10 +23,6 @@ const HomePage = () => {
   const userSets = mnemoryState.sets.filter((set) => !set.isCategorySet);
   const [sortMethod, setSortMethod] = useState<string>(mnemoryState.sortMethod);
   const dispatch = useDispatch();
-  const { setCurrentSetId, setSortedMethod } = bindActionCreators(
-    actionCreactors,
-    dispatch
-  );
 
   useEffect(() => {
     dispatch(getAllSets(user._id));
