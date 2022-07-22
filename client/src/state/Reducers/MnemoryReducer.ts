@@ -83,7 +83,6 @@ const mnemoryReducer = (
     case ActionType.TOGGLE_TERM_CATEGORY:
       const chosenCategory = action.payload.categorySet;
       if (!categorySets.includes(chosenCategory)) return state;
-      console.log("togg");
 
       let isNewCategory: boolean = false;
       const currentTerm = currentEditingSet.terms.find(
@@ -397,7 +396,6 @@ const mnemoryReducer = (
         return set;
       });
       newSets = setNewCommonSet(newSets);
-      console.log(newSets);
 
       return {
         ...state,

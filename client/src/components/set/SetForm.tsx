@@ -53,7 +53,6 @@ const SetForm = ({ buttonText, titleContent }: Props) => {
 
   const saveSet = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(nameRef.current?.value);
 
     if (nameRef.current?.value.trim() === "") return;
     saveCurrentSet();

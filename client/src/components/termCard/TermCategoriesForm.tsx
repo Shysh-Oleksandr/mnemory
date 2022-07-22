@@ -100,8 +100,6 @@ const TermCategoriesForm = ({ term, currentSet }: Props) => {
           author: user._id,
         },
       });
-      console.log(response.data);
-
       if (response.status === 201) {
         addSet(newCategorySet);
         toggleTermCategory(term.id, newCategorySet);
@@ -112,7 +110,7 @@ const TermCategoriesForm = ({ term, currentSet }: Props) => {
           );
         }, 0);
         dispatch(setSuccess(`Category set added.`));
-        dispatch(getAllSets(user._id));
+        // dispatch(getAllSets(user._id));
       } else {
         dispatch(setError("Unable to create category set."));
       }
@@ -122,8 +120,6 @@ const TermCategoriesForm = ({ term, currentSet }: Props) => {
   };
 
   const toggleCategorySet = async (categorySet: ISetStatus) => {
-    console.log("toggl dun");
-
     const isNewCategory = !term.categories
       ?.map((cat) => cat.savedSet.setId)
       .includes(categorySet.savedSet.setId);
@@ -149,7 +145,6 @@ const TermCategoriesForm = ({ term, currentSet }: Props) => {
   };
 
   const deleteCategorySet = async (set: ISetStatus) => {
-    console.log(set.savedSet);
     currentSet.editingSet.terms.map(() => {});
 
     try {

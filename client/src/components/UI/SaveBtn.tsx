@@ -32,21 +32,14 @@ const SaveBtn = ({
   const updateCategorySets = async () => {
     sets.forEach(async (set) => {
       if (set.isCategorySet) {
-        console.log(set.savedSet.terms, set.editingSet.terms);
-
         try {
-          const response = await axios({
+          await axios({
             method: "PATCH",
             url: `${config.server.url}/sets/update/${set.savedSet._id}`,
             data: {
               terms: set.editingSet.terms,
             },
           });
-          if (response.status === 201) {
-            console.log("updated categ set");
-          } else {
-            console.log("unable update categ set");
-          }
         } catch (error: any) {
           dispatch(setError(error.message));
         }
@@ -55,8 +48,6 @@ const SaveBtn = ({
   };
 
   const saveSet = async (method: string, url: string, isCreating: boolean) => {
-    console.log(currentEditingSet.name);
-
     if (currentEditingSet.name.trim() === "") {
       dispatch(setError("Please enter set's name."));
       dispatch(setSuccess(""));
