@@ -40,7 +40,7 @@ const TermCardSeparator = ({ cardId, currentSet }: Props) => {
           onClick={() => addTerm(emptyTerm, cardId + 1)}
           className="round-btn left-[calc(50%-20px)] flex justify-center items-center sm:-top-2 -top-3 text-2xl h-10 w-10"
         >
-          <span className="rotate-45">
+          <span className="rotate-45 hover:rotate-[135deg] transition-all duration-500">
             <CgClose />
           </span>
         </button>

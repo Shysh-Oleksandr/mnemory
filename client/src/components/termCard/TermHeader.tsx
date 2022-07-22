@@ -9,9 +9,14 @@ import { actionCreactors } from "../../state";
 import { fetchImages } from "./../../Helpers/functions";
 import TermCategoriesForm from "./TermCategoriesForm";
 
-type Props = { index: number; term: ITerm; currentSet: ISetStatus };
+type Props = {
+  index: number;
+  term: ITerm;
+  currentSet: ISetStatus;
+  termRef: React.RefObject<HTMLDivElement>;
+};
 
-const TermHeader = ({ index, term, currentSet }: Props) => {
+const TermHeader = ({ index, term, currentSet, termRef }: Props) => {
   const dispatch = useDispatch();
 
   const {
@@ -70,7 +75,12 @@ const TermHeader = ({ index, term, currentSet }: Props) => {
           <CgMathEqual />
         </button>
         <button
-          onClick={() => deleteTerm(term)}
+          onClick={() => {
+            termRef.current?.classList.add("delete");
+            setTimeout(() => {
+              deleteTerm(term);
+            }, 500);
+          }}
           className="delete-btn text-2xl text-white transition-colors hover:text-orange-400"
         >
           <MdDelete />

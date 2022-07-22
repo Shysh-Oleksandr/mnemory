@@ -28,7 +28,7 @@ const TermDescription = ({ term, currentSet }: Props) => {
       })}
       <button
         onClick={() => addTermKeyword(term.id)}
-        className="rounded-full black_input text-xl h-11 w-11 m-1 rotate-45 flex justify-center items-center"
+        className="rounded-full black_input text-xl h-11 w-11 m-1 rotate-45 hover:rotate-[135deg] transition-all duration-500 flex justify-center items-center"
       >
         <CgClose />
       </button>

@@ -22,6 +22,7 @@ const TermKeyword = ({
   index,
   currentSet,
 }: Props) => {
+  const keywordRef = useRef() as RefObject<HTMLDivElement>;
   const nameRef = useRef() as RefObject<HTMLInputElement>;
   const descriptionRef = useRef() as RefObject<HTMLTextAreaElement>;
   const dispatch = useDispatch();
@@ -74,7 +75,10 @@ const TermKeyword = ({
   };
 
   return (
-    <div className="term-description-keyword relative flex flex-col items-center m-1 mx-2 md:w-36 w-28">
+    <div
+      ref={keywordRef}
+      className="term-description-keyword relative flex flex-col items-center m-1 mx-2 md:w-36 w-28"
+    >
       {descriptionKeyword.image ? (
         <div
           className="w-full md:h-[80px] h-[70px] rounded-xl bg-center bg-cover bg-no-repeat"
@@ -128,8 +132,14 @@ const TermKeyword = ({
           className="term-keyword-input w-full px-4 h-11 text-lg black_input rounded-2xl border-orange-400 border-solid hover:border-b-[3px] hover:border-white"
         />
         <button
-          onClick={() => deleteTermKeyword(termId, descriptionKeyword.id)}
-          className="round-btn term-description-keyword-delete flex justify-center items-center -top-2 -right-1 text-md h-6 w-6"
+          onClick={() => {
+            keywordRef.current?.classList.add("delete");
+
+            setTimeout(() => {
+              deleteTermKeyword(termId, descriptionKeyword.id);
+            }, 550);
+          }}
+          className="round-btn term-description-keyword-delete flex justify-center items-center hover:rotate-90 transition-all duration-300 -top-2 -right-1 text-md h-6 w-6"
         >
           <CgClose />
         </button>

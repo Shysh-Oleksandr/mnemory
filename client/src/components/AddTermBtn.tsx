@@ -28,7 +28,7 @@ const AddTermBtn = ({ currentSet }: Props) => {
           {newTermIndex + 1}
         </h4>
         <h3 className="add-term-text md:text-2xl text-xl inline-block pb-2 font-bold tracking-wide border-solid border-b-4 transition-all border-orange-400">
-          <span className="rotate-45 inline-block relative top-1">
+          <span className="rotate-45 inline-block relative top-1 plus transition-all duration-500">
             <CgClose />
           </span>
           <span> Add a new card</span>
