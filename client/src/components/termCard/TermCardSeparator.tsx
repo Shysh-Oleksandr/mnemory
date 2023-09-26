@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { CgClose } from "react-icons/cg";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";

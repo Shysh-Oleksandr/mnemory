@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useRef } from "react";
+import { RefObject, useCallback, useEffect, useRef } from "react";
 import { BsCardImage } from "react-icons/bs";
 import { CgClose } from "react-icons/cg";
 import { useDispatch } from "react-redux";
@@ -63,16 +63,21 @@ const TermKeyword = ({
       );
   }
 
-  const getKeywordPlaceholder = (): string => {
-    const placeholderKeywords =
-      termsPlaceholder[
-        editingTerm!.placeholderId ||
+  const getKeywordPlaceholder = useCallback(
+    () => {
+      const placeholderKeywords =
+        termsPlaceholder[
+          editingTerm!.placeholderId ||
           Math.floor(Math.random() * termsPlaceholder.length)
-      ].keywords;
-    const keywordPlaceholder = placeholderKeywords[index];
-    let placeholder = keywordPlaceholder ? keywordPlaceholder : "keyword...";
-    return placeholder;
-  };
+        ].keywords;
+
+      const keywordPlaceholder = placeholderKeywords[index];
+      const placeholder = keywordPlaceholder ? keywordPlaceholder : "keyword...";
+
+      return placeholder;
+    },
+    [editingTerm, index],
+  );
 
   return (
     <div
@@ -96,9 +101,8 @@ const TermKeyword = ({
       ) : (
         <label
           htmlFor={`${termId}-${descriptionKeyword.id}`}
-          className={`term-keyword-image-filler ${
-            descriptionKeyword.imageChecked ? "checked" : ""
-          } w-full md:h-[80px] h-[70px] rounded-xl static cursor-pointer flex justify-center transition-all items-center border-2 border-dashed border-white`}
+          className={`term-keyword-image-filler ${descriptionKeyword.imageChecked ? "checked" : ""
+            } w-full md:h-[80px] h-[70px] rounded-xl static cursor-pointer flex justify-center transition-all items-center border-2 border-dashed border-white`}
         >
           <input
             type="checkbox"
