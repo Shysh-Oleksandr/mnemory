@@ -10,7 +10,7 @@ const config = {
             autoIndex: false,
             retryWrites: false
         },
-        url: 'mongodb+srv://frankmelward:sashashysh3682@cluster0.afaflnt.mongodb.net/?retryWrites=true&w=majority'
+        url: 'mongodb+srv://frankmelward:sashashysh3682@cluster0.jsedt.mongodb.net/?retryWrites=true&w=majority'
     },
     server: {
         host: 'localhost',

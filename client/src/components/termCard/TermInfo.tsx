@@ -1,4 +1,4 @@
-import React, { RefObject, useEffect, useRef } from "react";
+import React, { RefObject, useEffect, useMemo, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { clearInput } from "../../Helpers/functions";
@@ -19,15 +19,19 @@ const TermInfo = ({ term, currentSet }: Props) => {
 
   const { setTermInfo } = bindActionCreators(actionCreactors, dispatch);
 
+  const randomTermPlaceholder = useMemo(() => termsPlaceholder[
+    term.placeholderId ??
+    Math.floor(Math.random() * termsPlaceholder.length)
+  ], [term.placeholderId])
+
   useEffect(() => {
     clearInput(nameRef, descriptionRef);
   }, [currentSet.savedSet.setId]);
 
   useEffect(() => {
     // Don't focus initial inputs.
-    if (currentSet.savedSet.terms.includes(term)) {
-      return;
-    }
+    if (currentSet.savedSet.terms.includes(term)) return;
+
     setTimeout(() => {
       nameRef.current?.focus();
     }, 0.1);
@@ -45,12 +49,7 @@ const TermInfo = ({ term, currentSet }: Props) => {
               term.id
             )
           }
-          placeholder={
-            termsPlaceholder[
-              term.placeholderId ||
-                Math.floor(Math.random() * termsPlaceholder.length)
-            ].term
-          }
+          placeholder={randomTermPlaceholder.term}
           inputClassName="term-title"
           inputId={`term-${term.id}-title`}
           labelText="Term"
@@ -65,12 +64,7 @@ const TermInfo = ({ term, currentSet }: Props) => {
               term.id
             )
           }
-          placeholder={
-            termsPlaceholder[
-              term.placeholderId ||
-                Math.floor(Math.random() * termsPlaceholder.length)
-            ].definition
-          }
+          placeholder={randomTermPlaceholder.definition}
           inputClassName="term-definition"
           inputId={`term-${term.id}-definition`}
           labelText="Definition"

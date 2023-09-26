@@ -9,7 +9,7 @@ const config = {
     measurementId: "G-CX7Y88WL7M",
   },
   server: {
-    url: "https://mnemory.herokuapp.com", //http://localhost:8001 https://mnemory.herokuapp.com
+    url: "https://mnemory.onrender.com", // http://localhost:8001 
   },
 };
 

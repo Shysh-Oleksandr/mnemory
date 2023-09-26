@@ -24,10 +24,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
-const UserSchema = new mongoose_1.Schema({
-    uid: { type: String, unique: true },
-    name: { type: String }
-}, {
-    timestamps: true
+const SetSchema = new mongoose_1.Schema({
+    name: { type: String },
+    author: { type: mongoose_1.default.Schema.Types.ObjectId, ref: 'User' },
+    description: { type: String },
+    createdDate: { type: Number },
+    lastVisitedDate: { type: Number },
+    isCategorySet: { type: Boolean },
+    terms: { type: mongoose_1.default.Schema.Types.Mixed },
+    setId: { type: Number, unique: true }
 });
-exports.default = mongoose_1.default.model('User', UserSchema);
+exports.default = mongoose_1.default.model('Set', SetSchema);
